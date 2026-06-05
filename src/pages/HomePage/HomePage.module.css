@@ -1,0 +1,36 @@
+.hero {
+  background-color: #f6b83d;
+  border-radius: 60px;
+  max-width: 1280px;
+  margin: 16px auto;
+  color: #fff;
+}
+
+.title {
+  max-width: 760px;
+  /* font-family: var(--font-family); */
+  font-weight: 700;
+  font-size: 90px;
+  line-height: 97%;
+  letter-spacing: -0.03em;
+  color: #fff;
+  padding-top: 112px;
+  padding-bottom: 32px;
+}
+
+.care {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.text {
+  position: absolute;
+  right: 64px;
+  bottom: 32px;
+  max-width: 255px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 122%;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
