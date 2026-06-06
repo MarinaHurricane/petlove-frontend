@@ -1,21 +1,27 @@
 .hero {
   background-color: #f6b83d;
-  border-radius: 60px;
+  border-radius: 30px;
   max-width: 1280px;
-  margin: 16px auto;
+  margin: 0 auto;
   color: #fff;
+  /* padding-bottom: 50px; */
+}
+
+.heroBox {
+  padding-bottom: 50px;
+  border-radius: 30px;
 }
 
 .title {
-  max-width: 760px;
+  max-width: 295px;
   /* font-family: var(--font-family); */
   font-weight: 700;
-  font-size: 90px;
-  line-height: 97%;
+  font-size: 50px;
+  line-height: 96%;
   letter-spacing: -0.03em;
   color: #fff;
-  padding-top: 112px;
-  padding-bottom: 32px;
+  padding-top: 60px;
+  margin-bottom: 24px;
 }
 
 .care {
@@ -23,14 +29,79 @@
 }
 
 .text {
-  position: absolute;
-  right: 64px;
-  bottom: 32px;
-  max-width: 255px;
+  max-width: 295px;
   font-family: var(--font-family);
   font-weight: 500;
-  font-size: 18px;
-  line-height: 122%;
+  font-size: 14px;
+  line-height: 129%;
   letter-spacing: -0.02em;
   color: #fff;
+  padding: 0;
+}
+
+.homeImg {
+ border-radius: 30px;
+ display: block;
+ width: 100%;
+}
+
+.imageBox {
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.section {
+  border-radius: 30px;
+}
+
+@media screen and (min-width: 768px) {
+  .hero {
+    border-radius: 60px;
+  }
+
+  .heroBox {
+    padding-bottom: 164px;
+    border-radius: 60px;
+  }
+
+  .title {
+    max-width: 640px;
+    font-size: 80px;
+    padding-top: 123px;
+    margin-bottom: 24px;
+  }
+
+  .text {
+    position: absolute;
+    right: 32px;
+    bottom: 44px;
+    max-width: 255px;
+    font-family: var(--font-family);
+    font-size: 18px;
+    line-height: 122%;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .homeImg {
+ border-radius: 60px;
+}
+}
+
+@media screen and (min-width: 1280px) {
+  .title {
+    max-width: 760px;
+    font-size: 90px;
+    padding-top: 112px;
+    margin-bottom: 24px;
+    line-height: 97%;
+  }
+
+  .heroBox {
+    padding-bottom: 32px;
+  }
+
+  .text {
+    right: 64px;
+    bottom: 32px;
+  }
 }

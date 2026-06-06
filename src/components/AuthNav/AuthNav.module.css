@@ -1,5 +1,5 @@
 .navList {
-    display: flex;
+    display: none;
     max-width: 316px;
     margin: 0 auto;
     gap: 10px;
@@ -21,6 +21,7 @@
     font-weight: 700;
     line-height: 125%;
     text-transform: uppercase;
+    transition: all 250ms ease;
 }
 
 .button:hover,
@@ -28,3 +29,12 @@
     background-color: #fff4df;
     color: #f6b83d;
 }
+
+@media screen and (min-width: 768px){
+    .navList {
+        display: flex;
+    }
+    
+}
+
+

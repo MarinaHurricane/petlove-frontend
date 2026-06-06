@@ -1,5 +1,7 @@
 import css from "./NavBar.module.css";
 import { NavLink } from "react-router-dom";
+import { Icon } from "../Icon/Icon";
+
 
 export const NavBar = () => {
   return (
@@ -21,12 +23,14 @@ export const NavBar = () => {
         </li>
         <li>
           {" "}
+         
           <NavLink to="/friends">
             {" "}
             <button className={css.button}> Our friends</button>
           </NavLink>
         </li>
       </ul>
+       {/* <Icon name="icon-chevron-down"/> */}
     </nav>
   );
 };

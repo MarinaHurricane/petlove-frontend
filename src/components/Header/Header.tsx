@@ -5,29 +5,35 @@ import darkLogo from "./logomain.svg";
 import css from "./Header.module.css";
 import { AuthNav } from "../AuthNav/AuthNav";
 import { Container } from "../Container/Container";
+import { Icon } from "../Icon/Icon";
+import { useLocation } from "react-router-dom";
 
 type LogoProps = {
   variant?: "home" | "default";
 };
 
 export const Header = ({ variant = "default" }: LogoProps) => {
+  // const location = useLocation();
+  // const isHomePage = location.pathname === '/';
   return (
-    // <header className={variant === "home" ? css.home : css.default}>
     <header>
       {/* <Container> */}
       <div className={css.headerBox}>
         <NavLink to="/">
           {" "}
-          <img
-            className={css.logo}
-            src={variant === "home" ? yellowLogo : darkLogo}
-            alt="logo"
-          />
+          <Icon name={variant === "home" ? "icon-logo" : "icon-logomain"} className={css.mainLogo}/>
+         
         </NavLink>
         <NavBar />
-        <AuthNav />
+        
+       
+        <div className={css.mobileMenu}>
+           <AuthNav />
+          {/* {isHomePage && <Icon name="icon-icon" className={css.auth}/>}  */}
+         <Icon name="icon-menu-01" className={css.menu}/> 
+        
+         </div>
       </div>
-      {/* </Container> */}
     </header>
   );
 };

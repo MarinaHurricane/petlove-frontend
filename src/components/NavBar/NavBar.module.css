@@ -1,5 +1,5 @@
 .navList {
-    display: flex;
+    display: none;
     max-width: 316px;
     margin: 0 auto;
     gap: 10px;
@@ -13,7 +13,7 @@ a{
     /* background-color: #F6B83D; */
     background-color: transparent;
     padding: 15px 20px;
-    border: 1px solid #ffff;
+    border: 1px solid currentColor;
     border-radius: 30px;
     /* color: #ffff; */
     color: inherit;
@@ -24,4 +24,18 @@ a{
     justify-content: center;
     align-items: center;
     white-space: nowrap;
+     transition: all 250ms ease;
+}
+
+.button:hover,
+button:active {
+    background-color: #fff;
+    border: 1px solid #F6B83D;
+    color: #F6B83D;
+}
+
+@media screen and (min-width:1280px) {
+    .navList {
+        display: flex;
+    }
 }

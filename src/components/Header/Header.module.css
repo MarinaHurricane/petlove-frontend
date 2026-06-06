@@ -3,15 +3,49 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 0;
+    padding: 16px 0 0 0;
     border-radius: 60px 60px 0 0;
-}
-
-.default {
-
 }
 
 .home {
     background-color: transparent;
 }
 
+.mainLogo {
+    width: 76px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.auth {
+    width: 40px;
+    height: 40px;
+}
+
+.menu {
+    width: 32px;
+    height: 32px;
+   stroke: currentColor;
+}
+
+.mobileMenu {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+@media screen and (min-width:768px) {
+    .mainLogo {
+        width: 105px;
+        height: 28px;
+    } 
+}
+
+@media screen and (min-width:1280px) {
+    .menu {
+        display: none;
+    }
+}
