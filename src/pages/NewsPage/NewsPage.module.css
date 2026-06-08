@@ -1,13 +1,4 @@
-.title {
-    font-family: var(--font-family);
-font-weight: 700;
-font-size: 28px;
-line-height: 100%;
-letter-spacing: -0.03em;
-color: #262626;
-margin-top: 60px;
-margin-bottom: 20px;
-}
+
 
 .search {
   border: 1px solid rgba(38, 38, 38, 0.15);
@@ -16,4 +7,35 @@ padding: 12px 278px 12px 12px;
 width: 335px;
 height: 42px;
 margin-bottom: 24px;
+/* position: relative; */
+}
+
+.form {
+  position: relative;
+}
+
+.clearButton {
+  stroke: black;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ width: 18px;
+  height: 18px; 
+  border: none;
+  background-color: inherit;
+}
+
+.icon {
+   width: 18px;
+  height: 18px;
+  fill: none;
+
+}
+
+.buttons {
+  display: flex;
+  position: absolute;
+  right: 12px;
+  top: 12px;
 }

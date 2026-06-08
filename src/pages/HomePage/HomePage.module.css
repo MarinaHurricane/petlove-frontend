@@ -10,6 +10,7 @@
 .heroBox {
   padding-bottom: 50px;
   border-radius: 30px;
+  position: relative;
 }
 
 .title {

@@ -1,0 +1,10 @@
+.title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 100%;
+  letter-spacing: -0.03em;
+  color: #262626;
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
