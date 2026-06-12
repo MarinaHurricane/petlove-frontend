@@ -11,6 +11,9 @@ export const PetsPage = () => {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
 
+  console.log(category);
+
+
   const handleSearch = (newQuery) => {
     setQuery(newQuery);
     setPage(1);
@@ -39,6 +42,29 @@ export const PetsPage = () => {
     console.log(data);
     return data;
   };
+
+  const getPets = async(category, query) => {
+    const {data} = await axios.get("https://petlove-backend-jniu.onrender.com/api/pets", {
+      params: {
+        category: category,
+        search: query,
+      }
+    }
+    );
+      console.log(data);
+    return data;
+  }
+
+    const { data: petsData } = useQuery({
+    queryKey: ["petsData", category, query],
+    queryFn: () => getPets(category, query),
+  });
+  console.log(petsData?.pets);
+
+  const pets = petsData?.pets;
+
+
+  
 
   const { data: categories } = useQuery({
     queryKey: ["categories"],
@@ -84,12 +110,37 @@ export const PetsPage = () => {
       <div className={css.filtersContainer}>
         <SearchBar onSearch={handleSearch} />
         <div className={css.categoryGender}>
-          <Select className={css.select} options={categoryOptions} placeholder="Category" />
+          <Select className={css.select} options={categoryOptions} value={category} placeholder="Category" onChange={(option) => setCategory(option.value)}/>
             <Select className={css.select} options={genderOptions} placeholder="By gender" />
             
         </div>
              <Select options={speciesOptions} placeholder="By type" />
       </div>
+      <PetsList pets={pets}/>
+
+     
     </>
   );
 };
+
+const PetsList = ({pets}) => {
+  return (
+    <ul className={css.petsList}>
+      {pets?.map(pet => <Pet pet={pet}/>)}
+    </ul>
+
+  )
+}
+
+const Pet = ({pet}) => {
+  return (
+       <li className={css.pet} key={pet._id}>
+          <div className={css.petContainer}>
+            <img src={pet.imgURL} alt="pet-image" />
+            <h3>{pet.title}</h3>
+          </div>
+        </li>
+
+
+  )
+}
