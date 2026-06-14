@@ -5,6 +5,7 @@ import { useState } from "react";
 import Select from "react-select";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import AsyncSelect from "react-select/async";
 
 export const PetsPage = () => {
   const [page, setPage] = useState(1);
@@ -12,9 +13,9 @@ export const PetsPage = () => {
   const [category, setCategory] = useState(null);
   const [gender, setGender] = useState(null);
   const [species, setSpecies] = useState(null);
+  const [city, setCity] = useState("");
 
   console.log(category);
-
 
   const handleSearch = (newQuery) => {
     setQuery(newQuery);
@@ -29,7 +30,7 @@ export const PetsPage = () => {
     return data;
   };
 
-    const getSpecies = async () => {
+  const getSpecies = async () => {
     const { data } = await axios.get(
       "https://petlove-backend-jniu.onrender.com/api/pets/species",
     );
@@ -37,7 +38,7 @@ export const PetsPage = () => {
     return data;
   };
 
-      const getGender = async () => {
+  const getGender = async () => {
     const { data } = await axios.get(
       "https://petlove-backend-jniu.onrender.com/api/pets/gender",
     );
@@ -45,20 +46,39 @@ export const PetsPage = () => {
     return data;
   };
 
-  const getPets = async(category?, query?, gender?) => {
-    const {data} = await axios.get("https://petlove-backend-jniu.onrender.com/api/pets", {
-      params: {
-        category: category,
-        search: query,
-        gender,
-      }
-    }
+  const getCities = async (search = "London") => {
+    if (!search) return [];
+    const { data } = await axios.get(
+      "https://petlove-backend-jniu.onrender.com/api/cities/locations",
+      {
+        params: {
+          search: search,
+        },
+      },
     );
-      console.log(data);
-    return data;
-  }
+    console.log(data);
+   return data.map((city) => ({
+        value: city.city,
+        label: city[0].toUpperCase() + city.slice(1),
+    }));
+  };
 
-    const { data: petsData, isLoading } = useQuery({
+  const getPets = async (category?, query?, gender?) => {
+    const { data } = await axios.get(
+      "https://petlove-backend-jniu.onrender.com/api/pets",
+      {
+        params: {
+          category: category,
+          search: query,
+          gender,
+        },
+      },
+    );
+    console.log(data);
+    return data;
+  };
+
+  const { data: petsData, isLoading } = useQuery({
     queryKey: ["petsData", category, query, gender],
     queryFn: () => getPets(category, query, gender),
   });
@@ -67,9 +87,11 @@ export const PetsPage = () => {
 
   const pets = petsData?.pets;
 
-
-
-  
+  // const { data: citiesData } = useQuery({
+  //   queryKey: ["citiesData"],
+  //   queryFn: () => getCities(),
+  // });
+  // console.log(cities);
 
   const { data: categories } = useQuery({
     queryKey: ["categories"],
@@ -77,22 +99,22 @@ export const PetsPage = () => {
   });
   console.log(categories);
 
-    const { data: speciesData } = useQuery({
+  const { data: speciesData } = useQuery({
     queryKey: ["speciesData"],
     queryFn: getSpecies,
   });
 
-     const { data: genders } = useQuery({
+  const { data: genders } = useQuery({
     queryKey: ["genders"],
     queryFn: getGender,
   });
 
-  const speciesOptions = speciesData?.map(item => {
+  const speciesOptions = speciesData?.map((item) => {
     return {
       value: item,
       label: item[0].toUpperCase() + item.slice(1),
-    }
-  })
+    };
+  });
 
   const categoryOptions = categories?.map((category) => {
     return {
@@ -101,13 +123,12 @@ export const PetsPage = () => {
     };
   });
 
-    const genderOptions = genders?.map((item) => {
+  const genderOptions = genders?.map((item) => {
     return {
       value: item,
       label: item[0].toUpperCase() + item.slice(1),
     };
   });
-
 
   return (
     <>
@@ -115,38 +136,60 @@ export const PetsPage = () => {
       <div className={css.filtersContainer}>
         <SearchBar onSearch={handleSearch} />
         <div className={css.categoryGender}>
-          <Select className={css.select} options={categoryOptions}  placeholder="Category" value={category} onChange={(option) => setCategory(option?.value || null)}/>
-            <Select className={css.select} options={genderOptions} placeholder="By gender" value={gender} onChange={(option) => setGender(option?.value || null)}/>
-            
+          <Select
+            className={css.select}
+            options={categoryOptions}
+            placeholder="Category"
+            value={category}
+            onChange={(option) => setCategory(option?.value || null)}
+          />
+          <Select
+            className={css.select}
+            options={genderOptions}
+            placeholder="By gender"
+            value={gender}
+            onChange={(option) => setGender(option?.value || null)}
+          />
         </div>
-             <Select className={css.select} options={speciesOptions} placeholder="By type" value={species} onChange={(option) => setSpecies(option?.value || null)}/>
+        <Select
+          className={css.select}
+          options={speciesOptions}
+          placeholder="By type"
+          value={species}
+          onChange={(option) => setSpecies(option?.value || null)}
+        />
+        <AsyncSelect
+          cacheOptions
+          defaultOptions
+          loadOptions={getCities}
+          value={city}
+          onChange={setCity}
+          placeholder="Available locations..."
+          isClearable
+        />
       </div>
-       <PetsList pets={pets}/>
-     
-
-     
+      <PetsList pets={pets} />
     </>
   );
 };
 
-const PetsList = ({pets}) => {
+const PetsList = ({ pets }) => {
   return (
     <ul className={css.petsList}>
-      {pets?.map(pet => <Pet pet={pet}/>)}
+      {pets?.map((pet) => (
+        <Pet pet={pet} />
+      ))}
     </ul>
+  );
+};
 
-  )
-}
-
-const Pet = ({pet}) => {
+const Pet = ({ pet }) => {
   return (
-       <li className={css.pet} key={pet._id}>
-          <div className={css.petContainer}>
-            <img src={pet.imgURL} alt="pet-image" />
-            <h3>{pet.title}</h3>
-          </div>
-        </li>
-
-
-  )
-}
+    <li className={css.pet} key={pet._id}>
+      <div className={css.petContainer}>
+        <img src={pet.imgURL} alt="pet-image" />
+        <h3>{pet.title}</h3>
+      </div>
+    </li>
+  );
+};
