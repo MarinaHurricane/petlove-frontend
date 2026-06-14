@@ -9,7 +9,9 @@ import { useQuery } from "@tanstack/react-query";
 export const PetsPage = () => {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(null);
+  const [gender, setGender] = useState(null);
+  const [species, setSpecies] = useState(null);
 
   console.log(category);
 
@@ -43,11 +45,12 @@ export const PetsPage = () => {
     return data;
   };
 
-  const getPets = async(category, query) => {
+  const getPets = async(category?, query?, gender?) => {
     const {data} = await axios.get("https://petlove-backend-jniu.onrender.com/api/pets", {
       params: {
         category: category,
         search: query,
+        gender,
       }
     }
     );
@@ -55,13 +58,15 @@ export const PetsPage = () => {
     return data;
   }
 
-    const { data: petsData } = useQuery({
-    queryKey: ["petsData", category, query],
-    queryFn: () => getPets(category, query),
+    const { data: petsData, isLoading } = useQuery({
+    queryKey: ["petsData", category, query, gender],
+    queryFn: () => getPets(category, query, gender),
   });
   console.log(petsData?.pets);
+  console.log(gender);
 
   const pets = petsData?.pets;
+
 
 
   
@@ -72,17 +77,17 @@ export const PetsPage = () => {
   });
   console.log(categories);
 
-    const { data: species } = useQuery({
-    queryKey: ["species"],
+    const { data: speciesData } = useQuery({
+    queryKey: ["speciesData"],
     queryFn: getSpecies,
   });
 
-     const { data: gender } = useQuery({
-    queryKey: ["gender"],
+     const { data: genders } = useQuery({
+    queryKey: ["genders"],
     queryFn: getGender,
   });
 
-  const speciesOptions = species?.map(item => {
+  const speciesOptions = speciesData?.map(item => {
     return {
       value: item,
       label: item[0].toUpperCase() + item.slice(1),
@@ -96,10 +101,10 @@ export const PetsPage = () => {
     };
   });
 
-    const genderOptions = gender?.map((item) => {
+    const genderOptions = genders?.map((item) => {
     return {
       value: item,
-      label: item[0].toUpperCase() + category.slice(1),
+      label: item[0].toUpperCase() + item.slice(1),
     };
   });
 
@@ -110,13 +115,14 @@ export const PetsPage = () => {
       <div className={css.filtersContainer}>
         <SearchBar onSearch={handleSearch} />
         <div className={css.categoryGender}>
-          <Select className={css.select} options={categoryOptions} value={category} placeholder="Category" onChange={(option) => setCategory(option.value)}/>
-            <Select className={css.select} options={genderOptions} placeholder="By gender" />
+          <Select className={css.select} options={categoryOptions}  placeholder="Category" value={category} onChange={(option) => setCategory(option?.value || null)}/>
+            <Select className={css.select} options={genderOptions} placeholder="By gender" value={gender} onChange={(option) => setGender(option?.value || null)}/>
             
         </div>
-             <Select options={speciesOptions} placeholder="By type" />
+             <Select className={css.select} options={speciesOptions} placeholder="By type" value={species} onChange={(option) => setSpecies(option?.value || null)}/>
       </div>
-      <PetsList pets={pets}/>
+       <PetsList pets={pets}/>
+     
 
      
     </>
