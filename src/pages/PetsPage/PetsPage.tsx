@@ -6,6 +6,7 @@ import Select from "react-select";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import AsyncSelect from "react-select/async";
+// import { getCities, cityOptions } from "../../sevices/petsPage";
 
 export const PetsPage = () => {
   const [page, setPage] = useState(1);
@@ -13,7 +14,8 @@ export const PetsPage = () => {
   const [category, setCategory] = useState(null);
   const [gender, setGender] = useState(null);
   const [species, setSpecies] = useState(null);
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState(null);
+const [sort, setSort] = useState(null);
 
   console.log(category);
 
@@ -46,7 +48,7 @@ export const PetsPage = () => {
     return data;
   };
 
-  const getCities = async (search = "London") => {
+  const getCities = async (search?) => {
     if (!search) return [];
     const { data } = await axios.get(
       "https://petlove-backend-jniu.onrender.com/api/cities/locations",
@@ -57,13 +59,18 @@ export const PetsPage = () => {
       },
     );
     console.log(data);
-   return data.map((city) => ({
-        value: city.city,
-        label: city[0].toUpperCase() + city.slice(1),
+    const cityData = data.map((city) => ({
+      value: city.city,
+      label: city.city,
+    }));
+    console.log(cityData);
+    return data.map((city) => ({
+      value: city.city,
+      label: city.city,
     }));
   };
 
-  const getPets = async (category?, query?, gender?) => {
+  const getPets = async (category?, query?, gender?, location?, sort?) => {
     const { data } = await axios.get(
       "https://petlove-backend-jniu.onrender.com/api/pets",
       {
@@ -71,6 +78,8 @@ export const PetsPage = () => {
           category: category,
           search: query,
           gender,
+          location,
+          sort,
         },
       },
     );
@@ -79,19 +88,13 @@ export const PetsPage = () => {
   };
 
   const { data: petsData, isLoading } = useQuery({
-    queryKey: ["petsData", category, query, gender],
-    queryFn: () => getPets(category, query, gender),
+    queryKey: ["petsData", category, query, gender, city, sort],
+    queryFn: () => getPets(category, query, gender, city, sort),
   });
   console.log(petsData?.pets);
   console.log(gender);
 
   const pets = petsData?.pets;
-
-  // const { data: citiesData } = useQuery({
-  //   queryKey: ["citiesData"],
-  //   queryFn: () => getCities(),
-  // });
-  // console.log(cities);
 
   const { data: categories } = useQuery({
     queryKey: ["categories"],
@@ -133,8 +136,9 @@ export const PetsPage = () => {
   return (
     <>
       <Title>Find your favorite pet</Title>
-      <div className={css.filtersContainer}>
+   
         <SearchBar onSearch={handleSearch} />
+           <form className={css.filtersForm}>
         <div className={css.categoryGender}>
           <Select
             className={css.select}
@@ -155,7 +159,7 @@ export const PetsPage = () => {
           className={css.select}
           options={speciesOptions}
           placeholder="By type"
-          value={species}
+          value={speciesOptions?.find(option => option?.value === species)}
           onChange={(option) => setSpecies(option?.value || null)}
         />
         <AsyncSelect
@@ -163,11 +167,43 @@ export const PetsPage = () => {
           defaultOptions
           loadOptions={getCities}
           value={city}
-          onChange={setCity}
+          onChange={(city) => setCity(city?.value)}
           placeholder="Available locations..."
           isClearable
         />
-      </div>
+
+        <label>
+          <input type="radio" 
+          name="sort" 
+          value="popular" 
+          onChange={(e) => setSort(e.target.value || null)}
+          />
+          Popular
+        </label>
+        <label>
+          <input type="radio" 
+          name="sort" 
+          value="unpopular" 
+          onChange={(e) => setSort(e.target.value || null)}
+          />
+          Unpopular
+        </label>
+        <label>
+          <input
+          type="radio"
+          name="sort"
+          value="expensive"
+          onChange={(e)=> setSort(e.target.value)}/>
+          Expensive
+        </label>
+        <label>
+          <input type="radio"
+          name="sort"
+          value="cheap"
+          onChange={(e) => setSort(e.target.value)} />
+          Cheap
+        </label>
+      </form>
       <PetsList pets={pets} />
     </>
   );
