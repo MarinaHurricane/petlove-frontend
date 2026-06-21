@@ -24,6 +24,15 @@ const [sort, setSort] = useState(null);
     setPage(1);
     // const options =  await getCategories();
   };
+
+  const handleReset = () => {
+    setQuery("");
+    setCategory(null);
+    setGender(null);
+    setSpecies(null);
+    setCity(null);
+    setSort(null);
+  }
   const getCategories = async () => {
     const { data } = await axios.get(
       "https://petlove-backend-jniu.onrender.com/api/pets/categories",
@@ -144,14 +153,14 @@ const [sort, setSort] = useState(null);
             className={css.select}
             options={categoryOptions}
             placeholder="Category"
-            value={category}
+            value={categoryOptions?.find(option => option?.value)}
             onChange={(option) => setCategory(option?.value || null)}
           />
           <Select
             className={css.select}
             options={genderOptions}
             placeholder="By gender"
-            value={gender}
+            value={genderOptions?.find(option => option?.value)}
             onChange={(option) => setGender(option?.value || null)}
           />
         </div>
@@ -204,6 +213,7 @@ const [sort, setSort] = useState(null);
           Cheap
         </label>
       </form>
+      <button onClick={handleReset}>Reset search</button>
       <PetsList pets={pets} />
     </>
   );
