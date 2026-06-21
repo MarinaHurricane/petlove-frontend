@@ -79,7 +79,7 @@ const [sort, setSort] = useState(null);
     }));
   };
 
-  const getPets = async (category?, query?, gender?, location?, sort?) => {
+  const getPets = async (category?, query?, gender?, city?, sort?) => {
     const { data } = await axios.get(
       "https://petlove-backend-jniu.onrender.com/api/pets",
       {
@@ -87,7 +87,7 @@ const [sort, setSort] = useState(null);
           category: category,
           search: query,
           gender,
-          location,
+          location: city?.value,
           sort,
         },
       },
@@ -153,14 +153,14 @@ const [sort, setSort] = useState(null);
             className={css.select}
             options={categoryOptions}
             placeholder="Category"
-            value={categoryOptions?.find(option => option?.value)}
+            value={categoryOptions?.find(option => option?.value === category) || null}
             onChange={(option) => setCategory(option?.value || null)}
           />
           <Select
             className={css.select}
             options={genderOptions}
             placeholder="By gender"
-            value={genderOptions?.find(option => option?.value)}
+            value={genderOptions?.find(option => option?.value === gender) || null}
             onChange={(option) => setGender(option?.value || null)}
           />
         </div>
@@ -168,7 +168,7 @@ const [sort, setSort] = useState(null);
           className={css.select}
           options={speciesOptions}
           placeholder="By type"
-          value={speciesOptions?.find(option => option?.value === species)}
+          value={speciesOptions?.find(option => option?.value === species) || null}
           onChange={(option) => setSpecies(option?.value || null)}
         />
         <AsyncSelect
@@ -176,7 +176,8 @@ const [sort, setSort] = useState(null);
           defaultOptions
           loadOptions={getCities}
           value={city}
-          onChange={(city) => setCity(city?.value)}
+          // onChange={(city) => setCity(city?.value || null)}
+          onChange={setCity}
           placeholder="Available locations..."
           isClearable
         />
@@ -184,7 +185,8 @@ const [sort, setSort] = useState(null);
         <label>
           <input type="radio" 
           name="sort" 
-          value="popular" 
+          value="popular"
+          checked={sort === "popular"} 
           onChange={(e) => setSort(e.target.value || null)}
           />
           Popular
@@ -193,6 +195,7 @@ const [sort, setSort] = useState(null);
           <input type="radio" 
           name="sort" 
           value="unpopular" 
+          checked={sort === "unpopular"}
           onChange={(e) => setSort(e.target.value || null)}
           />
           Unpopular
@@ -202,14 +205,16 @@ const [sort, setSort] = useState(null);
           type="radio"
           name="sort"
           value="expensive"
-          onChange={(e)=> setSort(e.target.value)}/>
+          checked={sort === "expensive"}
+          onChange={(e)=> setSort(e.target.value || null)}/>
           Expensive
         </label>
         <label>
           <input type="radio"
           name="sort"
           value="cheap"
-          onChange={(e) => setSort(e.target.value)} />
+          checked={sort === "cheap"}
+          onChange={(e) => setSort(e.target.value || null)} />
           Cheap
         </label>
       </form>
