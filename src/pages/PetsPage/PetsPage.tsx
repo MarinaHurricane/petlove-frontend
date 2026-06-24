@@ -6,6 +6,7 @@ import Select from "react-select";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import AsyncSelect from "react-select/async";
+import { Pagination } from "../../components/Pagination/Pagination";
 // import { getCities, cityOptions } from "../../sevices/petsPage";
 
 export const PetsPage = () => {
@@ -79,7 +80,7 @@ const [sort, setSort] = useState(null);
     }));
   };
 
-  const getPets = async (category?, query?, gender?, city?, sort?) => {
+  const getPets = async (category?, query?, gender?, city?, sort?, page) => {
     const { data } = await axios.get(
       "https://petlove-backend-jniu.onrender.com/api/pets",
       {
@@ -89,6 +90,7 @@ const [sort, setSort] = useState(null);
           gender,
           location: city?.value,
           sort,
+          page,
         },
       },
     );
@@ -97,13 +99,14 @@ const [sort, setSort] = useState(null);
   };
 
   const { data: petsData, isLoading } = useQuery({
-    queryKey: ["petsData", category, query, gender, city, sort],
-    queryFn: () => getPets(category, query, gender, city, sort),
+    queryKey: ["petsData", category, query, gender, city, sort, page],
+    queryFn: () => getPets(category, query, gender, city, sort, page),
   });
   console.log(petsData?.pets);
   console.log(gender);
 
   const pets = petsData?.pets;
+  const totalPages = petsData?.totalPages;
 
   const { data: categories } = useQuery({
     queryKey: ["categories"],
@@ -220,6 +223,7 @@ const [sort, setSort] = useState(null);
       </form>
       <button onClick={handleReset}>Reset search</button>
       <PetsList pets={pets} />
+      <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage}/>
     </>
   );
 };
