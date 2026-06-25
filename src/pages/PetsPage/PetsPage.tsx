@@ -7,7 +7,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import AsyncSelect from "react-select/async";
 import { Pagination } from "../../components/Pagination/Pagination";
-// import { getCities, cityOptions } from "../../sevices/petsPage";
+import { PetsList } from "../../components/PetList/PetList";
 
 export const PetsPage = () => {
   const [page, setPage] = useState(1);
@@ -16,14 +16,13 @@ export const PetsPage = () => {
   const [gender, setGender] = useState(null);
   const [species, setSpecies] = useState(null);
   const [city, setCity] = useState(null);
-const [sort, setSort] = useState(null);
+  const [sort, setSort] = useState(null);
 
   console.log(category);
 
   const handleSearch = (newQuery) => {
     setQuery(newQuery);
     setPage(1);
-    // const options =  await getCategories();
   };
 
   const handleReset = () => {
@@ -33,7 +32,7 @@ const [sort, setSort] = useState(null);
     setSpecies(null);
     setCity(null);
     setSort(null);
-  }
+  };
   const getCategories = async () => {
     const { data } = await axios.get(
       "https://petlove-backend-jniu.onrender.com/api/pets/categories",
@@ -148,22 +147,27 @@ const [sort, setSort] = useState(null);
   return (
     <>
       <Title>Find your favorite pet</Title>
-   
-        <SearchBar onSearch={handleSearch} />
-           <form className={css.filtersForm}>
+
+      <SearchBar onSearch={handleSearch} />
+      <form className={css.filtersForm}>
         <div className={css.categoryGender}>
           <Select
             className={css.select}
             options={categoryOptions}
             placeholder="Category"
-            value={categoryOptions?.find(option => option?.value === category) || null}
+            value={
+              categoryOptions?.find((option) => option?.value === category) ||
+              null
+            }
             onChange={(option) => setCategory(option?.value || null)}
           />
           <Select
             className={css.select}
             options={genderOptions}
             placeholder="By gender"
-            value={genderOptions?.find(option => option?.value === gender) || null}
+            value={
+              genderOptions?.find((option) => option?.value === gender) || null
+            }
             onChange={(option) => setGender(option?.value || null)}
           />
         </div>
@@ -171,7 +175,9 @@ const [sort, setSort] = useState(null);
           className={css.select}
           options={speciesOptions}
           placeholder="By type"
-          value={speciesOptions?.find(option => option?.value === species) || null}
+          value={
+            speciesOptions?.find((option) => option?.value === species) || null
+          }
           onChange={(option) => setSpecies(option?.value || null)}
         />
         <AsyncSelect
@@ -186,65 +192,57 @@ const [sort, setSort] = useState(null);
         />
 
         <label>
-          <input type="radio" 
-          name="sort" 
-          value="popular"
-          checked={sort === "popular"} 
-          onChange={(e) => setSort(e.target.value || null)}
+          <input
+            type="radio"
+            name="sort"
+            value="popular"
+            checked={sort === "popular"}
+            onChange={(e) => setSort(e.target.value || null)}
           />
           Popular
         </label>
         <label>
-          <input type="radio" 
-          name="sort" 
-          value="unpopular" 
-          checked={sort === "unpopular"}
-          onChange={(e) => setSort(e.target.value || null)}
+          <input
+            type="radio"
+            name="sort"
+            value="unpopular"
+            checked={sort === "unpopular"}
+            onChange={(e) => setSort(e.target.value || null)}
           />
           Unpopular
         </label>
         <label>
           <input
-          type="radio"
-          name="sort"
-          value="expensive"
-          checked={sort === "expensive"}
-          onChange={(e)=> setSort(e.target.value || null)}/>
+            type="radio"
+            name="sort"
+            value="expensive"
+            checked={sort === "expensive"}
+            onChange={(e) => setSort(e.target.value || null)}
+          />
           Expensive
         </label>
         <label>
-          <input type="radio"
-          name="sort"
-          value="cheap"
-          checked={sort === "cheap"}
-          onChange={(e) => setSort(e.target.value || null)} />
+          <input
+            type="radio"
+            name="sort"
+            value="cheap"
+            checked={sort === "cheap"}
+            onChange={(e) => setSort(e.target.value || null)}
+          />
           Cheap
         </label>
       </form>
       <button onClick={handleReset}>Reset search</button>
       <PetsList pets={pets} />
-      <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage}/>
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+      />
     </>
   );
 };
 
-const PetsList = ({ pets }) => {
-  return (
-    <ul className={css.petsList}>
-      {pets?.map((pet) => (
-        <Pet pet={pet} />
-      ))}
-    </ul>
-  );
-};
 
-const Pet = ({ pet }) => {
-  return (
-    <li className={css.pet} key={pet._id}>
-      <div className={css.petContainer}>
-        <img src={pet.imgURL} alt="pet-image" />
-        <h3>{pet.title}</h3>
-      </div>
-    </li>
-  );
-};
+
+

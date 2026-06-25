@@ -1,4 +1,9 @@
 import css from './Pagination.module.css'
+import { useMediaQuery } from "react-responsive";
+import { getVisiblePages } from '../../sevices/pagination';
+
+
+
 
 
 interface PaginationProps {
@@ -8,7 +13,12 @@ interface PaginationProps {
 }
 
 export const Pagination = ({currentPage, totalPages, onPageChange}: PaginationProps) => {
-    if(totalPages <= 1) return null;
+const isMobile = useMediaQuery({maxWidth: 767});
+
+const visiblePages = isMobile? 2 : 3;
+if(totalPages <= 1) return null;
+
+const pages = getVisiblePages(currentPage, totalPages, visiblePages);
 
     const isFirstPage = currentPage === 1;
     const isLastPage = currentPage === totalPages;
@@ -21,6 +31,22 @@ export const Pagination = ({currentPage, totalPages, onPageChange}: PaginationPr
             <button disabled={isFirstPage} onClick={() => onPageChange(currentPage - 1)}>
                 {'<'}
             </button>
+            {pages[0] > 1 && <span>...</span>}
+
+            {pages.map(page => (
+                <button
+                key={page}
+                onClick={() => onPageChange(page)}
+                className={page === currentPage ? "active" : ""}
+                >
+                {page}
+
+                </button>
+            ))}
+
+            {pages[pages.length - 1] < totalPages && (
+                <span>...</span>
+            )}
             <button disabled={isLastPage} onClick={() => onPageChange(currentPage + 1)}>
                  {'>'}
             </button>
