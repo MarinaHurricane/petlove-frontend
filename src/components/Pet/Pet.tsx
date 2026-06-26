@@ -3,9 +3,9 @@ import { Icon } from '../Icon/Icon';
 
 export const Pet = ({ pet }) => {
   return (
-    <li className={css.pet} key={pet._id}>
+    <li className={css.pet}>
       <div className={css.petContainer}>
-        <img src={pet.imgURL} alt="pet-image" />
+        <img src={pet.imgURL} alt={pet.species} />
         <h3>{pet.title}</h3>
         <dl className={css.petData}>
           <div className={css.petSubData}>

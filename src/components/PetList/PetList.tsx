@@ -5,7 +5,7 @@ export const PetsList = ({ pets }) => {
   return (
     <ul className={css.petsList}>
       {pets?.map((pet) => (
-        <Pet pet={pet} />
+        <Pet key={pet._id} pet={pet} />
       ))}
     </ul>
   );

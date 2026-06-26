@@ -3,11 +3,17 @@ import { Title } from "../../components/Title/Title";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { useState } from "react";
 import Select from "react-select";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import AsyncSelect from "react-select/async";
 import { Pagination } from "../../components/Pagination/Pagination";
 import { PetsList } from "../../components/PetList/PetList";
+import {
+  getPets,
+  getSpecies,
+  getCategories,
+  getGender,
+  getCities,
+} from "../../api/petsPage";
 
 export const PetsPage = () => {
   const [page, setPage] = useState(1);
@@ -33,69 +39,6 @@ export const PetsPage = () => {
     setCity(null);
     setSort(null);
   };
-  const getCategories = async () => {
-    const { data } = await axios.get(
-      "https://petlove-backend-jniu.onrender.com/api/pets/categories",
-    );
-    console.log(data);
-    return data;
-  };
-
-  const getSpecies = async () => {
-    const { data } = await axios.get(
-      "https://petlove-backend-jniu.onrender.com/api/pets/species",
-    );
-    console.log(data);
-    return data;
-  };
-
-  const getGender = async () => {
-    const { data } = await axios.get(
-      "https://petlove-backend-jniu.onrender.com/api/pets/gender",
-    );
-    console.log(data);
-    return data;
-  };
-
-  const getCities = async (search?) => {
-    if (!search) return [];
-    const { data } = await axios.get(
-      "https://petlove-backend-jniu.onrender.com/api/cities/locations",
-      {
-        params: {
-          search: search,
-        },
-      },
-    );
-    console.log(data);
-    const cityData = data.map((city) => ({
-      value: city.city,
-      label: city.city,
-    }));
-    console.log(cityData);
-    return data.map((city) => ({
-      value: city.city,
-      label: city.city,
-    }));
-  };
-
-  const getPets = async (category?, query?, gender?, city?, sort?, page) => {
-    const { data } = await axios.get(
-      "https://petlove-backend-jniu.onrender.com/api/pets",
-      {
-        params: {
-          category: category,
-          search: query,
-          gender,
-          location: city?.value,
-          sort,
-          page,
-        },
-      },
-    );
-    console.log(data);
-    return data;
-  };
 
   const { data: petsData, isLoading } = useQuery({
     queryKey: ["petsData", category, query, gender, city, sort, page],
@@ -113,14 +56,16 @@ export const PetsPage = () => {
   });
   console.log(categories);
 
+  const categoryOptions = categories?.map((category) => {
+    return {
+      value: category,
+      label: category[0].toUpperCase() + category.slice(1),
+    };
+  });
+
   const { data: speciesData } = useQuery({
     queryKey: ["speciesData"],
     queryFn: getSpecies,
-  });
-
-  const { data: genders } = useQuery({
-    queryKey: ["genders"],
-    queryFn: getGender,
   });
 
   const speciesOptions = speciesData?.map((item) => {
@@ -130,11 +75,9 @@ export const PetsPage = () => {
     };
   });
 
-  const categoryOptions = categories?.map((category) => {
-    return {
-      value: category,
-      label: category[0].toUpperCase() + category.slice(1),
-    };
+  const { data: genders } = useQuery({
+    queryKey: ["genders"],
+    queryFn: getGender,
   });
 
   const genderOptions = genders?.map((item) => {
@@ -242,7 +185,3 @@ export const PetsPage = () => {
     </>
   );
 };
-
-
-
-
