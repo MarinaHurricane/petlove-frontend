@@ -1,0 +1,37 @@
+.button {
+    padding: 15px 20px;
+    border: solid 1px #fff;
+    border-radius: 30px;
+    letter-spacing: 0.03em;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    font-weight: 700;
+    line-height: 125%;
+    text-transform: uppercase;
+    transition: all 250ms ease;
+}
+
+.primary {
+     background-color: #F6B83D;
+      color: #ffff;
+}
+
+.secondary {
+    background-color: #FFF4DF;
+    color: #F6B83D;
+}
+
+.primary:hover,
+.primary:active {
+    background-color: #fff4df;
+    color: #f6b83d;
+}
+
+.secondary:hover,
+.secondary:active {
+    background-color: #FBE7C1;
+}

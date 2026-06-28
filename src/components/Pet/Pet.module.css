@@ -1,0 +1,11 @@
+.petBlock {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 30px;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
