@@ -1,10 +1,9 @@
-import css from './Pet.module.css';
+import css from './PetModalInfo.module.css';
 import { Icon } from '../Icon/Icon';
 
-export const Pet = ({ pet, onPetClick }) => {
-  return (
-    <li className={css.pet}>
-      <div className={css.petContainer}>
+export const PetModalInfo = ({pet}) => {
+    return (
+        <div className={css.petContainer}>
         <img src={pet.imgURL} alt={pet.species} />
         <h3>{pet.title}</h3>
         <dl className={css.petData}>
@@ -34,12 +33,11 @@ export const Pet = ({ pet, onPetClick }) => {
         <p className={css.price}>{pet.price}</p>
 
         <div className={css.moreInfo}>
-          <button onClick={() => onPetClick(pet)}>Learn more</button>
-          <button className={css.addFavourite}>
-            <Icon name="icon-heart" className={css.icon} />
+          <button className={css.addFavourite}>Add to <span><Icon name="icon-heart" className={css.icon} /></span></button>
+          <button >Contact
+            
           </button>
-        </div>
-      </div>
-    </li>
-  );
-};
+          </div>
+         </div>
+    )
+}

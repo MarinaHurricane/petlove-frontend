@@ -1,7 +1,7 @@
 import css from "./PetsPage.module.css";
 import { Title } from "../../components/Title/Title";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Select from "react-select";
 import { useQuery } from "@tanstack/react-query";
 import AsyncSelect from "react-select/async";
@@ -13,7 +13,10 @@ import {
   getCategories,
   getGender,
   getCities,
+  getPetById,
 } from "../../api/petsPage";
+import { Modal } from "../../components/Modal/Modal";
+import { PetModalInfo } from "../../components/PetModalInfo/PetModalInfo";
 
 export const PetsPage = () => {
   const [page, setPage] = useState(1);
@@ -23,6 +26,11 @@ export const PetsPage = () => {
   const [species, setSpecies] = useState(null);
   const [city, setCity] = useState(null);
   const [sort, setSort] = useState(null);
+  const [isOpen, setIsopen] = useState(false);
+  const [selectedPet, setSelectedPet] = useState(null);
+
+  const handleOpenModal = () => setIsopen(true);
+  const handleCloseModal = () => setIsopen(false);
 
   console.log(category);
 
@@ -30,6 +38,15 @@ export const PetsPage = () => {
     setQuery(newQuery);
     setPage(1);
   };
+
+  const handlePetClick = (pet) => {
+    setSelectedPet(pet);
+    console.log(pet);
+  }
+
+
+
+  
 
   const handleReset = () => {
     setQuery("");
@@ -176,7 +193,11 @@ export const PetsPage = () => {
         </label>
       </form>
       <button onClick={handleReset}>Reset search</button>
-      <PetsList pets={pets} />
+      <PetsList pets={pets} onPetClick={handlePetClick}/>
+      {selectedPet && <Modal onClose={() => setSelectedPet(null)}>
+        <PetModalInfo pet={selectedPet}/>
+
+      </Modal>}
       <Pagination
         currentPage={page}
         totalPages={totalPages}

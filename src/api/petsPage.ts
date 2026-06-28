@@ -59,3 +59,10 @@ export const getCities = async (search?) => {
     label: city.city,
   }));
 };
+
+
+export const getPetById = async(petId) => {
+  const { data } = await api.get(`/pets/${petId}`);
+
+  return data;
+}
