@@ -1,5 +1,5 @@
 import axios from "axios";
-import { api } from "../lib/axios";
+import { api } from "./axios";
 
 export const getPets = async (
   category?,

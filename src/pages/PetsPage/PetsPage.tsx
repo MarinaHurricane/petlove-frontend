@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import AsyncSelect from "react-select/async";
 import { Pagination } from "../../components/Pagination/Pagination";
 import { PetsList } from "../../components/PetList/PetList";
+
 import {
   getPets,
   getSpecies,
@@ -14,7 +15,7 @@ import {
   getGender,
   getCities,
   getPetById,
-} from "../../api/petsPage";
+} from "../../lib/api/petsPage";
 import { Modal } from "../../components/Modal/Modal";
 import { PetModalInfo } from "../../components/PetModalInfo/PetModalInfo";
 
@@ -42,11 +43,7 @@ export const PetsPage = () => {
   const handlePetClick = (pet) => {
     setSelectedPet(pet);
     console.log(pet);
-  }
-
-
-
-  
+  };
 
   const handleReset = () => {
     setQuery("");
@@ -193,11 +190,12 @@ export const PetsPage = () => {
         </label>
       </form>
       <button onClick={handleReset}>Reset search</button>
-      <PetsList pets={pets} onPetClick={handlePetClick}/>
-      {selectedPet && <Modal onClose={() => setSelectedPet(null)}>
-        <PetModalInfo pet={selectedPet}/>
-
-      </Modal>}
+      <PetsList pets={pets} onPetClick={handlePetClick} />
+      {selectedPet && (
+        <Modal onClose={() => setSelectedPet(null)}>
+          <PetModalInfo pet={selectedPet} />
+        </Modal>
+      )}
       <Pagination
         currentPage={page}
         totalPages={totalPages}

@@ -1,8 +1,12 @@
-import css from './RegisterForm.module.css';
+import css from "./RegisterForm.module.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Button } from '../Button/Button';
+import { useMutation } from "@tanstack/react-query";
+import { Button } from "../Button/Button";
+import { registerUser } from "../../lib/api/auth";
+import { useAuthStore } from "../../lib/store/authStore";
+import { useNavigate } from "react-router-dom";
 
 type RegisterFormValues = {
   name: string;
@@ -10,7 +14,6 @@ type RegisterFormValues = {
   password: string;
   confirmPassword: string;
 };
-
 
 const schema = yup.object({
   name: yup.string().required("Name is required"),
@@ -31,9 +34,10 @@ const schema = yup.object({
     .required("Confirm password is required"),
 });
 
-// type RegisterFormValues = yup.InferType<typeof schema>
-
 export const RegisterForm = () => {
+  const setUser = useAuthStore((state) => state.setUser);
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -43,41 +47,45 @@ export const RegisterForm = () => {
     resolver: yupResolver(schema),
   });
 
+  const mutation = useMutation({
+    mutationFn: registerUser,
+    onSuccess: (data) => {
+      setUser(data);
+      reset();
+      console.log(data);
+      navigate("/profile");
+    },
+    onError: (error) => {
+      alert(`${error.message}, Registration failed`);
+    },
+  });
+
   const onSubmit = (data: RegisterFormValues) => {
-    console.log(data);
-    reset();
+    const { confirmPassword, ...userData } = data;
+    console.log(userData);
+    mutation.mutate(userData);
+    console.log("user registered");
   };
 
   return (
-    <form className={css.regiserForm}
-    onSubmit={handleSubmit(onSubmit)}>
-        <input type="text"
-        placeholder="Name"
-        {...register('name')}
-        />
-        {errors.name && <p>{errors.name.message}</p>}
+    <form className={css.regiserForm} onSubmit={handleSubmit(onSubmit)}>
+      <input type="text" placeholder="Name" {...register("name")} />
+      {errors.name && <p>{errors.name.message}</p>}
 
-        <input type="text"
-        placeholder="Email"
-        {...register('email')}
-        />
-        {errors.email && <p>{errors.email.message}</p>}
+      <input type="text" placeholder="Email" {...register("email")} />
+      {errors.email && <p>{errors.email.message}</p>}
 
-        <input type="text"
-        placeholder="Password"
-        {...register('password')}
-        />
-        {errors.password && <p>{errors.password.message}</p>}
+      <input type="text" placeholder="Password" {...register("password")} />
+      {errors.password && <p>{errors.password.message}</p>}
 
-        <input type="text"
+      <input
+        type="text"
         placeholder="Confirm password"
-        {...register('confirmPassword')}
-        />
-        {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+        {...register("confirmPassword")}
+      />
+      {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
 
-        <Button type="submit">Registration</Button>
-
+      <Button type="submit">Registration</Button>
     </form>
-
-  )
+  );
 };
