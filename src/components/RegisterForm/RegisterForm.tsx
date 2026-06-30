@@ -55,8 +55,8 @@ export const RegisterForm = () => {
       console.log(data);
       navigate("/profile");
     },
-    onError: (error) => {
-      alert(`${error.message}, Registration failed`);
+    onError: () => {
+      alert("Registration failed, please try again");
     },
   });
 
