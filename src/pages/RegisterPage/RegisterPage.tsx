@@ -1,7 +1,6 @@
 import css from './RegisterPage.module.css';
 import { Title } from '../../components/Title/Title';
 import { PetBlock } from '../../components/PetBlock/PetBlock';
-import { Button } from '../../components/Button/Button';
 import { Link } from 'react-router-dom';
 import { RegisterForm } from '../../components/RegisterForm/RegisterForm';
 
