@@ -18,8 +18,11 @@ import {
 } from "../../lib/api/petsPage";
 import { Modal } from "../../components/Modal/Modal";
 import { PetModalInfo } from "../../components/PetModalInfo/PetModalInfo";
+import { useAuthStore } from "../../lib/store/authStore";
+import { LoginModal } from "../../components/LoginModal/LoginModal";
 
 export const PetsPage = () => {
+  const user = useAuthStore((state) => state.user) ;
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState(null);
@@ -29,9 +32,14 @@ export const PetsPage = () => {
   const [sort, setSort] = useState(null);
   const [isOpen, setIsopen] = useState(false);
   const [selectedPet, setSelectedPet] = useState(null);
+  const [modalType, setModalType] = useState(null);
 
   const handleOpenModal = () => setIsopen(true);
-  const handleCloseModal = () => setIsopen(false);
+  // const handleCloseModal = () => setIsopen(false);
+  const handleCloseModal = () => {
+    setSelectedPet(null);
+    setModalType(null);
+  };
 
   console.log(category);
 
@@ -41,8 +49,13 @@ export const PetsPage = () => {
   };
 
   const handlePetClick = (pet) => {
-    setSelectedPet(pet);
-    console.log(pet);
+    if (user) {
+      setSelectedPet(pet);
+      setModalType("petDModal");
+      console.log(pet);
+    } else {
+      setModalType("loginModal");
+    }
   };
 
   const handleReset = () => {
@@ -191,11 +204,21 @@ export const PetsPage = () => {
       </form>
       <button onClick={handleReset}>Reset search</button>
       <PetsList pets={pets} onPetClick={handlePetClick} />
-      {selectedPet && (
+      {/* {selectedPet && (
         <Modal onClose={() => setSelectedPet(null)}>
           <PetModalInfo pet={selectedPet} />
         </Modal>
+      )} */}
+
+      {modalType && (
+        <Modal onClose={handleCloseModal}>
+          {modalType === "petModal" && selectedPet && (
+            <PetModalInfo pet={selectedPet} />
+          )}
+          {modalType === "loginModal" && <LoginModal />}
+        </Modal>
       )}
+
       <Pagination
         currentPage={page}
         totalPages={totalPages}

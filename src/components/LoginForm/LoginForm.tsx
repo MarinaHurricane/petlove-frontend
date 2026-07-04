@@ -9,7 +9,6 @@ import { loginUser } from "../../lib/api/auth";
 import { useAuthStore } from "../../lib/store/authStore";
 import { useNavigate } from "react-router-dom";
 
-
 type LoginFormValues = {
   email: string;
   password: string;
@@ -28,7 +27,7 @@ const schema = yup.object({
 });
 
 export const LoginForm = () => {
-    const [error, setError] = useState("");
+  const [error, setError] = useState("");
   const setUser = useAuthStore((state) => state.setUser);
   const navigate = useNavigate();
 
@@ -56,21 +55,20 @@ export const LoginForm = () => {
 
   const onSubmit = (data: LoginFormValues) => {
     mutation.mutate(data);
-    console.log('user logged in')
+    console.log("user logged in");
   };
 
   return (
     <form className={css.loginForm} onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder="Email" {...register("email")}/>
-        {errors.email && <p>{errors.email.message}</p>}
+      <input type="text" placeholder="Email" {...register("email")} />
+      {errors.email && <p>{errors.email.message}</p>}
 
-        <input type="text" placeholder="Password" {...register("password")}/>
-        {errors.password && <p>{errors.password.message}</p>}
+      <input type="text" placeholder="Password" {...register("password")} />
+      {errors.password && <p>{errors.password.message}</p>}
 
-        {error && <p className={css.error}>{error}</p>}
+      {error && <p className={css.error}>{error}</p>}
 
-        <Button type="submit">LOG IN</Button>
-
+      <Button type="submit">LOG IN</Button>
     </form>
-  )
+  );
 };
