@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware'
 
 type User = {
   _id: string;
@@ -16,7 +17,9 @@ type AuthStore = {
   logout: () => void;
 };
 
-export const useAuthStore = create<AuthStore>((set) => ({
+export const useAuthStore = create<AuthStore>()(
+persist(
+    (set) => ({
   isAuthenticated: false,
   user: null,
 
@@ -33,4 +36,10 @@ export const useAuthStore = create<AuthStore>((set) => ({
       isAuthenticated: false,
     });
   },
-}));
+
+}),
+{
+  name: "auth-storage"
+}
+)
+);

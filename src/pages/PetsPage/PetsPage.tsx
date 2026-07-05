@@ -22,7 +22,7 @@ import { useAuthStore } from "../../lib/store/authStore";
 import { LoginModal } from "../../components/LoginModal/LoginModal";
 
 export const PetsPage = () => {
-  const user = useAuthStore((state) => state.user) ;
+ const { user, isAuthenticated} = useAuthStore();
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState(null);
@@ -33,6 +33,8 @@ export const PetsPage = () => {
   const [isOpen, setIsopen] = useState(false);
   const [selectedPet, setSelectedPet] = useState(null);
   const [modalType, setModalType] = useState(null);
+
+  console.log("AUTH STORE:", isAuthenticated, user);
 
   const handleOpenModal = () => setIsopen(true);
   // const handleCloseModal = () => setIsopen(false);
@@ -49,10 +51,10 @@ export const PetsPage = () => {
   };
 
   const handlePetClick = (pet) => {
-    if (user) {
+    if (isAuthenticated) {
       setSelectedPet(pet);
       setModalType("petDModal");
-      console.log(pet);
+      console.log(selectedPet);
     } else {
       setModalType("loginModal");
     }
@@ -113,6 +115,9 @@ export const PetsPage = () => {
       label: item[0].toUpperCase() + item.slice(1),
     };
   });
+
+  console.log(modalType);
+  console.log(selectedPet);
 
   return (
     <>
@@ -210,12 +215,24 @@ export const PetsPage = () => {
         </Modal>
       )} */}
 
-      {modalType && (
+      {/* {modalType && (
         <Modal onClose={handleCloseModal}>
           {modalType === "petModal" && selectedPet && (
             <PetModalInfo pet={selectedPet} />
           )}
           {modalType === "loginModal" && <LoginModal />}
+        </Modal>
+      )} */}
+
+      {modalType === "petModal" && selectedPet && (
+        <Modal onClose={handleCloseModal}>
+          <PetModalInfo pet={selectedPet}/>
+        </Modal>
+      )}
+
+        {modalType === "loginModal" &&(
+        <Modal onClose={handleCloseModal}>
+          <LoginModal/>
         </Modal>
       )}
 
