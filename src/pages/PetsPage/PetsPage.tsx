@@ -20,9 +20,12 @@ import { Modal } from "../../components/Modal/Modal";
 import { PetModalInfo } from "../../components/PetModalInfo/PetModalInfo";
 import { useAuthStore } from "../../lib/store/authStore";
 import { LoginModal } from "../../components/LoginModal/LoginModal";
+import { addFavoritePet } from "../../lib/api/petsPage";
+import { FavoritesModal } from "../../components/FavoritesModal/FavoritesModal";
 
 export const PetsPage = () => {
  const { user, isAuthenticated} = useAuthStore();
+ const setUser = useAuthStore((state) => state.setUser);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState(null);
@@ -33,6 +36,8 @@ export const PetsPage = () => {
   const [isOpen, setIsopen] = useState(false);
   const [selectedPet, setSelectedPet] = useState(null);
   const [modalType, setModalType] = useState(null);
+  const [favorite, setFavorite] = useState([]);
+  const [addFavoriteModalOpen, setaddFavoriteModalOpen] = useState(false);
 
   console.log("AUTH STORE:", isAuthenticated, user);
 
@@ -53,12 +58,27 @@ export const PetsPage = () => {
   const handlePetClick = (pet) => {
     if (isAuthenticated) {
       setSelectedPet(pet);
-      setModalType("petDModal");
+      // setModalType("petDModal");
       console.log(selectedPet);
     } else {
       setModalType("loginModal");
     }
   };
+
+  const handleAddToFavorites = async(petId) => {
+    if(isAuthenticated) {
+       const updatedUser = await addFavoritePet(petId);
+      setFavorite((fav) => [...fav, petId]);
+      setaddFavoriteModalOpen(true);
+      setUser(updatedUser);
+      console.log(favorite);
+      console.log(user);
+
+    } else {
+      setModalType("loginModal");
+    }
+
+  }
 
   const handleReset = () => {
     setQuery("");
@@ -208,7 +228,7 @@ export const PetsPage = () => {
         </label>
       </form>
       <button onClick={handleReset}>Reset search</button>
-      <PetsList pets={pets} onPetClick={handlePetClick} />
+      <PetsList pets={pets} onPetClick={handlePetClick} onFavClick={handleAddToFavorites}/>
       {/* {selectedPet && (
         <Modal onClose={() => setSelectedPet(null)}>
           <PetModalInfo pet={selectedPet} />
@@ -224,7 +244,7 @@ export const PetsPage = () => {
         </Modal>
       )} */}
 
-      {modalType === "petModal" && selectedPet && (
+      {selectedPet && (
         <Modal onClose={handleCloseModal}>
           <PetModalInfo pet={selectedPet}/>
         </Modal>
@@ -233,6 +253,12 @@ export const PetsPage = () => {
         {modalType === "loginModal" &&(
         <Modal onClose={handleCloseModal}>
           <LoginModal/>
+        </Modal>
+      )}
+
+      {addFavoriteModalOpen && (
+        <Modal onClose={() => setaddFavoriteModalOpen(false)}>
+<FavoritesModal/>
         </Modal>
       )}
 

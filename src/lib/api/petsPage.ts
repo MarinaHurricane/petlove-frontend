@@ -66,3 +66,9 @@ export const getPetById = async(petId) => {
 
   return data;
 }
+
+export const addFavoritePet = async(petId) => {
+  const {data} = await api.patch(`user/me/favorites/${petId}`);
+  console.log(data);
+  return data;
+}

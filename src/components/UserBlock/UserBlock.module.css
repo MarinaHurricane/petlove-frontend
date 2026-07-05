@@ -1,0 +1,71 @@
+.profileInfo {
+    border: solid 1px #F6B83D;
+    border-radius: 30px;
+    width: 295px;
+    height: 42px;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    padding: 12px;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+    margin: 0 auto;
+  
+}
+
+.userIcon {
+    width: 80px;
+    height: 38px;
+    background-color: #F6B83D;
+    border-radius: 30px;
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 14px;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    line-height: 129%;
+  
+
+}
+
+.icon {
+    color: white;
+    width: 18px;
+    height: 18px;
+    /* fill: white;
+    stroke: white;
+     */
+}
+
+.iconText {
+    color: white;
+}
+
+.editButton {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFF4DF;
+    border: none;
+    border-radius: 30px;
+    
+
+}
+
+.editIcon {
+    width: 18px;
+    height: 18px;
+}
+
+.buttonsWrapper {
+    display: flex;
+    justify-content: space-between;
+}
