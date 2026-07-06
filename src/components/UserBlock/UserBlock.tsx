@@ -2,7 +2,7 @@ import css from './UserBlock.module.css';
 import { Icon } from '../Icon/Icon';
 import { useAuthStore } from '../../lib/store/authStore';
 
-export const UserBlock = () => {
+export const UserBlock = ({onEditClick}) => {
     const {user, isAuthenticated} = useAuthStore();
     return (
         <>
@@ -12,7 +12,7 @@ export const UserBlock = () => {
             <Icon name='icon-user'className={css.icon}/>
          </div>
 
-         <button className={css.editButton}>
+         <button className={css.editButton} onClick={onEditClick}>
             <Icon name='icon-edit'className={css.editIcon}/>
          </button>
         </div>
