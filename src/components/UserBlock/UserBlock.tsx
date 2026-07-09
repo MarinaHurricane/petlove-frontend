@@ -17,11 +17,11 @@ export const UserBlock = ({onEditClick}) => {
          </button>
         </div>
        
-         <img className={css.avatar} src={user.avatar} alt="user-avatar" />
+         <img className={css.avatar} src={user?.avatar} alt="user-avatar" />
          <p>My information</p>
-        <div className={css.profileInfo}><p>{user.name}</p> </div>
-         <div className={css.profileInfo}> <p>{user.email}</p></div>
-          <div className={css.profileInfo}> <p>{user.phone? user.phone : "+44"}</p></div>
+        <div className={css.profileInfo}><p>{user?.name}</p> </div>
+         <div className={css.profileInfo}> <p>{user?.email}</p></div>
+          <div className={css.profileInfo}> <p>{user?.phone || "+44"}</p></div>
 
         </>
       

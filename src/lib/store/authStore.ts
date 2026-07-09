@@ -5,6 +5,7 @@ type User = {
   _id: string;
   name: string;
   email: string;
+  phone?: string;
   avatar: string;
   favorites: string[];
   ownPets: string[];
@@ -14,6 +15,7 @@ type AuthStore = {
   isAuthenticated: boolean;
   user: User | null;
   setUser: (user: User) => void;
+  //  updateAvatar: (url: string) => void;
   logout: () => void;
 };
 
@@ -29,6 +31,13 @@ persist(
       isAuthenticated: true,
     });
   },
+
+    // updateAvatar: (url) =>
+    //     set((state) => ({
+    //       user: state.user
+    //         ? { ...state.user, avatar: url }
+    //         : null,
+    //     })),
 
   logout: () => {
     set({

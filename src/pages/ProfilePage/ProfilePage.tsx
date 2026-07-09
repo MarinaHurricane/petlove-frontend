@@ -17,7 +17,7 @@ export const ProfilePage = () => {
         <UserBlock onEditClick={openEditModal}/>
         {isEditModalOpen && (
             <Modal onClose={closeEditModal}>
-                <ModalEditUser/>
+                <ModalEditUser onClose={closeEditModal}/>
             </Modal>
         )}
          {/* <h1>Profile</h1>
