@@ -7,7 +7,7 @@ export const Pet = ({ pet, onPetClick, onFavClick, variant }) => {
   return (
     <li className={css.pet}>
       <div className={css.petContainer}>
-        <img src={pet.imgURL} alt={pet.species} />
+        <img src={pet.imgURL} alt={pet.species} width={287} height={238} className={css.image}/>
         <h3>{pet.title}</h3>
         <dl className={css.petData}>
           <div className={css.petSubData}>
@@ -16,7 +16,7 @@ export const Pet = ({ pet, onPetClick, onFavClick, variant }) => {
           </div>
           <div className={css.petSubData}>
             <dt>Birthday</dt>
-            <dd>{pet.birthday}</dd>
+            <dd>{new Date(pet.birthday).toLocaleDateString("en-GB")}</dd>
           </div>
           <div className={css.petSubData}>
             <dt>Gender</dt>
@@ -37,9 +37,9 @@ export const Pet = ({ pet, onPetClick, onFavClick, variant }) => {
 
         <div className={css.moreInfo}>
           <Button onClick={() => onPetClick(pet)} >Learn more</Button>
-          {variant === "generalList" ?  <Button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
+          {variant === "generalList" ?  <button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
             <Icon name="icon-heart" className={css.icon} />
-          </Button> :  <button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
+          </button> :  <button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
             <Icon name="icon-trash" className={css.icon} />
           </button>}
          
