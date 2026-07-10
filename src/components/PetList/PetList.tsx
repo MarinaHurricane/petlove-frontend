@@ -1,11 +1,11 @@
 import css from './PetList.module.css';
 import { Pet } from '../Pet/Pet';
 
-export const PetsList = ({ pets, onPetClick, onFavClick}) => {
+export const PetsList = ({ pets, onPetClick, onFavClick, variant}) => {
   return (
     <ul className={css.petsList}>
       {pets?.map((pet) => (
-        <Pet key={pet._id} pet={pet} onPetClick={onPetClick} onFavClick={onFavClick}/>
+        <Pet key={pet._id} pet={pet} onPetClick={onPetClick} onFavClick={onFavClick} variant={variant}/>
       ))}
     </ul>
   );

@@ -228,7 +228,7 @@ export const PetsPage = () => {
         </label>
       </form>
       <button onClick={handleReset}>Reset search</button>
-      <PetsList pets={pets} onPetClick={handlePetClick} onFavClick={handleAddToFavorites}/>
+      <PetsList pets={pets} onPetClick={handlePetClick} onFavClick={handleAddToFavorites} variant="generalList"/>
       {/* {selectedPet && (
         <Modal onClose={() => setSelectedPet(null)}>
           <PetModalInfo pet={selectedPet} />

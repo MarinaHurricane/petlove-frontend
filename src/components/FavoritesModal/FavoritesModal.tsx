@@ -9,7 +9,7 @@ export const FavoritesModal = () => {
         <div className={css.iconWrapper}>
             <img src={cat} alt="cat-icon" />
         </div>
-        <p>The first fluff in the favorites! May your friendship be the happiest and filled with fun.</p>
+        <p>The pet in the favorites! May your friendship be the happiest and filled with fun.</p>
 <Link to="/profile">
 <Button>Go to profile</Button></Link>
         </>

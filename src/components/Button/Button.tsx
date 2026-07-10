@@ -8,11 +8,12 @@ type ButtonProps = {
 export const Button = ({
   children,
   variant = 'primary',
+  className,
   ...props
 }: ButtonProps) => {
   return (
     <button
-      className={`${css.button} ${css[variant]}`}
+      className={`${css.button} ${css[variant]} ${className ?? ""}`}
       {...props}
     >
       {children}

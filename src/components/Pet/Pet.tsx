@@ -1,7 +1,9 @@
 import css from './Pet.module.css';
 import { Icon } from '../Icon/Icon';
+import { Button } from '../Button/Button';
 
-export const Pet = ({ pet, onPetClick, onFavClick }) => {
+
+export const Pet = ({ pet, onPetClick, onFavClick, variant }) => {
   return (
     <li className={css.pet}>
       <div className={css.petContainer}>
@@ -34,10 +36,14 @@ export const Pet = ({ pet, onPetClick, onFavClick }) => {
         <p className={css.price}>{pet.price}</p>
 
         <div className={css.moreInfo}>
-          <button onClick={() => onPetClick(pet)}>Learn more</button>
-          <button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
+          <Button onClick={() => onPetClick(pet)} >Learn more</Button>
+          {variant === "generalList" ?  <Button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
             <Icon name="icon-heart" className={css.icon} />
-          </button>
+          </Button> :  <button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
+            <Icon name="icon-trash" className={css.icon} />
+          </button>}
+         
+         
         </div>
       </div>
     </li>

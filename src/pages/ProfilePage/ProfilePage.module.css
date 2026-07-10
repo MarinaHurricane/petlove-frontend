@@ -1,0 +1,17 @@
+.myPets {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.addPet {
+    flex: none;
+}
+
+.myPetsTitle {
+    font-family: var(--font-family);
+font-weight: 700;
+font-size: 16px;
+line-height: 125%;
+color: #2b2b2a;
+}
