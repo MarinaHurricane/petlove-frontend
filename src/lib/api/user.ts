@@ -1,47 +1,10 @@
 import { api } from "./axios"
 
-// export const editUserAvatar = async(avatar) => {
-//     const formData = new FormData();
-//     formData.append("avatar", avatar);
-//     try{
-//   const {data} = await api.patch("/user/me/avatar", formData);
-//   console.log(data.url);
-//     return data.url;
-//     } catch(error) {
-//         console.log(error.message);
-//     }
-  
-// }
+export const getUserInfo = async(userId) => {
+  const { data } = await api.get('/user/me', userId);
+  return data;
+}
 
-// export const editUserAvatar = async (file) => {
-
-//     try{
-//           const formData = new FormData();
-
-//   formData.append("avatar", file);
-//   console.log(formData);
-// //   console.log(file);
-//   for (const [key, value] of formData.entries()) {
-//   console.log(key, value);
-// }
-
-//   const {data}  = await api.patch(
-//     "/user/me/avatar",
-//     formData
-//   );
-
-
-
-//   console.log("DATA:", data);
-//   console.log(data.data);
-
-//   return data;
-
-//     } catch(error) {
-//         console.log(error);
-//     }
-
-// };
 
 export const editUserAvatar = async (file) => {
   try {
@@ -71,6 +34,11 @@ export const updateProfile = async(editData) => {
     return data;
     } catch(error) {
         console.log(error);
-    }
-   
+    }   
+}
+
+export const viewedPets = async(petId) => {
+  const {data} = await api.patch(`/user/me/addViewed/${petId}`);
+  return data;
+
 }

@@ -22,6 +22,7 @@ import { useAuthStore } from "../../lib/store/authStore";
 import { LoginModal } from "../../components/LoginModal/LoginModal";
 import { addFavoritePet } from "../../lib/api/petsPage";
 import { FavoritesModal } from "../../components/FavoritesModal/FavoritesModal";
+import { viewedPets } from "../../lib/api/user";
 
 export const PetsPage = () => {
  const { user, isAuthenticated} = useAuthStore();
@@ -88,6 +89,8 @@ export const PetsPage = () => {
     setCity(null);
     setSort(null);
   };
+
+ 
 
   const { data: petsData, isLoading } = useQuery({
     queryKey: ["petsData", category, query, gender, city, sort, page],

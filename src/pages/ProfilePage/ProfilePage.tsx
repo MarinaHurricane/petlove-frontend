@@ -6,6 +6,9 @@ import { Modal } from '../../components/Modal/Modal';
 import { ModalEditUser } from '../../components/ModalEditUser/ModalEditUser';
 import { PetsList } from '../../components/PetList/PetList';
 import { Button } from '../../components/Button/Button';
+import { getUserInfo } from '../../lib/api/user';
+import { useQuery } from '@tanstack/react-query';
+import { PetModalInfo } from '../../components/PetModalInfo/PetModalInfo';
 
 export const ProfilePage = () => {
     const {user, isAuthenticated} = useAuthStore();
@@ -13,6 +16,7 @@ export const ProfilePage = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedPet, setSelectedPet] = useState(null);
     const [isPetModalOpen, setIsPetModalOpen] = useState(false);
+    const [mode, setMode] = useState("favorites");
 
     const openEditModal = () => setIsEditModalOpen(true);
     const closeEditModal = () => setIsEditModalOpen(false);
@@ -21,10 +25,32 @@ export const ProfilePage = () => {
         setSelectedPet(pet);
     }
 
+    const handleToggle = () => {
+        if(mode === "favorites") {
+            setMode("viewed")
+        } else{
+             setMode("favorites");
+
+        }
+       
+        console.log(mode);
+    }
+
     const handleClosePetModal = () => {
         setIsPetModalOpen(false);
         setSelectedPet(null);
     }
+
+
+        console.log(user);
+
+        // const currentUser = await getUserInfo(user._id);
+        const {data: currentUser} = useQuery({
+            queryKey: ["user"],
+            queryFn: ()=> getUserInfo(user._id)
+        })
+
+        console.log(currentUser);
     return (
         <>
         <UserBlock onEditClick={openEditModal}/>
@@ -39,9 +65,14 @@ export const ProfilePage = () => {
             <Button className={css.addPet}>Add pet</Button>
         </div>
 
-        <Button>My favorite pets</Button>
+        <Button onClick={handleToggle}>My favorite pets</Button>
+        <Button onClick={handleToggle}>Viewed</Button>
 
-        <PetsList pets={user.favorites} onPetClick={handleSelectedPet} variant="favorites"/>
+{mode === "favorites" ? <PetsList pets={currentUser?.favorites} onPetClick={handleSelectedPet} variant="favorites"/> : <PetsList pets={currentUser?.viewed} onPetClick={handleSelectedPet} variant="viewed"/>}
+        {selectedPet && <Modal onClose={handleClosePetModal}>
+            {mode === "favorites" ?  <PetModalInfo pet={selectedPet} variant="favorites"/> : <PetModalInfo pet={selectedPet} variant="viewed"/>}
+           
+            </Modal>}
          {/* <h1>Profile</h1>
          <img className={css.avatar} src={user.avatar} alt="user-avatar" />
          <p>My information</p>

@@ -1,7 +1,14 @@
 import css from './PetModalInfo.module.css';
 import { Icon } from '../Icon/Icon';
+import { useQuery } from '@tanstack/react-query';
+import { viewedPets } from '../../lib/api/user';
 
-export const PetModalInfo = ({pet}) => {
+export const PetModalInfo = ({pet, variant}) => {
+   const {data: viewedPet} = useQuery({
+    queryKey: ['pet'],
+    queryFn: () => viewedPets(pet._id),
+  });
+  console.log(viewedPet);
     return (
         <div className={css.petContainer}>
         <img src={pet.imgURL} alt={pet.species} />
@@ -33,7 +40,8 @@ export const PetModalInfo = ({pet}) => {
         <p className={css.price}>{pet.price}</p>
 
         <div className={css.moreInfo}>
-          <button className={css.addFavourite}>Add to <span><Icon name="icon-heart" className={css.icon} /></span></button>
+          {variant === "viewed" ?  <button className={css.addFavourite}>Add to <span><Icon name="icon-heart" className={css.icon} /></span></button>:  <button className={css.addFavourite}>Remove from favorites <span><Icon name="icon-trash" className={css.icon} /></span></button>}
+         
           <button >Contact
             
           </button>

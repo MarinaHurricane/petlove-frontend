@@ -39,9 +39,9 @@ export const Pet = ({ pet, onPetClick, onFavClick, variant }) => {
           <Button onClick={() => onPetClick(pet)} >Learn more</Button>
           {variant === "generalList" ?  <button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
             <Icon name="icon-heart" className={css.icon} />
-          </button> :  <button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
+          </button> : variant === "favorites" ?  <button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
             <Icon name="icon-trash" className={css.icon} />
-          </button>}
+          </button> : ""}
          
          
         </div>
