@@ -1,0 +1,35 @@
+.iconList {
+    display: flex;
+}
+
+.iconMale {
+    width: 32px;
+    height: 32px;
+    fill: none;
+    stroke: #54ADFF;
+    outline: none;
+    
+}
+
+.iconFemale {
+    width: 32px;
+    height: 32px;
+    fill: none;
+    
+}
+
+.iconMultiple {
+    width: 32px;
+    height: 32px;
+    fill: none;
+    
+}
+
+.iconFemale.chosen {
+background-color: #F43F5E;
+color: #fff;
+}
+
+.radio:checked + .iconMale {
+    stroke: #54adff;
+}

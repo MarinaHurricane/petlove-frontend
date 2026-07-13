@@ -72,3 +72,8 @@ export const addFavoritePet = async(petId) => {
   console.log(data);
   return data;
 }
+
+export const addOwnPet = async(petData) => {
+  const { data } = await api.post("/pets", petData);
+  return data;
+}
