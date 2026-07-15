@@ -10,6 +10,7 @@ import { getUserInfo } from "../../lib/api/user";
 import { useQuery } from "@tanstack/react-query";
 import { PetModalInfo } from "../../components/PetModalInfo/PetModalInfo";
 import { AddPetModal } from "../../components/AddPetModal/AddPetModal";
+import { useNavigate } from "react-router-dom";
 
 export const ProfilePage = () => {
   const { user, isAuthenticated } = useAuthStore();
@@ -19,6 +20,8 @@ export const ProfilePage = () => {
   const [isPetModalOpen, setIsPetModalOpen] = useState(false);
   const [mode, setMode] = useState("favorites");
   const [isAddPetModalOpen, setIsAddPetModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const openEditModal = () => setIsEditModalOpen(true);
   const closeEditModal = () => setIsEditModalOpen(false);
@@ -64,12 +67,17 @@ export const ProfilePage = () => {
 
       <div className={css.myPets}>
         <p className={css.myPetsTitle}>My pets</p>
-        <Button className={css.addPet} onClick={openAddPetModalOpen}>Add pet</Button>
+        <Button className={css.addPet} onClick={() => navigate("/add-pet")}>Add pet</Button>
       </div>
 
       {isAddPetModalOpen && <Modal onClose={closeAddPetModalOpen}>
         <AddPetModal/>
         </Modal>}
+
+        <img src={user.ownPets[0]?.avatar} alt="" />
+        <p>{user.ownPets[0].title}</p>
+
+
 
       <Button onClick={handleToggle}>My favorite pets</Button>
       <Button onClick={handleToggle}>Viewed</Button>

@@ -25,8 +25,8 @@ import { FavoritesModal } from "../../components/FavoritesModal/FavoritesModal";
 import { viewedPets } from "../../lib/api/user";
 
 export const PetsPage = () => {
- const { user, isAuthenticated} = useAuthStore();
- const setUser = useAuthStore((state) => state.setUser);
+  const { user, isAuthenticated } = useAuthStore();
+  const setUser = useAuthStore((state) => state.setUser);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState(null);
@@ -66,20 +66,18 @@ export const PetsPage = () => {
     }
   };
 
-  const handleAddToFavorites = async(petId) => {
-    if(isAuthenticated) {
-       const updatedUser = await addFavoritePet(petId);
+  const handleAddToFavorites = async (petId) => {
+    if (isAuthenticated) {
+      const updatedUser = await addFavoritePet(petId);
       setFavorite((fav) => [...fav, petId]);
       setaddFavoriteModalOpen(true);
       setUser(updatedUser);
       console.log(favorite);
       console.log(user);
-
     } else {
       setModalType("loginModal");
     }
-
-  }
+  };
 
   const handleReset = () => {
     setQuery("");
@@ -89,8 +87,6 @@ export const PetsPage = () => {
     setCity(null);
     setSort(null);
   };
-
- 
 
   const { data: petsData, isLoading } = useQuery({
     queryKey: ["petsData", category, query, gender, city, sort, page],
@@ -231,7 +227,12 @@ export const PetsPage = () => {
         </label>
       </form>
       <button onClick={handleReset}>Reset search</button>
-      <PetsList pets={pets} onPetClick={handlePetClick} onFavClick={handleAddToFavorites} variant="generalList"/>
+      <PetsList
+        pets={pets}
+        onPetClick={handlePetClick}
+        onFavClick={handleAddToFavorites}
+        variant="generalList"
+      />
       {/* {selectedPet && (
         <Modal onClose={() => setSelectedPet(null)}>
           <PetModalInfo pet={selectedPet} />
@@ -249,19 +250,19 @@ export const PetsPage = () => {
 
       {selectedPet && (
         <Modal onClose={handleCloseModal}>
-          <PetModalInfo pet={selectedPet}/>
+          <PetModalInfo pet={selectedPet} />
         </Modal>
       )}
 
-        {modalType === "loginModal" &&(
+      {modalType === "loginModal" && (
         <Modal onClose={handleCloseModal}>
-          <LoginModal/>
+          <LoginModal />
         </Modal>
       )}
 
       {addFavoriteModalOpen && (
         <Modal onClose={() => setaddFavoriteModalOpen(false)}>
-<FavoritesModal/>
+          <FavoritesModal />
         </Modal>
       )}
 

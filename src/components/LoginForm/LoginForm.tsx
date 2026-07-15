@@ -45,9 +45,6 @@ export const LoginForm = () => {
     mutationFn: loginUser,
     onSuccess: (data) => {
       setUser(data);
-       console.log("login response:", data);
-       console.log(useAuthStore.getState());
-      console.log(setUser);
       reset();
       navigate("/profile");
     },

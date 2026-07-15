@@ -6,30 +6,43 @@
     width: 32px;
     height: 32px;
     fill: none;
-    stroke: #54ADFF;
-    outline: none;
-    
+    /* stroke: #54ADFF; */
+    outline: none; 
+    border-radius: 50%; 
+    transition: background-color ease-in-out 250ms;
+}
+
+.iconMale:hover,
+.iconMale:active{
+    /* stroke: #fff; */
+    background-color: #a5cef7;
+    /* fill: #fff; */
 }
 
 .iconFemale {
     width: 32px;
     height: 32px;
-    fill: none;
-    
+    fill: none; 
+    border-radius: 50%;
+    transition: background-color ease-in-out 250ms;
+}
+
+.iconFemale:hover,
+.iconFemale:active {
+    background-color: #ffc0cb;
 }
 
 .iconMultiple {
     width: 32px;
     height: 32px;
-    fill: none;
-    
+    border-radius: 50%;
+    background-color: #f7ecd7;
+    transition: background-color ease-in-out 250ms;
 }
 
-.iconFemale.chosen {
-background-color: #F43F5E;
-color: #fff;
+.iconMultiple:hover,
+.iconMultiple:active {
+    background-color: #f9dba3;
 }
 
-.radio:checked + .iconMale {
-    stroke: #54adff;
-}
+

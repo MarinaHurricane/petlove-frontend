@@ -31,12 +31,12 @@ const schema = yup.object({
     ),
 
   phone: yup
-  .string()
-  .notRequired()
-  .matches(/^\+44\d{10}$/, {
-     message: "Phone must start with + 44 folowed by 10 digits",
-    excludeEmptyString: true,
-})
+    .string()
+    .notRequired()
+    .matches(/^\+44\d{10}$/, {
+      message: "Phone must start with + 44 folowed by 10 digits",
+      excludeEmptyString: true,
+    }),
 });
 
 // type EditProfileFormProps = {
@@ -46,11 +46,10 @@ const schema = yup.object({
 // };
 
 export const ModalEditUser = ({ onClose }) => {
-  const {user} = useAuthStore();
-  const setUser = useAuthStore((state) => state.setUser)
+  const { user } = useAuthStore();
+  const setUser = useAuthStore((state) => state.setUser);
   const [preview, setPreview] = useState<string | null>(null);
   const navigate = useNavigate();
-  
 
   const {
     register,
@@ -60,57 +59,56 @@ export const ModalEditUser = ({ onClose }) => {
     defaultValues: {
       name: user.name,
       email: user.email,
-    //   phone: "+44",
-    //   phone: user.phone || "",
+      //   phone: "+44",
+      //   phone: user.phone || "",
     },
     resolver: yupResolver(schema),
   });
 
- const avatarMutation = useMutation({
-  mutationFn: editUserAvatar,
-  onSuccess: (data) => {
-    setUser({
+  const avatarMutation = useMutation({
+    mutationFn: editUserAvatar,
+    onSuccess: (data) => {
+      setUser({
         ...user,
         avatar: data,
-    });
-  },
-});
+      });
+    },
+  });
 
+  const updateProfileMutation = useMutation({
+    mutationFn: updateProfile,
+    onSuccess: (data) => {
+      setUser(data);
+      onClose();
+    },
+  });
 
-const updateProfileMutation = useMutation({
-  mutationFn: updateProfile,
-  onSuccess: (data) => {
-    setUser(data);
-    onClose();
-  },
-});
+  const onSubmit = (data) => {
+    console.log("PROFILE DATA:", data);
+    updateProfileMutation.mutate(data);
+  };
 
-
-const onSubmit = (data) => {
-  console.log("PROFILE DATA:", data);
-  updateProfileMutation.mutate(data);
-};
-
-const handleAvatarChange = (e) => {
-  
+  const handleAvatarChange = (e) => {
     const avatar = e.target.files?.[0];
-  if(!avatar) return;
-    try{
-setPreview(URL.createObjectURL(avatar));
-avatarMutation.mutate(avatar);
-} catch(error) {
-        console.log(error);
+    if (!avatar) return;
+    try {
+      setPreview(URL.createObjectURL(avatar));
+      avatarMutation.mutate(avatar);
+    } catch (error) {
+      console.log(error);
     }
-
-};
-
+  };
 
   if (!user) return null;
 
   return (
     <>
       <p className={css.editParagraph}>Edit information</p>
-      <img src={preview || user?.avatar} alt="user-avatar" className={css.avatar} />
+      <img
+        src={preview || user?.avatar}
+        alt="user-avatar"
+        className={css.avatar}
+      />
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="avatar" className={css.uploadButton}>
@@ -120,14 +118,11 @@ avatarMutation.mutate(avatar);
           </span>
         </label>
 
-
-
         <input
           id="avatar"
           type="file"
           accept="image/*"
           hidden
-          
           onChange={handleAvatarChange}
         />
 
@@ -137,15 +132,18 @@ avatarMutation.mutate(avatar);
         <input type="text" {...register("email")} />
         {errors.email && <p>{errors.email.message}</p>}
 
-        <input type="tel" placeholder="+44"{...register("phone")} />
+        <input type="tel" placeholder="+44" {...register("phone")} />
         {errors.phone && <p>{errors.phone.message}</p>}
 
-        <button type="submit"
-        // disabled={
-        //     editAvatarMutation.isPending ||
-        //     editProfileMutation.isPending
-        // }
-        >Save changes</button>
+        <button
+          type="submit"
+          // disabled={
+          //     editAvatarMutation.isPending ||
+          //     editProfileMutation.isPending
+          // }
+        >
+          Save changes
+        </button>
       </form>
     </>
   );
