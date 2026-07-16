@@ -10,6 +10,7 @@ import { getUserInfo } from "../../lib/api/user";
 import { useQuery } from "@tanstack/react-query";
 import { PetModalInfo } from "../../components/PetModalInfo/PetModalInfo";
 import { AddPetModal } from "../../components/AddPetModal/AddPetModal";
+import { UserPet } from "../../components/UserPet/UserPet";
 import { useNavigate } from "react-router-dom";
 
 export const ProfilePage = () => {
@@ -50,6 +51,8 @@ export const ProfilePage = () => {
 
   console.log(user);
 
+      console.log(user?.ownPets[0].avatar);
+
   const { data: currentUser } = useQuery({
     queryKey: ["user"],
     queryFn: () => getUserInfo(user._id),
@@ -62,7 +65,7 @@ export const ProfilePage = () => {
       {isEditModalOpen && (
         <Modal onClose={closeEditModal}>
           <ModalEditUser onClose={closeEditModal} />
-        </Modal>
+        </Modal> 
       )}
 
       <div className={css.myPets}>
@@ -74,8 +77,10 @@ export const ProfilePage = () => {
         <AddPetModal/>
         </Modal>}
 
-        <img src={user.ownPets[0]?.avatar} alt="" />
-        <p>{user.ownPets[0].title}</p>
+
+
+    {currentUser.ownPets.map((pet) => <UserPet key={pet._id} pet={pet}/>)}
+    
 
 
 
