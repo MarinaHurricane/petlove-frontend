@@ -5,3 +5,8 @@ export const addUserPet = async(formData: FormData) => {
     console.log(data);
     return data;
 }
+
+export const deleteUserPet = async(petId) => {
+    const {data} = await api.delete(`/pets/${petId}`);
+    return data;
+}

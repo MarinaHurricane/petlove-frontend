@@ -1,6 +1,6 @@
 import css from './UserPet.module.css';
 
-export const UserPet = ({pet}) => {
+export const UserPet = ({pet, onPetDelete}) => {
     return (
         <>
         <img src={pet.avatar} alt="pet-avatar" className={css.petAvatar}/>
@@ -23,7 +23,7 @@ export const UserPet = ({pet}) => {
             <dd>{pet.species}</dd>
           </div>
           </dl>
-          <button>delete</button>
+          <button onClick={onPetDelete}>delete</button>
         </>
     )
 

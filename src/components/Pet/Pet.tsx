@@ -3,7 +3,7 @@ import { Icon } from '../Icon/Icon';
 import { Button } from '../Button/Button';
 
 
-export const Pet = ({ pet, onPetClick, onFavClick, variant }) => {
+export const Pet = ({ pet, onPetClick, onFavClick, variant, onFavoriteDelete }) => {
   return (
     <li className={css.pet}>
       <div className={css.petContainer}>
@@ -39,7 +39,7 @@ export const Pet = ({ pet, onPetClick, onFavClick, variant }) => {
           <Button onClick={() => onPetClick(pet)} >Learn more</Button>
           {variant === "generalList" ?  <button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
             <Icon name="icon-heart" className={css.icon} />
-          </button> : variant === "favorites" ?  <button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
+          </button> : variant === "favorites" ?  <button className={css.addFavourite} onClick={() => onFavoriteDelete(pet._id)}>
             <Icon name="icon-trash" className={css.icon} />
           </button> : ""}
          
