@@ -29,7 +29,7 @@
 </symbol>
 <symbol id="icon-cross-small" viewBox="0 0 22 22">
 
-<path d="M17.4163 4.58333L4.58301 17.4167M4.58305 4.58333L17.4163 17.4167" stroke="#EF2447" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.4163 4.58333L4.58301 17.4167M4.58305 4.58333L17.4163 17.4167"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 
 </symbol>
 <symbol id="icon-eye-off" viewBox="0 0 22 22">

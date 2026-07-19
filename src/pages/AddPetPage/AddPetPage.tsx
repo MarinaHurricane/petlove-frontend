@@ -6,7 +6,7 @@ import addPetTablet1x from "../../assets/add-pet-tablet-1x.jpg";
 import addPetTablet2x from "../../assets/add-pet-tablet-2x.jpg";
 import addPetDesktop1x from "../../assets/add-pet-desktop-1x.jpg";
 import addPetDesktop2x from "../../assets/add-pet-desktop-2x.jpg";
-import sprite from "../../../public/icons-sprite.svg";
+// import sprite from "../../../public/icons-sprite.svg";
 import { PetBlock } from "../../components/PetBlock/PetBlock";
 import { Title } from "../../components/Title/Title";
 import { Icon } from "../../components/Icon/Icon";

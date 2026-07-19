@@ -1,0 +1,67 @@
+.link {
+    display: block;
+}
+
+.menu {
+  position: fixed;
+  background-color: #f6b83d;
+  width: 218px;
+  height: 100%;
+  z-index: 999;
+  top: 0;
+  right: 0;
+  transition: visibility 1000ms ease-in-out;
+}
+
+.menuHome {
+  background-color: #fff;
+  position: fixed;
+  width: 218px;
+  height: 100%;
+  z-index: 999;
+  top: 0;
+  right: 0;
+  transition: visibility 250ms ease-in-out;
+}
+
+.iconWrap {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    stroke: #fff;
+}
+
+.iconHome {
+    stroke: #000000;
+    fill: #000000;
+}
+
+.button {
+    background-color: #F6B83D;
+    padding: 15px 20px;
+    border: 1px solid #ffff;
+    border-radius: 30px;
+    color: #ffff;
+    letter-spacing: 0.03em;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    font-weight: 700;
+    line-height: 125%;
+    text-transform: uppercase;
+    transition: all 250ms ease;
+}
+
+.button:hover,
+.button:active {
+    background-color: #fff4df;
+    color: #f6b83d;
+}

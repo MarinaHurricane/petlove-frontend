@@ -1,9 +1,15 @@
 import css from './Pet.module.css';
 import { Icon } from '../Icon/Icon';
 import { Button } from '../Button/Button';
+import { useAuthStore } from '../../lib/store/authStore';
 
 
 export const Pet = ({ pet, onPetClick, onFavClick, variant, onFavoriteDelete }) => {
+  const {user} = useAuthStore();
+  // const favorite = user.favorites.includes(pet._id);
+  // const viewed = user.viewed.includes(pet._id);
+
+  // const general = !favorite && !viewed;
   return (
     <li className={css.pet}>
       <div className={css.petContainer}>
@@ -42,9 +48,14 @@ export const Pet = ({ pet, onPetClick, onFavClick, variant, onFavoriteDelete }) 
           </button> : variant === "favorites" ?  <button className={css.addFavourite} onClick={() => onFavoriteDelete(pet._id)}>
             <Icon name="icon-trash" className={css.icon} />
           </button> : ""}
-         
-         
         </div>
+           {/* <div className={css.moreInfo}>
+          <Button onClick={() => onPetClick(pet)} >Learn more</Button>
+          {general ?  <button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
+            <Icon name="icon-heart" className={css.icon} /></button> : favorite ?  <button className={css.addFavourite} onClick={() => onFavoriteDelete(pet._id)}>
+            <Icon name="icon-trash" className={css.icon} />
+          </button> : ""}
+        </div> */}
       </div>
     </li>
   );

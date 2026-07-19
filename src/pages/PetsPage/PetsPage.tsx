@@ -25,7 +25,7 @@ import { FavoritesModal } from "../../components/FavoritesModal/FavoritesModal";
 import { viewedPets } from "../../lib/api/user";
 
 export const PetsPage = () => {
-  const { user, isAuthenticated } = useAuthStore();
+  const { user } = useAuthStore();
   const setUser = useAuthStore((state) => state.setUser);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
@@ -40,7 +40,7 @@ export const PetsPage = () => {
   const [favorite, setFavorite] = useState([]);
   const [addFavoriteModalOpen, setaddFavoriteModalOpen] = useState(false);
 
-  console.log("AUTH STORE:", isAuthenticated, user);
+  // console.log("AUTH STORE:", isAuthenticated, user);
 
   const handleOpenModal = () => setIsopen(true);
   // const handleCloseModal = () => setIsopen(false);
@@ -57,7 +57,7 @@ export const PetsPage = () => {
   };
 
   const handlePetClick = (pet) => {
-    if (isAuthenticated) {
+    if (user) {
       setSelectedPet(pet);
       // setModalType("petDModal");
       console.log(selectedPet);
@@ -67,7 +67,7 @@ export const PetsPage = () => {
   };
 
   const handleAddToFavorites = async (petId) => {
-    if (isAuthenticated) {
+    if (user) {
       const updatedUser = await addFavoritePet(petId);
       setFavorite((fav) => [...fav, petId]);
       setaddFavoriteModalOpen(true);
@@ -250,7 +250,7 @@ export const PetsPage = () => {
 
       {selectedPet && (
         <Modal onClose={handleCloseModal}>
-          <PetModalInfo pet={selectedPet} />
+          <PetModalInfo pet={selectedPet} variant="generalList"/>
         </Modal>
       )}
 

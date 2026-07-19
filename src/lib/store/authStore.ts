@@ -9,6 +9,7 @@ type User = {
   avatar: string;
   favorites: string[];
   ownPets: string[];
+  viewed: string[];
 };
 
 type AuthStore = {

@@ -34,6 +34,28 @@
     .navList {
         display: flex;
     }
+
+    .avatar {
+           display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    }
+
+    .userInfo {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .userName {
+        /* font-family: var(--font-family); */
+font-weight: 700;
+font-size: 20px;
+line-height: 100%;
+letter-spacing: -0.03em;
+color: #262626;
+    }
     
 }
 
