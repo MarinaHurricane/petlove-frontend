@@ -6,7 +6,10 @@ import { Modal } from "../../components/Modal/Modal";
 import { ModalEditUser } from "../../components/ModalEditUser/ModalEditUser";
 import { PetsList } from "../../components/PetList/PetList";
 import { Button } from "../../components/Button/Button";
-import { getUserInfo, removePetFromFavorites } from "../../lib/api/user";
+import {
+  getUserInfo,
+  removePetFromFavorites,
+} from "../../lib/api/user";
 import {
   QueryClient,
   useMutation,
@@ -18,6 +21,7 @@ import { AddPetModal } from "../../components/AddPetModal/AddPetModal";
 import { UserPet } from "../../components/UserPet/UserPet";
 import { useNavigate } from "react-router-dom";
 import { deleteUserPet } from "../../lib/api/userPet";
+import { ModalApproveAction } from "../../components/ModalApproveAction/ModalApproveAction";
 
 export const ProfilePage = () => {
   const { user, isAuthenticated } = useAuthStore();
@@ -28,6 +32,7 @@ export const ProfilePage = () => {
   const [mode, setMode] = useState("favorites");
   const [isAddPetModalOpen, setIsAddPetModalOpen] = useState(false);
   const [error, setError] = useState("");
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -37,6 +42,8 @@ export const ProfilePage = () => {
 
   const openAddPetModalOpen = () => setIsAddPetModalOpen(true);
   const closeAddPetModalOpen = () => setIsAddPetModalOpen(false);
+
+  const closeIsLogoutModalOpen = () => setIsLogoutModalOpen(false);
 
   const handleSelectedPet = (pet) => {
     setSelectedPet(pet);
@@ -80,11 +87,12 @@ export const ProfilePage = () => {
     mutationFn: removePetFromFavorites,
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: ["user"]
+        queryKey: ["user"],
       });
       setUser(data);
-    }
-  })
+    },
+  });
+
 
   return (
     <>
@@ -116,6 +124,10 @@ export const ProfilePage = () => {
         />
       ))}
 
+         <Button variant="secondary" onClick={() => setIsLogoutModalOpen(true)}>LOG OUT</Button>
+      {isLogoutModalOpen && <Modal onClose={closeIsLogoutModalOpen}>
+        <ModalApproveAction onClose={closeIsLogoutModalOpen}/></Modal>}
+
       <Button onClick={handleToggle}>My favorite pets</Button>
       <Button onClick={handleToggle}>Viewed</Button>
 
@@ -126,7 +138,7 @@ export const ProfilePage = () => {
           variant="favorites"
           onFavoriteDelete={(pet) => {
             console.log(pet);
-            favoritesMutation.mutate(pet)
+            favoritesMutation.mutate(pet);
           }}
         />
       ) : (
@@ -136,6 +148,9 @@ export const ProfilePage = () => {
           variant="viewed"
         />
       )}
+
+   
+
       {selectedPet && (
         <Modal onClose={handleClosePetModal}>
           {mode === "favorites" ? (

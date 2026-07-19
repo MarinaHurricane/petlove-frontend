@@ -22,6 +22,8 @@ export const editUserAvatar = async (file) => {
   }
 };
 
+
+
 export const updateProfile = async (editData) => {
   try {
     const { data } = await api.patch("/user/me", editData);
