@@ -16,7 +16,7 @@ type PetBlockProps = {
 
 export const PetBlock = ({images, alt}: PetBlockProps) => {
     return (
-        <div className={css.PetBlock}>
+        <div className={css.petBlock}>
             <picture>
                 <source 
                 media="(min-width: 1280px)"

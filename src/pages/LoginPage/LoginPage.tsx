@@ -26,9 +26,9 @@ export const LoginPage = () => {
         <>
         <PetBlock images={loginImages} alt="dog on the orange background"/>
         <Title>Log in</Title>
-        <p className={css.registerParagraph}>Welcome! Please enter your credentials to login to the platform:</p>
+        <p className={css.loginParagraph}>Welcome! Please enter your credentials to login to the platform:</p>
         <LoginForm/>
-        <p className={css.loginParagraph}>Don’t have an account? <span className={css.registerLink}><Link to="/register">Register</Link></span></p>
+        <p className={css.noticearagraph}>Don’t have an account? <span className={css.registerLink}><Link to="/register">Register</Link></span></p>
         </>
     )
     
