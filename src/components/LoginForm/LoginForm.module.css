@@ -1,83 +1,99 @@
 .loginForm {
-    display: flex;
-    flex-direction: column;
-    gap: 38px;
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
 }
 
 .formFields {
-       display: flex;
-    flex-direction: column;
-    gap: 20px;
-
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .field {
-   border: 1px solid rgba(38, 38, 38, 0.15);
-border-radius: 30px;
-padding: 12px 222px 12px 12px;
-width: 100%;
-height: 42px;
-margin: 0 auto;
-margin-bottom: 2px;
-position: relative;
-
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  padding: 12px 222px 12px 12px;
+  width: 100%;
+  height: 42px;
+  margin: 0 auto;
+  margin-bottom: 2px;
+  position: relative;
 }
 
 .errorField {
-    border: 1px solid #ef2447;
-border-radius: 30px;
-padding: 12px 155px 12px 12px;
-width: 295px;
-height: 42px;
+  border: 1px solid #ef2447;
+  border-radius: 30px;
+  padding: 12px 155px 12px 12px;
+  width: 100%;
+  height: 42px;
+}
+
+.check {
+    border: 1px solid #08aa83;
+}
+
+.iconCheck {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    position: absolute;
+      top: 13px;
+  right: 16px;
+}
+
+.iconPasswordCheck {
+     width: 18px;
+    height: 18px;
+    fill: none;
+    position: absolute;
+      top: 13px;
+  right: 38px;
+}
+
+.passwordCorrect {
+    color: #08aa83;
+    margin-left: 12px;
+
 }
 
 .button {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .error {
-    font-family: var(--font-family);
-font-weight: 500;
-font-size: 10px;
-line-height: 120%;
-letter-spacing: -0.03em;
-color: #ef2447;
-margin-left: 12px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 120%;
+  letter-spacing: -0.03em;
+  color: #ef2447;
+  margin-left: 12px;
 }
 
 .icon {
-   width: 18px;
+  width: 18px;
   height: 18px;
   fill: none;
-
 }
 
 .clearButton {
-  stroke: black;
+  stroke: #ef2447;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
- width: 18px;
-  height: 18px; 
+  width: 18px;
+  height: 18px;
   border: none;
   background-color: inherit;
   position: absolute;
-  top: 14px;
-  right: 56px;
-  /* margin-top: auto;
-  margin-bottom: auto; */
-
+  top: 13px;
+  right: 16px;
 }
 
 .emailPassword {
-    position: relative;
-    /* display: inline-flex; */
-    width: 100%;
-height: 42px;
-/* display: flex;
-flex-direction: column; */
-/* justify-content: center; */
-
-
+  position: relative;
+  width: 100%;
+  height: 42px;
 }
