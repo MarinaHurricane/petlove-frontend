@@ -5,7 +5,7 @@
     gap: 10px;
 }
 
-.button {
+/* .button {
     background-color: #F6B83D;
     padding: 15px 20px;
     border: 1px solid #ffff;
@@ -28,7 +28,7 @@
 .button:active {
     background-color: #fff4df;
     color: #f6b83d;
-}
+} */
 
 @media screen and (min-width: 768px){
     .navList {

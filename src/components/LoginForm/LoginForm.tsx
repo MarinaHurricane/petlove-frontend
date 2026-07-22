@@ -67,10 +67,10 @@ export const LoginForm = () => {
     name: "email",
   });
 
-   const password = useWatch({
+  const password = useWatch({
     control,
     name: "password",
-  })
+  });
 
   return (
     <form className={css.loginForm} onSubmit={handleSubmit(onSubmit)}>

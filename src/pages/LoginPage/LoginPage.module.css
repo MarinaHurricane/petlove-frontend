@@ -24,3 +24,47 @@ text-decoration: underline;
 text-decoration-skip-ink: none;
 color: #f6b83d;
 }
+
+.formWrapper {
+    padding: 60px 20px;
+}
+
+@media screen and (min-width:768px) {
+    .loginParagraph {
+        font-size: 18px;
+        line-height: 122%;
+    }
+
+    .formWrapper {
+    padding: 71px 140px;
+}
+
+.noticearagraph {
+    font-size: 14px;
+    line-height: 143%;
+}
+}
+
+@media  screen and (min-width:1280px) {
+    .loginPageWrapper {
+        display: flex;
+        gap: 32px;
+        margin-top: 32px;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .formWrapper {
+    padding: 84px 118px;
+}
+
+.noticearagraph {
+    line-height: 143%;
+}
+
+/* .formWrapper {
+    margin-top: 32px;
+} */
+
+    
+}

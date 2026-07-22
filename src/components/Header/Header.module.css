@@ -37,10 +37,10 @@
 }
 
 .mobileHeaderAuth {
-    display: block;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 @media screen and (min-width: 768px) {
@@ -51,6 +51,11 @@
 
   .mobileHeaderAuth {
     display: none;
+  }
+
+  .menu {
+    width: 36px;
+    height: 36px;
   }
 }
 

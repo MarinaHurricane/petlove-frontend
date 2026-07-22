@@ -14,7 +14,7 @@ export const AuthNav = () => {
             <Button>LOG OUT</Button>
           ) : (
             <NavLink to="/login">
-              <button className={css.button}>LOG IN</button>
+              <Button className={css.button}>LOG IN</Button>
             </NavLink>
           )}
         </li>
@@ -27,7 +27,7 @@ export const AuthNav = () => {
             </div>
           ) : (
             <NavLink to="/register">
-              <button className={css.button}>REGISTRATION</button>
+              <Button className={css.button}>REGISTRATION</Button>
             </NavLink>
           )}{" "}
         </li>

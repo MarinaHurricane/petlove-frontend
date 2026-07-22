@@ -23,13 +23,15 @@ const loginImages = {
 
 export const LoginPage = () => {
     return (
-        <>
+        <div className={css.loginPageWrapper}>
         <PetBlock images={loginImages} alt="dog on the orange background"/>
+        <div className={css.formWrapper}>
         <Title>Log in</Title>
         <p className={css.loginParagraph}>Welcome! Please enter your credentials to login to the platform:</p>
         <LoginForm/>
         <p className={css.noticearagraph}>Don’t have an account? <span className={css.registerLink}><Link to="/register">Register</Link></span></p>
-        </>
+        </div>
+        </div>
     )
     
 }
