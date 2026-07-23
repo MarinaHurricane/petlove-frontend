@@ -10,6 +10,9 @@ import registerTablet1x from '../../assets/register-tablet-1x.png';
 import registerTablet2x from '../../assets/register-tablet-2x.png';
 import registerDesktop1x from '../../assets/register-desktop-1x.png';
 import registerDesktop2x from '../../assets/register-desktop-2x.png';
+import { useQuery } from '@tanstack/react-query';
+import { getRandomPet } from '../../lib/api/petsPage';
+import { FeauturedPetCard } from '../../components/FeaturedPetCard/FeaturedPetCard';
 
 
 const registerImages = {
@@ -21,15 +24,22 @@ const registerImages = {
   desktop2x: registerDesktop2x,
 };
 
+
+
 export const RegisterPage = () => {
     return (
-        <>
-        <PetBlock images={registerImages} alt ="cat on the orange background"/>
+      
+         <div className={css.registerPageWrapper}>
+        <PetBlock species="cat" images={registerImages} alt ="cat on the orange background"/>
+         
+         <div className={css.formWrapper}>
         <Title>Registration</Title>
         <p className={css.registerParagraph}>Thank you for your interest in our platform.</p>
         <RegisterForm/>
-        <p className={css.message}>Already have an account? <span className={css.link}><Link to="/login">Login</Link></span></p>
-        </>
+        <p className={css.noticearagraph}>Already have an account? <span className={css.link}><Link to="/login">Login</Link></span></p>
+        </div>
+        </div>
+      
     )
     
 }

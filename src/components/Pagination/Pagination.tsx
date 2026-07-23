@@ -3,9 +3,6 @@ import { useMediaQuery } from "react-responsive";
 import { getVisiblePages } from '../../sevices/pagination';
 
 
-
-
-
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -24,11 +21,11 @@ const pages = getVisiblePages(currentPage, totalPages, visiblePages);
     const isLastPage = currentPage === totalPages;
 
     return (
-        <div>
-            <button disabled={isFirstPage} onClick={() => onPageChange(1)}>
+        <div className={css.pagination}>
+            <button disabled={isFirstPage} onClick={() => onPageChange(1)} className={css.arrows}>
                         {'<<'}
             </button>
-            <button disabled={isFirstPage} onClick={() => onPageChange(currentPage - 1)}>
+            <button disabled={isFirstPage} onClick={() => onPageChange(currentPage - 1)} className={css.arrows}>
                 {'<'}
             </button>
             {pages[0] > 1 && <span>...</span>}
@@ -37,7 +34,7 @@ const pages = getVisiblePages(currentPage, totalPages, visiblePages);
                 <button
                 key={page}
                 onClick={() => onPageChange(page)}
-                className={page === currentPage ? "active" : ""}
+                className={`${css.arrows} ${page === currentPage ? css.active : css.arrows}`}
                 >
                 {page}
 
@@ -45,12 +42,12 @@ const pages = getVisiblePages(currentPage, totalPages, visiblePages);
             ))}
 
             {pages[pages.length - 1] < totalPages && (
-                <span>...</span>
+                <span className={css.arrows}>...</span>
             )}
-            <button disabled={isLastPage} onClick={() => onPageChange(currentPage + 1)}>
+            <button disabled={isLastPage} onClick={() => onPageChange(currentPage + 1)} className={css.arrows}>
                  {'>'}
             </button>
-            <button disabled={isLastPage} onClick={() => onPageChange(totalPages)}>
+            <button disabled={isLastPage} onClick={() => onPageChange(totalPages)} className={css.arrows}>
                 {'>>'}
             </button>
         </div>

@@ -77,7 +77,7 @@ export const LoginForm = () => {
       <div className={css.formFields}>
         <div className={css.emailPassword}>
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             className={` ${css.field} ${errors.email && css.errorField} ${dirtyFields.email && email && !errors.email && css.check} `}
             {...register("email")}

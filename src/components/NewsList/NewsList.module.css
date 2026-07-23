@@ -1,0 +1,22 @@
+.newsList {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 44px;
+}
+
+@media screen and (min-width: 768px) {
+    .newsList {
+        flex-direction: row;
+        flex-wrap: wrap;
+        row-gap: 32px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .newsList {
+        row-gap: 40px;
+        column-gap: 35px;
+    }
+    
+}

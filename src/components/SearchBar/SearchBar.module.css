@@ -1,7 +1,7 @@
 .search {
   border: 1px solid rgba(38, 38, 38, 0.15);
 border-radius: 30px;
-padding: 12px 278px 12px 12px;
+padding: 12px;
 width: 335px;
 height: 42px;
 margin-bottom: 24px;
@@ -36,6 +36,7 @@ margin-bottom: 24px;
   position: absolute;
   right: 12px;
   top: 12px;
+  margin: auto 0;
 }
 
 .categoryGender {
@@ -45,4 +46,20 @@ margin-bottom: 24px;
 
 .select {
   display: inline-block;
+}
+
+@media screen and (min-width: 768px) {
+  .search {
+    width: 230px;
+    height: 48px;
+  }
+
+  .buttons {
+    top: 15px;
+    right: 15px;
+  }
+
+  input::placeholder {
+    font-size: 16px;
+  }
 }

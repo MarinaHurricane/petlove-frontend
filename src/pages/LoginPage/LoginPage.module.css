@@ -1,70 +1,65 @@
 .loginParagraph {
-    font-family: var(--font-family);
-font-weight: 500;
-font-size: 14px;
-line-height: 129%;
-letter-spacing: -0.02em;
-color: #262626;
-margin-bottom: 24px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: #262626;
+  margin-top: 14px;
+  margin-bottom: 24px;
 }
 
 .noticearagraph {
-    font-family: var(--font-family);
-font-weight: 500;
-font-size: 12px;
-line-height: 117%;
-letter-spacing: -0.03em;
-color: rgba(38, 38, 38, 0.5);
-text-align: center;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 117%;
+  letter-spacing: -0.03em;
+  color: rgba(38, 38, 38, 0.5);
+  text-align: center;
 }
 
-.registerLink {
-    font-weight: 700;
-text-decoration: underline;
-text-decoration-skip-ink: none;
-color: #f6b83d;
+.link {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #f6b83d;
 }
 
 .formWrapper {
-    padding: 60px 20px;
+  padding: 60px 20px;
 }
 
-@media screen and (min-width:768px) {
-    .loginParagraph {
-        font-size: 18px;
-        line-height: 122%;
-    }
+@media screen and (min-width: 768px) {
+  .loginParagraph {
+    font-size: 18px;
+    line-height: 122%;
+  }
 
-    .formWrapper {
+  .formWrapper {
     padding: 71px 140px;
-}
+  }
 
-.noticearagraph {
+  .noticearagraph {
     font-size: 14px;
     line-height: 143%;
-}
-}
-
-@media  screen and (min-width:1280px) {
-    .loginPageWrapper {
-        display: flex;
-        gap: 32px;
-        margin-top: 32px;
-        justify-content: center;
-        align-items: center;
-    }
-
-        .formWrapper {
-    padding: 84px 118px;
+  }
 }
 
-.noticearagraph {
-    line-height: 143%;
-}
-
-/* .formWrapper {
+@media screen and (min-width: 1280px) {
+  .loginPageWrapper {
+    display: flex;
+    gap: 32px;
     margin-top: 32px;
-} */
+    justify-content: center;
+    align-items: center;
+  }
 
-    
+  .formWrapper {
+    padding: 84px 118px;
+  }
+
+  .noticearagraph {
+    line-height: 143%;
+  }
 }

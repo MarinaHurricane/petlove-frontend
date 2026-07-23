@@ -8,6 +8,7 @@ export const getPets = async (
   city?,
   sort?,
   page,
+  perPage?
 ) => {
   const { data } = await api.get("/pets", {
     params: {
@@ -17,6 +18,7 @@ export const getPets = async (
       location: city?.value,
       sort,
       page,
+      perPage
     },
   });
   console.log(data);
@@ -77,3 +79,9 @@ export const addOwnPet = async(petData) => {
   const { data } = await api.post("/pets", petData);
   return data;
 }
+
+export const getRandomPet = async(species) => {
+  const {data} = await api.get(`/pets/random/${species}`);
+  return data;
+}
+
