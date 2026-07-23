@@ -1,0 +1,13 @@
+.friendsList {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+}
+@media screen and (min-width: 768px) {
+    .friendsList {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}

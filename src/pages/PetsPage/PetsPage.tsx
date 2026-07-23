@@ -23,6 +23,62 @@ import { LoginModal } from "../../components/LoginModal/LoginModal";
 import { addFavoritePet } from "../../lib/api/petsPage";
 import { FavoritesModal } from "../../components/FavoritesModal/FavoritesModal";
 import { viewedPets } from "../../lib/api/user";
+import { Icon } from "../../components/Icon/Icon";
+import { Button } from "../../components/Button/Button";
+
+const selectStyles = {
+  control: (base, state) => ({
+    ...base,
+    minHeight: "42px",
+    border: "none",
+    borderRadius: "0",
+    boxShadow: "none",
+    backgroundColor: "transparent",
+    cursor: "pointer",
+    display: "flex",
+  }),
+
+  placeholder: (base) => ({
+    ...base,
+    color: "#111",
+  }),
+
+  singleValue: (base) => ({
+    ...base,
+    color: "#111",
+  }),
+
+  indicatorSeparator: () => ({
+    display: "none",
+  }),
+
+  dropdownIndicator: (base) => ({
+    ...base,
+    color: "#111",
+    padding: "auto",
+  }),
+
+  menu: (base) => ({
+    ...base,
+    borderRadius: "8px",
+    overflow: "hidden",
+  }),
+
+  option: (base, state) => ({
+    ...base,
+    backgroundColor: state.isFocused ? "#f2f2f2" : "white",
+    color: "#111",
+    cursor: "pointer",
+  }),
+};
+
+const asyncStyles = {
+    dropdownIndicator: (base) => ({
+    ...base,
+   display: "none",
+  }),
+
+}
 
 export const PetsPage = () => {
   const { user } = useAuthStore();
@@ -139,94 +195,122 @@ export const PetsPage = () => {
   console.log(selectedPet);
 
   return (
-    <>
+    <section className={css.petsPage}>
       <Title>Find your favorite pet</Title>
 
-      <SearchBar onSearch={handleSearch} />
-      <form className={css.filtersForm}>
-        <div className={css.categoryGender}>
+      <div className={css.formWrapper}>
+        <SearchBar onSearch={handleSearch} />
+        <form className={css.filtersForm}>
+          <div className={css.categoryGender}>
+            <Select
+              className={css.select}
+              options={categoryOptions}
+              placeholder="Category"
+              value={
+                categoryOptions?.find((option) => option?.value === category) ||
+                null
+              }
+              onChange={(option) => setCategory(option?.value || null)}
+              styles={selectStyles}
+            />
+            <Select
+              className={css.select}
+              options={genderOptions}
+              placeholder="By gender"
+              value={
+                genderOptions?.find((option) => option?.value === gender) ||
+                null
+              }
+              onChange={(option) => setGender(option?.value || null)}
+               styles={selectStyles}
+            />
+          </div>
           <Select
             className={css.select}
-            options={categoryOptions}
-            placeholder="Category"
+            options={speciesOptions}
+            placeholder="By type"
             value={
-              categoryOptions?.find((option) => option?.value === category) ||
+              speciesOptions?.find((option) => option?.value === species) ||
               null
             }
-            onChange={(option) => setCategory(option?.value || null)}
+            onChange={(option) => setSpecies(option?.value || null)}
+             styles={selectStyles}
           />
-          <Select
-            className={css.select}
-            options={genderOptions}
-            placeholder="By gender"
-            value={
-              genderOptions?.find((option) => option?.value === gender) || null
-            }
-            onChange={(option) => setGender(option?.value || null)}
-          />
-        </div>
-        <Select
+          <div className={css.locationWrapper}>
+          <AsyncSelect
           className={css.select}
-          options={speciesOptions}
-          placeholder="By type"
-          value={
-            speciesOptions?.find((option) => option?.value === species) || null
-          }
-          onChange={(option) => setSpecies(option?.value || null)}
-        />
-        <AsyncSelect
-          cacheOptions
-          defaultOptions
-          loadOptions={getCities}
-          value={city}
-          // onChange={(city) => setCity(city?.value || null)}
-          onChange={setCity}
-          placeholder="Available locations..."
-          isClearable
-        />
+            cacheOptions
+            defaultOptions
+            loadOptions={getCities}
+            value={city}
+            // onChange={(city) => setCity(city?.value || null)}
+            onChange={setCity}
+            placeholder="Available locations..."
+            isClearable
+             styles={{
+              ...selectStyles,
+            ...asyncStyles}}
+          />
+            <Icon name="icon-search" className={css.iconSearch}/>
+          </div>
 
-        <label>
-          <input
-            type="radio"
-            name="sort"
-            value="popular"
-            checked={sort === "popular"}
-            onChange={(e) => setSort(e.target.value || null)}
-          />
-          Popular
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="sort"
-            value="unpopular"
-            checked={sort === "unpopular"}
-            onChange={(e) => setSort(e.target.value || null)}
-          />
-          Unpopular
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="sort"
-            value="expensive"
-            checked={sort === "expensive"}
-            onChange={(e) => setSort(e.target.value || null)}
-          />
-          Expensive
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="sort"
-            value="cheap"
-            checked={sort === "cheap"}
-            onChange={(e) => setSort(e.target.value || null)}
-          />
-          Cheap
-        </label>
-      </form>
-      <button onClick={handleReset}>Reset search</button>
+          <div className={css.radioWrapper}>
+        
+
+          <label className={css.radioButton}>
+            <input
+              type="radio"
+              name="sort"
+              value="popular"
+              checked={sort === "popular"}
+              onChange={(e) => setSort(e.target.value || null)}
+              hidden
+            />
+           {/* <button className={css.radioButton}>Popular</button> */}
+           Popular
+          </label>
+          <label className={css.radioButton}>
+            <input
+              type="radio"
+              name="sort"
+              value="unpopular"
+              checked={sort === "unpopular"}
+              onChange={(e) => setSort(e.target.value || null)}
+              hidden
+            />
+            {/* <button className={css.radioButton}>Unpopular</button> */}
+            Unpopular
+            
+          </label>
+          <label className={css.radioButton}>
+            <input
+              type="radio"
+              name="sort"
+              value="expensive"
+              checked={sort === "expensive"}
+              onChange={(e) => setSort(e.target.value || null)}
+              hidden
+            />
+           {/* <button className={css.radioButton}>Expensive</button> */}
+           Expensive
+          </label>
+          <label className={css.radioButton}>
+            <input
+              type="radio"
+              name="sort"
+              value="cheap"
+              checked={sort === "cheap"}
+              onChange={(e) => setSort(e.target.value || null)}
+              hidden
+            />
+            {/* <button className={css.radioButton}>Cheap</button> */}
+            Cheap
+          </label>
+           <Button onClick={handleReset}>Reset search</Button>
+          </div>
+        </form>
+       
+      </div>
       <PetsList
         pets={pets}
         onPetClick={handlePetClick}
@@ -250,7 +334,7 @@ export const PetsPage = () => {
 
       {selectedPet && (
         <Modal onClose={handleCloseModal}>
-          <PetModalInfo pet={selectedPet} variant="generalList"/>
+          <PetModalInfo pet={selectedPet} variant="generalList" />
         </Modal>
       )}
 
@@ -271,6 +355,6 @@ export const PetsPage = () => {
         totalPages={totalPages}
         onPageChange={setPage}
       />
-    </>
+    </section>
   );
 };

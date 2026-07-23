@@ -14,32 +14,39 @@ export const Pet = ({ pet, onPetClick, onFavClick, variant, onFavoriteDelete }) 
     <li className={css.pet}>
       <div className={css.petContainer}>
         <img src={pet.imgURL} alt={pet.species} width={287} height={238} className={css.image}/>
-        <h3>{pet.title}</h3>
+        <div className={css.titleRatingWrapper}>
+        <h3 className={css.petTitle}>{pet.title}</h3>
+        <div className={css.rating}>
+        <Icon name="icon-star" className={css.ratingIcon}/>
+        <span>{pet.popularity}</span>
+        </div>
+        </div>
         <dl className={css.petData}>
           <div className={css.petSubData}>
-            <dt>Name</dt>
-            <dd>{pet.name}</dd>
+            <dt className={css.data}>Name</dt>
+            <dd className={css.info}>{pet.name}</dd>
           </div>
           <div className={css.petSubData}>
-            <dt>Birthday</dt>
-            <dd>{new Date(pet.birthday).toLocaleDateString("en-GB")}</dd>
+            <dt className={css.data}>Birthday</dt>
+            <dd className={css.info}>{new Date(pet.birthday).toLocaleDateString("en-GB")}</dd>
           </div>
           <div className={css.petSubData}>
-            <dt>Gender</dt>
-            <dd>{pet.gender}</dd>
+            <dt className={css.data}>Gender</dt>
+            <dd className={css.info}>{pet.gender}</dd>
           </div>
           <div className={css.petSubData}>
-            <dt>Species</dt>
-            <dd>{pet.species}</dd>
+            <dt className={css.data}>Species</dt>
+            <dd className={css.info}>{pet.species}</dd>
           </div>
           <div className={css.petSubData}>
-            <dt>Category</dt>
-            <dd>{pet.category}</dd>
+            <dt className={css.data}>Category</dt>
+            <dd className={css.info}>{pet.category}</dd>
           </div>
         </dl>
 
-        <p className={pet.comment}>{pet.comment}</p>
-        <p className={css.price}>{pet.price}</p>
+        <p className={css.comment}>{pet.comment}</p>
+        {pet?.price &&   <p className={css.price}>{`$ ${pet.price}`}</p>}
+      
 
         <div className={css.moreInfo}>
           <Button onClick={() => onPetClick(pet)} >Learn more</Button>

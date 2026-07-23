@@ -17,6 +17,7 @@
   letter-spacing: -0.03em;
   color: rgba(38, 38, 38, 0.5);
   text-align: center;
+  margin-top: 12px;
 }
 
 .link {
@@ -28,6 +29,8 @@
 
 .formWrapper {
   padding: 60px 20px;
+  border-radius: 30px;
+  background-color: #fff;
 }
 
 @media screen and (min-width: 768px) {
@@ -38,11 +41,13 @@
 
   .formWrapper {
     padding: 71px 140px;
+    border-radius: 60px;
   }
 
   .noticearagraph {
     font-size: 14px;
     line-height: 143%;
+    margin-top: 16px;
   }
 }
 

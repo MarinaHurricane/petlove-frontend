@@ -1,5 +1,5 @@
 .registerParagraph {
-      font-family: var(--font-family);
+  font-family: var(--font-family);
   font-weight: 500;
   font-size: 14px;
   line-height: 129%;
@@ -11,6 +11,8 @@
 
 .formWrapper {
   padding: 60px 20px;
+  border-radius: 30px;
+  background-color: #fff;
 }
 
 .noticearagraph {
@@ -21,6 +23,7 @@
   letter-spacing: -0.03em;
   color: rgba(38, 38, 38, 0.5);
   text-align: center;
+  margin-top: 12px;
 }
 
 .link {
@@ -30,23 +33,21 @@
   color: #f6b83d;
 }
 
-
-
-
-
 @media screen and (min-width: 768px) {
   .loginParagraph {
     font-size: 18px;
     line-height: 122%;
   }
 
-    .formWrapper {
+  .formWrapper {
     padding: 71px 140px;
+    border-radius: 60px;
   }
 
-    .noticearagraph {
+  .noticearagraph {
     font-size: 14px;
     line-height: 143%;
+    margin-top: 16px;
   }
 }
 
@@ -59,11 +60,11 @@
     align-items: center;
   }
 
-    .formWrapper {
+  .formWrapper {
     padding: 84px 118px;
   }
 
-    .noticearagraph {
+  .noticearagraph {
     line-height: 143%;
   }
 }

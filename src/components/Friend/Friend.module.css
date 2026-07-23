@@ -1,0 +1,97 @@
+.friendItem {
+    display: flex;
+    gap: 14px;
+    padding: 40px 20px;
+    position: relative;
+    /* background-color: rgb(38, 38, 38, 1%); */
+    background-color: #fff;
+    border-radius: 15px;
+}
+
+.openTime {
+font-weight: 500;
+font-size: 12px;
+line-height: 133%;
+letter-spacing: -0.02em;
+color: #f6b83d;
+
+}
+
+.openTimeWrapper {
+    border-radius: 30px;
+padding: 8px;
+width: 90px;
+height: 26px;
+background-color: #fff4df;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageWrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.friendName {
+font-weight: 700;
+font-size: 16px;
+line-height: 125%;
+letter-spacing: -0.04em;
+color: #262626;
+margin-bottom: 14px;
+}
+
+.friendInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+}
+
+.data {
+font-weight: 500;
+font-size: 14px;
+line-height: 129%;
+letter-spacing: -0.02em;
+color: rgba(38, 38, 38, 0.5);
+} 
+
+.info {
+font-weight: 500;
+font-size: 14px;
+line-height: 129%;
+letter-spacing: -0.02em;
+color: #262626;
+}
+
+@media screen and (min-width: 768px) {
+    .friendItem {
+        flex-basis: calc((100% - 20px) / 2);
+        max-width: 342px;
+        gap: 16px;
+    }
+
+    .friendName {
+        font-size: 20px;
+line-height: 130%;
+
+
+    }
+
+    .imageWrapper {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .friendItem {
+        gap: 20px;
+    }
+}
