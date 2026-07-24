@@ -1,70 +1,140 @@
 .petsPage {
-    padding: 50px 0px 88px 0px;
+  padding: 50px 0px 88px 0px;
 }
 
 .formWrapper {
-    margin-top: 40px;
-    margin-bottom: 40px;
-    padding: 20px;
-    border-radius: 30px;
-    background-color: #FFF4DF;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 20px;
+  border-radius: 30px;
+  background-color: #fff4df;
+  display: flex;
+  flex-direction: column;
 }
 
 .categoryGender {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  gap: 8px;
+  /* width: 100%; */
+  margin: 0 auto;
+  justify-content: space-between;
 }
 
 .select {
-    border-radius: 30px;
-padding: 0px 12px;
-height: 42px;
-background-color: #fff;
-/* display: flex; */
-align-items: center;
-position: relative;
+  border-radius: 30px;
+  padding: 0px 12px;
+  height: 42px;
+  background-color: #fff;
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
 
+.petSearch {
+  width: 295px;
+  position: relative;
+  margin-bottom: 0;
 }
 
 .iconSearch {
-    fill: none;
-    width: 18px;
-    height: 18px;
-    position: absolute;
-    top: 12px;
-    right: 12px;
+  fill: none;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
 }
 
 .locationWrapper {
-    position: relative;
+  position: relative;
 }
 
 .filtersForm {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .radioButton {
-    border-radius: 30px;
-padding: 12px;
-width: 90px;
-height: 42px;
-background-color: #fff;
-border: none;
-font-weight: 500;
-font-size: 14px;
-line-height: 129%;
-letter-spacing: -0.03em;
-color: #262626;
-display: flex;
-justify-content: center;
-align-items: center;
+  border-radius: 30px;
+  padding: 12px;
+  /* width: 90px;
+  height: 42px; */
+  background-color: #fff;
+  border: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: #262626;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.active {
+  border: 3px solid #f6b83d;
 }
 
 .radioWrapper {
-    display: flex;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+  .petsPage {
+    padding: 85px 0px 88px 0px;
+  }
+
+  .formWrapper {
+    margin-top: 44px;
+    margin-bottom: 32px;
+    padding: 40px 32px;
+    /* flex-direction: row;
+        flex-wrap: wrap; */
+  }
+
+  .petSearch {
+    width: 265px;
+  }
+
+  .select {
+    min-width: 170px;
+    height: 48px;
+  }
+
+  .locationWrapper {
+    max-width: 190px;
+  }
+
+  .categoryGender {
+    gap: 16px;
+    margin: 0;
+  }
+
+  .filtersForm {
+    flex-direction: row;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 16px;
+  }
+
+  .iconSearch {
+    top: 15px;
+    right: 15px;
+  }
+
+  .radioButton {
+    padding: 14px;
+    font-size: 16px;
+    line-height: 125%;
+  }
+}
+
+@media screen and (min-width:1280px) {
+   .petsPage {
+    padding: 96px 0px 80px 0px;
+  }
 }

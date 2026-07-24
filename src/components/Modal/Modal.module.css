@@ -13,11 +13,13 @@
 
 .modal {
   position: relative;
+  width: 335px;
   max-width: 90vw;
   max-height: 90vh;
   border-radius: 8px;
   background-color: #fff;
-  padding: 24px;
+  border-radius: 30px;
+  /* padding: 24px; */
 }
 
 .closeButton {
@@ -26,18 +28,25 @@
   right: 8px;
   background: #fff;
   border: none;
+  outline: none;
   border-radius: 4px;
   width: 32px;
   height: 32px;
   font-size: 20px;
   line-height: 0;
   color: #333;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+  /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25); */
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  stroke: #000000;
 }
 
 .closeButton:hover {
@@ -46,5 +55,21 @@
 
 .closeButton:focus {
   outline: 2px solid #007bff;
+}
+
+@media screen and (min-width:768px) {
+  .modal {
+    width: 473px;
+  }
+
+  .closeButton {
+    top: 20px;
+    right: 20px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
 }
 

@@ -3,7 +3,7 @@ import { Title } from "../../components/Title/Title";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { useState, useEffect } from "react";
 import Select from "react-select";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import AsyncSelect from "react-select/async";
 import { Pagination } from "../../components/Pagination/Pagination";
 import { PetsList } from "../../components/PetList/PetList";
@@ -25,6 +25,7 @@ import { FavoritesModal } from "../../components/FavoritesModal/FavoritesModal";
 import { viewedPets } from "../../lib/api/user";
 import { Icon } from "../../components/Icon/Icon";
 import { Button } from "../../components/Button/Button";
+import { ValueContainer } from "react-select/animated";
 
 const selectStyles = {
   control: (base, state) => ({
@@ -41,6 +42,15 @@ const selectStyles = {
   placeholder: (base) => ({
     ...base,
     color: "#111",
+    margin: "auto 0",
+    // position: "absolute",
+    // top: "50%",
+    // transform: "translateY(1px)",
+  }),
+
+  valueContainer: (base) => ({
+    ...base,
+    // display: "flex",
   }),
 
   singleValue: (base) => ({
@@ -56,20 +66,46 @@ const selectStyles = {
     ...base,
     color: "#111",
     padding: "auto",
+   
   }),
 
-  menu: (base) => ({
-    ...base,
-    borderRadius: "8px",
+    menu: (provided) => ({
+    ...provided,
+    marginTop: "8px",
+    borderRadius: "20px",
     overflow: "hidden",
+    boxShadow: "0 4px 15px rgba(0, 0, 0, 0.08)",
   }),
 
-  option: (base, state) => ({
-    ...base,
-    backgroundColor: state.isFocused ? "#f2f2f2" : "white",
-    color: "#111",
+  menuList: (provided) => ({
+    ...provided,
+    padding: "12px 0",
+    maxHeight: "250px",
+  }),
+
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: "white",
+
+    color: state.isFocused || state.isSelected ? "#D99B55" : "#333",
+
+    padding: "8px 20px",
     cursor: "pointer",
   }),
+
+  // menu: (base) => ({
+  //   ...base,
+  //   borderRadius: "8px",
+  //   overflow: "hidden",
+    
+  // }),
+
+  // option: (base, state) => ({
+  //   ...base,
+  //   backgroundColor: state.isFocused ? "#f2f2f2" : "white",
+  //   color: "#111",
+  //   cursor: "pointer",
+  // }),
 };
 
 const asyncStyles = {
@@ -147,6 +183,7 @@ export const PetsPage = () => {
   const { data: petsData, isLoading } = useQuery({
     queryKey: ["petsData", category, query, gender, city, sort, page],
     queryFn: () => getPets(category, query, gender, city, sort, page),
+    placeholderData: keepPreviousData,
   });
   console.log(petsData?.pets);
   console.log(gender);
@@ -199,8 +236,9 @@ export const PetsPage = () => {
       <Title>Find your favorite pet</Title>
 
       <div className={css.formWrapper}>
-        <SearchBar onSearch={handleSearch} />
-        <form className={css.filtersForm}>
+         <form className={css.filtersForm}>
+        <SearchBar onSearch={handleSearch} className={css.petSearch}/>
+       
           <div className={css.categoryGender}>
             <Select
               className={css.select}
@@ -245,8 +283,9 @@ export const PetsPage = () => {
             value={city}
             // onChange={(city) => setCity(city?.value || null)}
             onChange={setCity}
-            placeholder="Available locations..."
+            placeholder="Location"
             isClearable
+            loadingMessage={() => "Loading..."}
              styles={{
               ...selectStyles,
             ...asyncStyles}}
@@ -257,7 +296,7 @@ export const PetsPage = () => {
           <div className={css.radioWrapper}>
         
 
-          <label className={css.radioButton}>
+          <label className={sort === "popular" ? `${css.radioButton} ${css.active} `: css.radioButton }>
             <input
               type="radio"
               name="sort"
@@ -269,7 +308,7 @@ export const PetsPage = () => {
            {/* <button className={css.radioButton}>Popular</button> */}
            Popular
           </label>
-          <label className={css.radioButton}>
+          <label className={sort === "unpopular" ? `${css.radioButton} ${css.active} `: css.radioButton }>
             <input
               type="radio"
               name="sort"
@@ -282,7 +321,8 @@ export const PetsPage = () => {
             Unpopular
             
           </label>
-          <label className={css.radioButton}>
+          
+          <label className={sort === "expensive" ? `${css.radioButton} ${css.active} `: css.radioButton }>
             <input
               type="radio"
               name="sort"
@@ -294,7 +334,7 @@ export const PetsPage = () => {
            {/* <button className={css.radioButton}>Expensive</button> */}
            Expensive
           </label>
-          <label className={css.radioButton}>
+          <label className={sort === "cheap" ? `${css.radioButton} ${css.active} `: css.radioButton }>
             <input
               type="radio"
               name="sort"

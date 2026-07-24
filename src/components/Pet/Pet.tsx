@@ -46,6 +46,7 @@ export const Pet = ({ pet, onPetClick, onFavClick, variant, onFavoriteDelete }) 
 
         <p className={css.comment}>{pet.comment}</p>
         {pet?.price &&   <p className={css.price}>{`$ ${pet.price}`}</p>}
+         </div>
       
 
         <div className={css.moreInfo}>
@@ -63,7 +64,7 @@ export const Pet = ({ pet, onPetClick, onFavClick, variant, onFavoriteDelete }) 
             <Icon name="icon-trash" className={css.icon} />
           </button> : ""}
         </div> */}
-      </div>
+     
     </li>
   );
 };
