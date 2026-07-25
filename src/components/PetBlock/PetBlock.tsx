@@ -15,10 +15,11 @@ type PetBlockImages = {
 type PetBlockProps = {
   images: PetBlockImages;
   alt: string;
-  species: "dog"|"cat";
+  species?: "dog"|"cat";
+  mode: "auth" | "addPet"
 };
 
-export const PetBlock = ({images, alt, species}: PetBlockProps) => {
+export const PetBlock = ({images, alt, species, mode}: PetBlockProps) => {
 
      const {data: pet} = useQuery({
     queryKey: ['randomPet', species],
@@ -29,7 +30,8 @@ export const PetBlock = ({images, alt, species}: PetBlockProps) => {
   if(!pet) return null;
     return (
         <div className={css.petBlock}>
-            <FeauturedPetCard pet={pet}/>
+          {mode === "auth" &&  <FeauturedPetCard pet={pet}/>}
+           
             <picture>
                 <source 
                 media="(min-width: 1280px)"

@@ -1,0 +1,47 @@
+.modalWrapper {
+    padding: 40px 28px;  
+}
+
+.imgWrapper {
+    width: 80px;
+    height: 80px;
+    background-color: #FFF4DF;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.paragraph {
+font-weight: 700;
+font-size: 20px;
+line-height: 100%;
+letter-spacing: -0.03em;
+color: #262626;
+text-align: center;
+margin-bottom: 28px;
+}
+
+.buttonsWrapper {
+    display: flex;
+    gap: 8px;
+}
+
+.cancelBtn {
+    background-color: #fff;
+    color: #262626;
+    flex: 0 0 50%;
+      background-color: rgb(38, 38, 38, 5%);
+}
+
+@media screen and (min-width: 768px) {
+.modalWrapper {
+    padding: 80px;  
+}
+.paragraph {
+    font-size: 24px;
+line-height: 117%;
+}
+}

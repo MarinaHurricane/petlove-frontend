@@ -15,11 +15,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { addOwnPet, getCategories, getSpecies } from "../../lib/api/petsPage";
 import Select from "react-select";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { Button } from "../../components/Button/Button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAuthStore } from "../../lib/store/authStore";
+import { selectStyles } from "../../sevices/reactSelectStyles";
 
 type ownPetValues = {
   gender: string;
@@ -56,7 +57,7 @@ export const AddPetPage = () => {
   const setUser = useAuthStore((state) => state.setUser);
   const [petAvatar, setPetAvatar] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const [species, setSpecies] = useState(null);
+  // const [species, setSpecies] = useState(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -79,6 +80,28 @@ export const AddPetPage = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+  });
+
+  const title = useWatch({
+    control,
+    name: "title",
+  });
+
+    const name = useWatch({
+    control,
+    name: "name",
+  });
+
+    const dateOfBirth = useWatch({
+    control,
+    name: "dateOfBirth",
+  });
+
+  console.log(dateOfBirth)
+
+    const species = useWatch({
+    control,
+    name: "species",
   });
 
   const mutation = useMutation({
@@ -121,12 +144,14 @@ export const AddPetPage = () => {
   };
 
   return (
-    <>
+    <section className={css.addPetSection}>
       <PetBlock
+      mode="addPet"
+      species="cat"
         images={addPetImages}
         alt="dog in glasses on orange background"
       />
-      <Title>Add my pet</Title>
+      <Title className={css.title}>Add my pet</Title>
 
       <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}>
         <ul className={css.iconList}>
@@ -187,6 +212,7 @@ export const AddPetPage = () => {
           </div>
         )}
 
+<div className={css.inputsWrapper}>
         <label htmlFor="pet-avatar">
           <label htmlFor="avatar" className={css.uploadButton}>
             Upload photo
@@ -204,15 +230,18 @@ export const AddPetPage = () => {
           />
         </label>
 
-        <input type="text" placeholder="Title" {...register("title")} />
-        <input type="text" placeholder="Pet's name" {...register("name")} />
-        <input type="date" placeholder="Title" {...register("dateOfBirth")} />
+        <input type="text" placeholder="Title" {...register("title")} className={title ? `${css.profileInfo} ${css.filled }`: css.profileInfo}/>
+        <input type="text" placeholder="Pet's name" {...register("name")} className={name ? `${css.profileInfo} ${css.filled }`: css.profileInfo}/>
+
+        <div className={css.birthdayTypeWrapper}>
+        <input type="date"  {...register("dateOfBirth")} className={dateOfBirth ? ` ${css.filled } `: css.date}/>
         <Controller
           name="species"
           control={control}
           render={({ field }) => (
             <Select
-              className={css.select}
+              // className={css.select}
+              className={species ? `${css.filled} ${css.species}`: css.select}
               value={
                 speciesOptions?.find(
                   (option) => option?.value === field.value,
@@ -221,15 +250,18 @@ export const AddPetPage = () => {
               options={speciesOptions}
               placeholder="Type of pet"
               onChange={(option) => field.onChange(option?.value)}
+               styles={selectStyles}
             />
           )}
         />
+        </div>
+        </div>
 
         <div className={css.addButtonsList}>
           <Button className={css.back}>Back</Button>
-          <button type="submit">Submit</button>
+          <Button className={css.submit}type="submit">Submit</Button>
         </div>
       </form>
-    </>
+      </section>
   );
 };

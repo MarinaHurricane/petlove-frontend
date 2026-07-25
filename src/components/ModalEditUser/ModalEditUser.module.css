@@ -1,10 +1,20 @@
+.editWrapper {
+  padding: 40px 20px;
+}
+
 .editParagraph {
-  /* font-family: var(--font-family); */
   font-weight: 700;
   font-size: 20px;
   line-height: 100%;
   color: #2b2b2a;
   margin-bottom: 20px;
+}
+
+.editProfileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
 }
 
 .avatar {
@@ -21,7 +31,7 @@
 }
 
 .uploadButton {
-  padding: 15px 20px;
+  padding: 13px 18px;
   border: solid 1px #fff;
   border-radius: 30px;
   letter-spacing: -0.02em;
@@ -45,4 +55,53 @@
 .uploadButton:active {
   background-color: #fff4df;
   color: #f6b83d;
+}
+
+.profileInfo {
+  border: solid 1px #f6b83d;
+  border-radius: 30px;
+  width: 295px;
+  height: 42px;
+  display: flex;
+  text-align: left;
+  align-items: center;
+  padding: 12px;
+}
+
+.saveButton {
+  margin-top: 11px;
+}
+
+@media screen and (min-width:768px) {
+  .editWrapper {
+  padding: 50px;
+}
+
+.profileInfo {
+  width: 100%;
+  height: 52px;
+  padding: 16px;
+    font-size: 16px;
+line-height: 125%;
+}
+
+.editProfileForm {
+  gap: 14px;
+}
+
+.avatar {
+  width: 86px;
+  height: 86px;
+}
+
+.saveButton {
+  margin-top: 26px;
+}
+
+.uploadButton {
+  padding: 13px 22px;
+}
+
+
+
 }

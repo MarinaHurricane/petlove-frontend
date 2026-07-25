@@ -9,6 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { QueryClient } from "@tanstack/react-query";
+import { Button } from "../Button/Button";
 
 type EditProfileValues = {
   name: string;
@@ -60,7 +61,7 @@ export const ModalEditUser = ({ onClose }) => {
       name: user.name,
       email: user.email,
       //   phone: "+44",
-      //   phone: user.phone || "",
+        phone: user.phone || "",
     },
     resolver: yupResolver(schema),
   });
@@ -102,7 +103,7 @@ export const ModalEditUser = ({ onClose }) => {
   if (!user) return null;
 
   return (
-    <>
+    <div className={css.editWrapper}>
       <p className={css.editParagraph}>Edit information</p>
       <img
         src={preview || user?.avatar}
@@ -110,7 +111,7 @@ export const ModalEditUser = ({ onClose }) => {
         className={css.avatar}
       />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={css.editProfileForm}>
         <label htmlFor="avatar" className={css.uploadButton}>
           Upload photo
           <span>
@@ -126,26 +127,32 @@ export const ModalEditUser = ({ onClose }) => {
           onChange={handleAvatarChange}
         />
 
-        <input type="text" {...register("name")} />
+      
+
+        <input type="text" {...register("name")} 
+         className={css.profileInfo}/>
         {errors.name && <p>{errors.name.message}</p>}
 
-        <input type="text" {...register("email")} />
+        <input type="text" {...register("email")} 
+         className={css.profileInfo}/>
         {errors.email && <p>{errors.email.message}</p>}
 
-        <input type="tel" placeholder="+44" {...register("phone")} />
+        <input type="tel" placeholder="+44" {...register("phone")} 
+         className={css.profileInfo}/>
         {errors.phone && <p>{errors.phone.message}</p>}
 
-        <button
+        <Button
+        className={css.saveButton}
           type="submit"
-          // disabled={
-          //     editAvatarMutation.isPending ||
-          //     editProfileMutation.isPending
-          // }
+          disabled={
+              avatarMutation.isPending ||
+              updateProfileMutation.isPending
+          }
         >
           Save changes
-        </button>
+        </Button>
       </form>
-    </>
+      </div>
   );
 };
 

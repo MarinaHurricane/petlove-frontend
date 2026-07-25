@@ -1,3 +1,7 @@
+ .loginPageWrapper {
+  padding: 26px 0px 20px 0px;
+ }
+
 .loginParagraph {
   font-family: var(--font-family);
   font-weight: 500;

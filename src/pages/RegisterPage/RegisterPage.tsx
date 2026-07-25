@@ -24,6 +24,7 @@ export const RegisterPage = () => {
   return (
     <div className={css.registerPageWrapper}>
       <PetBlock
+      mode="auth"
         species="cat"
         images={registerImages}
         alt="cat on the orange background"
