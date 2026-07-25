@@ -1,71 +1,126 @@
 .profileInfo {
-    border: solid 1px #F6B83D;
-    border-radius: 30px;
-    width: 295px;
-    height: 42px;
-    display: flex;
-    text-align: left;
-    align-items: center;
-    padding: 12px;
+  border: solid 1px #f6b83d;
+  border-radius: 30px;
+  width: 295px;
+  height: 42px;
+  display: flex;
+  text-align: left;
+  align-items: center;
+  padding: 12px;
 }
 
 .avatar {
   border-radius: 50%;
-  width: 80px;
-  height: 80px;
-    margin: 0 auto;
-  
+  width: 94px;
+  height: 94px;
+  margin: 0 auto;
+  margin-bottom: 30px;
 }
 
 .userIcon {
-    width: 80px;
-    height: 38px;
-    background-color: #F6B83D;
-    border-radius: 30px;
-    display: flex;
-    gap: 4px;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 14px;
-    font-size: 14px;
-    letter-spacing: -0.02em;
-    line-height: 129%;
-  
-
+  width: 80px;
+  height: 38px;
+  background-color: #f6b83d;
+  border-radius: 30px;
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 14px;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  line-height: 129%;
 }
 
 .icon {
-    color: white;
-    width: 18px;
-    height: 18px;
-    /* fill: white;
-    stroke: white;
-     */
+  color: white;
+  width: 18px;
+  height: 18px;
 }
 
 .iconText {
-    color: white;
+  color: white;
 }
 
 .editButton {
-    width: 38px;
-    height: 38px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #FFF4DF;
-    border: none;
-    border-radius: 30px;
-    
-
+  width: 38px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff4df;
+  border: none;
+  border-radius: 30px;
 }
 
 .editIcon {
-    width: 18px;
-    height: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 .buttonsWrapper {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+}
+
+.myInfoTitle {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 125%;
+  color: #2b2b2a;
+  margin-bottom: 20px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.userData {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: #262626;
+}
+
+@media screen and (min-width: 768px) {
+  .avatar {
+    width: 110px;
+    height: 110px;
+  }
+
+  .myInfoTitle {
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .profileInfo {
+    width: 305px;
+    height: 52px;
+    padding: 16px;
+  }
+
+  .userInfo {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .userData {
+    font-size: 16px;
+    line-height: 125%;
+  }
+}
+
+@media screen and (min-width:1280px) {
+    .profileInfo {
+        width: 100%;
+    }
+
+    .userInfo {
+        flex-direction: column;
+    }
 }

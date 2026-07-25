@@ -6,10 +6,7 @@ import { Modal } from "../../components/Modal/Modal";
 import { ModalEditUser } from "../../components/ModalEditUser/ModalEditUser";
 import { PetsList } from "../../components/PetList/PetList";
 import { Button } from "../../components/Button/Button";
-import {
-  getUserInfo,
-  removePetFromFavorites,
-} from "../../lib/api/user";
+import { getUserInfo, removePetFromFavorites } from "../../lib/api/user";
 import {
   QueryClient,
   useMutation,
@@ -22,6 +19,7 @@ import { UserPet } from "../../components/UserPet/UserPet";
 import { useNavigate } from "react-router-dom";
 import { deleteUserPet } from "../../lib/api/userPet";
 import { ModalApproveAction } from "../../components/ModalApproveAction/ModalApproveAction";
+import { Icon } from "../../components/Icon/Icon";
 
 export const ProfilePage = () => {
   const { user, isAuthenticated } = useAuthStore();
@@ -93,45 +91,66 @@ export const ProfilePage = () => {
     },
   });
 
-
   return (
-    <>
-      <UserBlock onEditClick={openEditModal} />
-      {isEditModalOpen && (
-        <Modal onClose={closeEditModal}>
-          <ModalEditUser onClose={closeEditModal} />
-        </Modal>
-      )}
+    <section className={css.profilePage}>
+      <div className={css.userBlockWrapper}>
+        <UserBlock onEditClick={openEditModal} />
+        {isEditModalOpen && (
+          <Modal onClose={closeEditModal}>
+            <ModalEditUser onClose={closeEditModal} />
+          </Modal>
+        )}
 
-      <div className={css.myPets}>
-        <p className={css.myPetsTitle}>My pets</p>
-        <Button className={css.addPet} onClick={() => navigate("/add-pet")}>
-          Add pet
+        <div className={css.myPets}>
+          <p className={css.myPetsTitle}>My pets</p>
+          <Button className={css.addPet} onClick={() => navigate("/add-pet")}>
+            Add pet
+            <Icon name="icon-plus" className={css.icon} />
+          </Button>
+        </div>
+
+        {isAddPetModalOpen && (
+          <Modal onClose={closeAddPetModalOpen}>
+            <AddPetModal />
+          </Modal>
+        )}
+
+        <ul className={css.userPetsList}>
+          {currentUser?.ownPets?.map((pet) => (
+            <UserPet
+              key={pet._id}
+              pet={pet}
+              onPetDelete={() => mutation.mutate(pet._id)}
+            />
+          ))}
+        </ul>
+
+        <Button variant="secondary" onClick={() => setIsLogoutModalOpen(true)}>
+          LOG OUT
+        </Button>
+        {isLogoutModalOpen && (
+          <Modal onClose={closeIsLogoutModalOpen}>
+            <ModalApproveAction onClose={closeIsLogoutModalOpen} />
+          </Modal>
+        )}
+      </div>
+
+      <div className={css.userPetsBlock}>
+
+      <div className={css.toggle}>
+        <Button className={mode === "favorites" ? css.toggleFavorite : css.toggleViewed} onClick={handleToggle}>
+          My favorite pets
+        </Button>
+        <Button className={mode === "viewed" ? css.toggleFavorite : css.toggleViewed} onClick={handleToggle}>
+          Viewed
         </Button>
       </div>
 
-      {isAddPetModalOpen && (
-        <Modal onClose={closeAddPetModalOpen}>
-          <AddPetModal />
-        </Modal>
-      )}
-
-      {currentUser?.ownPets?.map((pet) => (
-        <UserPet
-          key={pet._id}
-          pet={pet}
-          onPetDelete={() => mutation.mutate(pet._id)}
-        />
-      ))}
-
-         <Button variant="secondary" onClick={() => setIsLogoutModalOpen(true)}>LOG OUT</Button>
-      {isLogoutModalOpen && <Modal onClose={closeIsLogoutModalOpen}>
-        <ModalApproveAction onClose={closeIsLogoutModalOpen}/></Modal>}
-
-      <Button onClick={handleToggle}>My favorite pets</Button>
-      <Button onClick={handleToggle}>Viewed</Button>
+      {currentUser?.favorites.length === 0 && mode === "favorites" &&  <p className={css.noticeParagraph}>Oops, <span className={css.notice}>looks like there aren't any pets</span> on this list yet. Do not worry! View the pets on the "find your favorite pet" page and add them to your favorites.</p>}
+{currentUser?.viewed.length === 0 && mode === "viewed" && <p className={css.noticeParagraph}>Oops, <span className={css.notice}>looks like there aren't any pets</span> on this list yet. Do not worry! View the pets on the "find your favorite pet" page and add them to your favorites.</p>}
 
       {mode === "favorites" ? (
+        
         <PetsList
           pets={currentUser?.favorites}
           onPetClick={handleSelectedPet}
@@ -148,8 +167,7 @@ export const ProfilePage = () => {
           variant="viewed"
         />
       )}
-
-   
+      </div>
 
       {selectedPet && (
         <Modal onClose={handleClosePetModal}>
@@ -166,6 +184,6 @@ export const ProfilePage = () => {
         <div className={css.profileInfo}>{user.name}</div>
          <div className={css.profileInfo}>{user.email}</div>
           <div className={css.profileInfo}>{user.phone? user.phone : "+44"}</div> */}
-    </>
+    </section>
   );
 };

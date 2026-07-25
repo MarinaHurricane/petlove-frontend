@@ -3,6 +3,7 @@
     gap: 6px;
     margin: 0 auto;
     justify-content: center;
+    margin-top: 44px;
 }
 
 .arrows {
@@ -28,7 +29,8 @@ color: #262626;
 
 @media screen and (min-width: 768px) {
     .pagination {
-        gap: 10px
+        gap: 10px;
+          margin-top: 60px;
     }
 
     .arrows {
