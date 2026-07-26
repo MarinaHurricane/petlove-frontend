@@ -9,6 +9,7 @@ import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
 import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
 import { AddPetPage } from "./pages/AddPetPage/AddPetPage";
+import { NotFound } from "./pages/NotFound/NotFound";
 
 // import "./App.css";
 
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="register" element={<RegisterPage />} />
         <Route path="profile" element={<ProfilePage />} />
         <Route path="add-pet" element={<AddPetPage />} />
+        <Route path="*" element={<NotFound/>} />
       </Route>
     </Routes>
   );
