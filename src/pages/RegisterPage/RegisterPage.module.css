@@ -38,6 +38,11 @@
 }
 
 @media screen and (min-width: 768px) {
+
+  .registerPageWrapper {
+    padding: 32px 0px;
+  }
+
   .loginParagraph {
     font-size: 18px;
     line-height: 122%;
@@ -59,13 +64,14 @@
   .registerPageWrapper {
     display: flex;
     gap: 32px;
-    margin-top: 32px;
+    /* margin-top: 32px; */
     justify-content: center;
     align-items: center;
   }
 
   .formWrapper {
-    padding: 84px 118px;
+    padding: 69px 84px;
+    flex-basis: 50%;
   }
 
   .noticearagraph {

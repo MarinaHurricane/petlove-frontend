@@ -25,6 +25,7 @@ export const LoginPage = () => {
     return (
         <section className={css.loginPageWrapper}>
         <PetBlock mode="auth" species= "dog" images={loginImages} alt="dog on the orange background"/>
+        
         <div className={css.formWrapper}>
         <Title>Log in</Title>
         <p className={css.loginParagraph}>Welcome! Please enter your credentials to login to the platform:</p>

@@ -2,8 +2,14 @@
     padding: 16px 0px 20px 0px ;
 }
 
+.formWrapper {
+    padding: 28px 20px 20px 20px;
+    border-radius: 30px;
+    background-color: #fff;
+}
+
 .title {
-    margin-top: 38px;
+    /* margin-top: 38px; */
     margin-bottom: 24px;
 }
 
@@ -59,7 +65,14 @@
 .defaultAvatar {
     width: 34px;
     height: 34px;
- 
+}
+
+.avatar {
+     width: 68px;
+    height: 68px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: 50%;
 
 }
 
@@ -133,6 +146,7 @@
   text-align: left;
   align-items: center;
   padding: 12px;
+  font-size: 14px;
 }
 
 .filled {
@@ -142,16 +156,18 @@
        border-radius: 30px;
 }
 
+.birthday {
+    flex-basis: 50%;
+}
+
 .date {
       border: solid 1px rgb(38, 38, 38, 15%);
   border-radius: 30px;
   flex-basis: 50%;
   height: 42px;
-  display: flex;
-  text-align: left;
   align-items: center;
-  padding: 12px;
-
+  padding: 0 12px;
+  width: 143px;
 }
 
 .species {
@@ -169,6 +185,7 @@
     border: solid 1px rgb(38, 38, 38, 15%);
     border-radius: 30px;
     flex-basis: 50%;
+    width: 143px;
     padding: 0 12px;
 }
 
@@ -177,4 +194,119 @@
     flex-direction: column;
     gap: 10px;
      margin-bottom: 31px;
+}
+
+.genderError {
+    color: #ff0000;
+    font-size: 14px;
+    margin: auto 0;
+}
+
+@media screen and (min-width:768px) {
+    .formWrapper {
+        padding: 40px 136px;
+        border-radius: 60px;
+    }
+
+    .uploadButton {
+        max-width: 50%;
+    }
+
+    .profileInfo {
+        font-size: 16px;
+        padding: 16px;
+    }
+
+    .iconWrap {
+    width: 86px;
+    height: 86px;
+    }
+
+    .avatar {
+     width: 86px;
+    height: 86px;
+    }
+
+    .iconList {
+        margin-bottom: 0;
+    }
+
+    .defaultAvatar {
+    width: 44px;
+    height: 44px;
+}
+
+.iconMale {
+    width: 40px;
+    height: 40px;
+}
+
+.iconFemale {
+    width: 40px;
+    height: 40px;
+}
+
+.iconMultiple {
+    width: 40px;
+    height: 40px;
+}
+
+.inputsWrapper {
+    gap: 12px;
+    margin-bottom: 46px;
+}
+
+.addButtonsList {
+    width: 348px;
+}
+
+.addPetSection {
+    padding: 32px 0px;
+}
+}
+
+@media screen and (min-width:1280px) {
+    .addPetSection {
+            display: flex;
+    gap: 32px;
+    /* margin-top: 32px; */
+    justify-content: center;
+    align-items: center;
+    }
+
+    .title {
+        font-size: 32px;
+line-height: 100%;
+
+    }
+
+    .formWrapper {
+        padding: 60px 80px;
+        flex-basis: 50%;
+    }
+
+    .inputsWrapper {
+        gap: 18px;
+    }
+
+    .profileInfo {
+        height: 52px;
+    }
+
+    .select {
+        height: 52px;
+       padding: 2px 6px;
+    }
+
+    .date {
+        height: 52px;
+    }
+
+    .filled {
+        height: 52px;
+    }
+
+    .species {
+padding: 2px 6px;
+    }
 }

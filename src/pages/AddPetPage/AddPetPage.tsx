@@ -151,6 +151,7 @@ export const AddPetPage = () => {
         images={addPetImages}
         alt="dog in glasses on orange background"
       />
+      <div className={css.formWrapper}>
       <Title className={css.title}>Add my pet</Title>
 
       <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}>
@@ -169,7 +170,7 @@ export const AddPetPage = () => {
               hidden
             />
           </li>
-          {errors.gender && errors.gender.message}
+          {/* {errors.gender && errors.gender.message} */}
 
           <li className={css.iconItem}>
             <label htmlFor="female">
@@ -187,7 +188,7 @@ export const AddPetPage = () => {
               hidden
             />
           </li>
-          {errors.gender && errors.gender.message}
+         
 
           <li className={css.iconItem}>
             <label htmlFor="multiple">
@@ -201,11 +202,15 @@ export const AddPetPage = () => {
               hidden
             />
           </li>
-          {errors.gender && errors.gender.message}
+           {errors.gender && <p className={css.genderError}>{errors.gender.message}</p> }
+          {/* {errors.gender && errors.gender.message} */}
         </ul>
+        
 
         {preview ? (
-          <img src={preview} alt="pet-avatar" />
+           <div className={css.iconWrap}>
+          <img src={preview} alt="pet-avatar" className={css.avatar}/>
+          </div>
         ) : (
           <div className={css.iconWrap}>
             <Icon name="icon-paw" className={css.defaultAvatar} />
@@ -234,7 +239,7 @@ export const AddPetPage = () => {
         <input type="text" placeholder="Pet's name" {...register("name")} className={name ? `${css.profileInfo} ${css.filled }`: css.profileInfo}/>
 
         <div className={css.birthdayTypeWrapper}>
-        <input type="date"  {...register("dateOfBirth")} className={dateOfBirth ? ` ${css.filled } `: css.date}/>
+        <input type="date"  {...register("dateOfBirth")} className={dateOfBirth ? ` ${css.filled } ${css.birthday}`: css.date}/>
         <Controller
           name="species"
           control={control}
@@ -248,7 +253,7 @@ export const AddPetPage = () => {
                 ) || null
               }
               options={speciesOptions}
-              placeholder="Type of pet"
+              placeholder="Species"
               onChange={(option) => field.onChange(option?.value)}
                styles={selectStyles}
             />
@@ -262,6 +267,7 @@ export const AddPetPage = () => {
           <Button className={css.submit}type="submit">Submit</Button>
         </div>
       </form>
+      </div>
       </section>
   );
 };

@@ -9,9 +9,9 @@
 }
 
 @media screen and (min-width: 768px) {
-    .petBlock {
+    /* .petBlock {
     margin-top: 32px;
-}
+} */
 
 .image {
     border-radius: 60px;
@@ -23,6 +23,8 @@
     .image {
         margin-top: 0px;
         margin-bottom: 0px;
+        width: 592px;
+        height: 654px;
     }
 
     .petBlock {
