@@ -15,7 +15,6 @@ export const HomePage = () => {
         <div className={css.section}>
           <Container>
             <div className={css.heroBox}>
-              {/* <Header variant="home"/> */}
               <Header variant="home" />
               <h1 className={css.title}>
                 Take good <span className={css.care}>care</span> of your small
@@ -37,14 +36,10 @@ export const HomePage = () => {
             srcSet={`${desktop1x} 1x, ${desktop2x} 2x`}
           />
 
-          {/* <img className={css.homeImg} src={desktop1x} alt="girl with a dog" /> */}
-
           <source
             media="(min-width: 768px"
             srcSet={`${tablet1x} 1x, ${tablet2x} 2x`}
           />
-
-          {/* <img className={css.homeImg} src={tablet1x} alt="girl with a dog" /> */}
 
           <source
             media="(min-width: 375px"

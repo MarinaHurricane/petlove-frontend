@@ -90,8 +90,8 @@ margin-bottom: 20px;
 
 .addFavourite {
 
-  /* display: flex; */
-  /* justify-content: space-between; */
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 8px;
   /* text-transform: capitalize; */
@@ -106,6 +106,23 @@ margin-bottom: 20px;
   height: 18px;
   fill: none;
   stroke: #fff;
+}
+
+.liked {
+      width: 18px;
+  height: 18px;
+  fill: #fff;
+  stroke: #fff;
+
+}
+
+.iconTrash {
+      width: 18px;
+  height: 18px;
+  fill: #fff;
+  stroke: #fff;
+  color: #fff;
+
 }
 
 .moreInfo {

@@ -16,6 +16,13 @@ export const NewsPage = () => {
     setPage(1);
   };
 
+   const handleSubmit = (formData: FormData) => {
+    const searchValue = formData.get("search") as string;
+    console.log(searchValue);
+
+    setQuery(searchValue.trim());
+  };
+
   const getNews = async (page, query) => {
     const { data } = await axios.get(
       `https://petlove-backend-jniu.onrender.com/api/news`,
@@ -46,7 +53,9 @@ export const NewsPage = () => {
     <>
     <div className={css.titleSearchbarWrapper}>
       <Title>News</Title>
+      <form action={handleSubmit}>
       <SearchBar onSearch={handleSearch} />
+      </form>
       </div>
       <NewsList newsList={newsList} />
       <Pagination

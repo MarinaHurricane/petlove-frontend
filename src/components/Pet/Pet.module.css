@@ -43,6 +43,13 @@
   stroke: #F6B83D;
 }
 
+.liked {
+  fill: #F6B83D;
+  stroke: #F6B83D;
+   width: 18px;
+  height: 18px;
+}
+
 .moreInfo {
   display: flex;
   justify-content: space-between;

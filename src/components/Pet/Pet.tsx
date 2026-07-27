@@ -6,7 +6,10 @@ import { useAuthStore } from '../../lib/store/authStore';
 
 export const Pet = ({ pet, onPetClick, onFavClick, variant, onFavoriteDelete }) => {
   const {user} = useAuthStore();
-  // const favorite = user.favorites.includes(pet._id);
+  const isFavorite = user?.favorites?.some((favorite) => favorite._id === pet._id);
+  console.log(user.favorites);
+  console.log(pet._id);
+  console.log(isFavorite);
   // const viewed = user.viewed.includes(pet._id);
 
   // const general = !favorite && !viewed;
@@ -51,8 +54,10 @@ export const Pet = ({ pet, onPetClick, onFavClick, variant, onFavoriteDelete }) 
 
         <div className={css.moreInfo}>
           <Button onClick={() => onPetClick(pet)} >Learn more</Button>
-          {variant === "generalList" ?  <button className={css.addFavourite} onClick={() => onFavClick(pet._id)}>
-            <Icon name="icon-heart" className={css.icon} />
+          {variant === "generalList" ?  <button className={css.addFavourite} 
+          disabled={isFavorite}
+          onClick={() => onFavClick(pet._id)}>
+            <Icon name="icon-heart" className={isFavorite? css.liked : css.icon} />
           </button> : variant === "favorites" ?  <button className={css.addFavourite} onClick={() => onFavoriteDelete(pet._id)}>
             <Icon name="icon-trash" className={css.icon} />
           </button> : ""}

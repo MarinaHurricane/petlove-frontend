@@ -2,6 +2,7 @@
     margin: 16px 0px;
     width: 100%;
     min-height: 100vh;
+    border-radius: 30px;
  
     background-color: #F6B83D;
     background-image: linear-gradient(
@@ -68,9 +69,20 @@ margin-bottom: 20px;
     background-color: #FFF4DF;
     color: #F6B83D;
    padding: 12px 30px;
+   transition: background-color 250ms ease-in-out;
+}
+
+.navButton:hover,
+.navButton:active {
+    background-color: #fff;
 }
 
 @media screen and (min-width:768px) {
+
+    .notFoundPage {
+        margin: 32px 0px;
+          border-radius: 60px;
+    }
     .number {
         font-size: 300px;
 

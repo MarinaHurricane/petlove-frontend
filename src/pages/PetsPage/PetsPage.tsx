@@ -92,6 +92,13 @@ export const PetsPage = () => {
     }
   };
 
+   const handleSubmit = (formData: FormData) => {
+    const searchValue = formData.get("search") as string;
+    console.log(searchValue);
+
+    setQuery(searchValue.trim());
+  };
+
   const handleReset = () => {
     setQuery("");
     setCategory(null);
@@ -157,7 +164,7 @@ export const PetsPage = () => {
       <Title>Find your favorite pet</Title>
 
       <div className={css.formWrapper}>
-         <form className={css.filtersForm}>
+         <form className={css.filtersForm} action={handleSubmit}>
         <SearchBar onSearch={handleSearch} className={css.petSearch}/>
        
           <div className={css.categoryGender}>
@@ -295,7 +302,7 @@ export const PetsPage = () => {
 
       {selectedPet && (
         <Modal onClose={handleCloseModal}>
-          <PetModalInfo pet={selectedPet} variant="generalList" />
+          <PetModalInfo pet={selectedPet} variant="generalList" onClose={handleCloseModal}/>
         </Modal>
       )}
 
