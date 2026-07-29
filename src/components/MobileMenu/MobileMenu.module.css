@@ -7,21 +7,31 @@
   background-color: #f6b83d;
   width: 218px;
   height: 100%;
+  padding: 236px 20px 40px 20px;
   z-index: 999;
   top: 0;
   right: 0;
   transition: visibility 1000ms ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .menuHome {
   background-color: #fff;
   position: fixed;
   width: 218px;
-  height: 100%;
+  height: 100dvh;
   z-index: 999;
   top: 0;
   right: 0;
   transition: visibility 250ms ease-in-out;
+    display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  inset: 0 0 0 auto;
 }
 
 .iconWrap {
@@ -30,10 +40,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+      position: fixed;
+    top: 28px;
+    right: 28px;
 }
 
 .icon {
     stroke: #fff;
+    position: fixed;
+    top: 28px;
+    right: 28px;
+    width: 32px;
+    height: 32px;
 }
 
 .iconHome {
@@ -56,12 +74,44 @@
     white-space: nowrap;
     font-weight: 700;
     line-height: 125%;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     transition: all 250ms ease;
+    width: 119px;
 }
 
 .button:hover,
 .button:active {
     background-color: #fff4df;
     color: #f6b83d;
+}
+
+.navList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    width: 119px;
+
+}
+
+
+.authList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* position: fixed;
+    right: 20px;
+    bottom: 40px; */
+    /* padding: 12px 60px; */
+    width: 178px;
+   
+
+}
+
+.authItem {
+    width: 100%;
+}
+
+.button {
+    width: 178px;
 }
