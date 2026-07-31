@@ -7,15 +7,11 @@
   background-color: #f6b83d;
   width: 218px;
   height: 100%;
-  padding: 236px 20px 40px 20px;
   z-index: 999;
   top: 0;
   right: 0;
   transition: visibility 1000ms ease-in-out;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+
 }
 
 .menuHome {
@@ -27,11 +23,14 @@
   top: 0;
   right: 0;
   transition: visibility 250ms ease-in-out;
-    display: flex;
+}
+
+.menuContainer {
+      display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  inset: 0 0 0 auto;
+  padding: 236px 20px 40px 20px;
+  height: 100%;
 }
 
 .iconWrap {
@@ -43,6 +42,8 @@
       position: fixed;
     top: 28px;
     right: 28px;
+    border: none;
+    background-color: inherit;
 }
 
 .icon {
@@ -50,8 +51,8 @@
     position: fixed;
     top: 28px;
     right: 28px;
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
 }
 
 .iconHome {
@@ -59,24 +60,26 @@
     fill: #000000;
 }
 
+.nav {
+    margin-bottom: auto;
+}
+
+.navList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .button {
     background-color: #F6B83D;
     padding: 15px 20px;
-    border: 1px solid #ffff;
     border-radius: 30px;
     color: #ffff;
-    letter-spacing: 0.03em;
-    font-weight: 500;
     font-size: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     white-space: nowrap;
     font-weight: 700;
     line-height: 125%;
-    /* text-transform: uppercase; */
-    transition: all 250ms ease;
-    width: 119px;
+    width: 100%;
 }
 
 .button:hover,
@@ -90,8 +93,6 @@
     flex-direction: column;
     gap: 10px;
     align-items: center;
-    width: 119px;
-
 }
 
 
@@ -99,19 +100,25 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* position: fixed;
-    right: 20px;
-    bottom: 40px; */
-    /* padding: 12px 60px; */
-    width: 178px;
-   
-
+    margin-bottom: 0;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .authItem {
     width: 100%;
 }
 
-.button {
-    width: 178px;
+@media screen and (min-width:768px) {
+    .authList {
+        flex-direction: row;
+    }
+
+    .menu {
+        width: 374px;
+    }
+
+    .menuHome {
+        width: 374px;
+    }
 }

@@ -48,7 +48,27 @@
   fill: none;
   position: absolute;
   top: 13px;
-  right: 38px;
+  right: 40px;
+}
+
+.passwordVisibility {
+    width: 18px;
+  height: 18px;
+  fill: none;
+  position: absolute;
+  top: 13px;
+  right: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: inherit;
+}
+
+.iconEye {
+   width: 18px;
+  height: 18px;
+
 }
 
 .passwordCorrect {
@@ -113,6 +133,21 @@
 
   .iconCheck {
     width: 22px;
+    height: 22px;
+  }
+
+  .iconPasswordCheck {
+     width: 22px;
+    height: 22px;
+  }
+
+  .iconEye {
+      width: 22px;
+    height: 22px;
+  }
+
+  .passwordVisibility {
+      width: 22px;
     height: 22px;
   }
 

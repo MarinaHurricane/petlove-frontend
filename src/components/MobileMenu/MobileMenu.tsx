@@ -23,30 +23,29 @@ export const MobileMenu = ({
     <>
       {/* <div className={css.backdrop}> */}
       <div className={variant === "default" ? css.menu : css.menuHome}>
-        <div className={css.iconWrap} onClick={onClose}>
+        <div className={css.menuContainer}>
+        <button className={css.iconWrap} onClick={onClose}>
           <Icon
             name="icon-cross-small"
             className={variant === "default" ? css.icon : css.iconHome}
           />
-        </div>
+        </button>
 
         {/* <div className={css.navWrapper}> */}
 
-        <nav>
+        <nav className={css.nav}>
           <ul className={css.navList}>
             <li className={css.link}>
-              {" "}
-              <NavLink to="/news">
-                {" "}
+            
                 <Button className={css.button} onClick={onClose}>
+                    <NavLink to="/news">
                   News
+                  </NavLink>
                 </Button>
-              </NavLink>
+             
             </li>
             <li>
-              {" "}
               <NavLink to="/pets">
-                {" "}
                 <Button className={css.button} onClick={onClose}>
                   Find a pet
                 </Button>
@@ -68,7 +67,7 @@ export const MobileMenu = ({
 
         {user ? (
           <Button
-            className={css.authList}
+            className={css.logoutButton}
             variant="secondary"
             onClick={() => setIsLogoutModalOpen(true)}
           >
@@ -96,6 +95,7 @@ export const MobileMenu = ({
             </ul>
           </nav>
         )}
+        </div>
         </div>
          {/* </div> */}
 

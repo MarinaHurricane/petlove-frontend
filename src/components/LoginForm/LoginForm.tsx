@@ -29,9 +29,18 @@ const schema = yup.object({
 
 export const LoginForm = () => {
   const [error, setError] = useState("");
-  // const [value, setValue] = useState("");
+  const [passwordInputType, setPasswordInputType] = useState("password");
   const setUser = useAuthStore((state) => state.setUser);
   const navigate = useNavigate();
+
+  const passwordVisibilityHandler = () => {
+    if (passwordInputType === "password") {
+      return setPasswordInputType("text");
+    }
+    return setPasswordInputType("password");
+  };
+
+  console.log(passwordInputType);
 
   const {
     register,
@@ -103,12 +112,22 @@ export const LoginForm = () => {
 
         <div className={css.emailPassword}>
           <input
-            type="password"
+            type={passwordInputType}
             placeholder="Password"
             className={`${css.field} ${errors.password && css.errorField} ${dirtyFields.password && password && !errors.email && !errors.password && css.check}`}
             {...register("password")}
           />
-          <Icon name="icon-eye-off" className={css.iconCheck} />
+          <button
+            className={css.passwordVisibility}
+            onClick={passwordVisibilityHandler}
+          >
+            {passwordInputType === "password" ? (
+              <Icon name="icon-eye-off" className={css.iconEye} />
+            ) : (
+              <Icon name="icon-eye" className={css.iconEye} />
+            )}
+          </button>
+
           {errors.password ? (
             <p className={css.error}>{errors.password.message}</p>
           ) : (
