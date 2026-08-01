@@ -6,4 +6,54 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.modalWrapper {
+    padding: 40px 28px;  
+}
+
+.paragraph {
+font-weight: 700;
+font-size: 20px;
+line-height: 100%;
+letter-spacing: -0.03em;
+color: #262626;
+text-align: center;
+margin-bottom: 20px;
+color: #F6B83D;
+}
+
+.notice {
+font-weight: 500;
+font-size: 14px;
+line-height: 129%;
+letter-spacing: -0.02em;
+text-align: center;
+color: #2b2b2a;
+margin-bottom: 24px;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.link {
+    flex-basis: 50%;
+}
+
+@media screen and (min-width: 768px) {
+.modalWrapper {
+    padding: 80px;  
+}
+.paragraph {
+    font-size: 24px;
+line-height: 117%;
+}
+
+.notice {
+    font-size: 16px;
+}
 }

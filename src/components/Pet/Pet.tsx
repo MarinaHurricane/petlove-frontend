@@ -7,9 +7,9 @@ import { useAuthStore } from '../../lib/store/authStore';
 export const Pet = ({ pet, onPetClick, onFavClick, variant, onFavoriteDelete }) => {
   const {user} = useAuthStore();
   const isFavorite = user?.favorites?.some((favorite) => favorite._id === pet._id);
-  console.log(user.favorites);
-  console.log(pet._id);
-  console.log(isFavorite);
+  // console.log(user.favorites);
+  // console.log(pet._id);
+  // console.log(isFavorite);
   // const viewed = user.viewed.includes(pet._id);
 
   // const general = !favorite && !viewed;
