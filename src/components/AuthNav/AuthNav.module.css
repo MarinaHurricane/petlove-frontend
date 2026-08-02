@@ -1,62 +1,37 @@
 .navList {
-    display: none;
-    max-width: 316px;
-    margin: 0 auto;
-    gap: 10px;
+  display: none;
+  max-width: 316px;
+  margin: 0 auto;
+  gap: 10px;
 }
 
-/* .button {
-    background-color: #F6B83D;
-    padding: 15px 20px;
-    border: 1px solid #ffff;
-    border-radius: 30px;
-    color: #ffff;
-    letter-spacing: 0.03em;
-    font-weight: 500;
-    font-size: 16px;
+.navButton {
+  text-transform: uppercase;
+}
+
+@media screen and (min-width: 768px) {
+  .navList {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    white-space: nowrap;
-    font-weight: 700;
-    line-height: 125%;
-    text-transform: uppercase;
-    transition: all 250ms ease;
-}
+  }
 
-.button:hover,
-.button:active {
-    background-color: #fff4df;
-    color: #f6b83d;
-} */
-
-@media screen and (min-width: 768px){
-    .navList {
-        display: flex;
-    }
-
-    .avatar {
-           display: block;
+  .avatar {
+    display: block;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    }
+  }
 
-    .userInfo {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-    }
+  .userInfo {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
 
-    .userName {
-        /* font-family: var(--font-family); */
-font-weight: 700;
-font-size: 20px;
-line-height: 100%;
-letter-spacing: -0.03em;
-color: #262626;
-    }
-    
+  .userName {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: -0.03em;
+    color: #262626;
+  }
 }
-
-

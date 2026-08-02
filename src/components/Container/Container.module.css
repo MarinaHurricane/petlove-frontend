@@ -1,12 +1,10 @@
-/* Styles for Mobile devices */
 .container {
   min-width: 320px;
   max-width: 375px;
   margin: 10px auto 0px auto;
   padding: 0 20px;
-  /* position: relative; */
 }
-/* Styles for Tablet devices */
+
 @media only screen and (min-width: 768px) {
   .container {
     max-width: 768px;
@@ -14,7 +12,7 @@
     margin: 16px auto 0px auto;
   }
 }
-/* Styles for Desktop devices */
+
 @media only screen and (min-width: 1280px) {
   .container {
     max-width: 1280px;

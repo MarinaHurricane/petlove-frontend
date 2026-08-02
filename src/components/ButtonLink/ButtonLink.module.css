@@ -1,45 +1,45 @@
 .link {
-       font-family: 'Manrope', sans-serif;
-    padding: 10px;
-    border: solid 1px #fff;
-    border-radius: 30px;
-    letter-spacing: 0.03em;
-    font-weight: 500;
-    font-size: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    white-space: nowrap;
-    line-height: 129%;
-    transition: all 250ms ease;
+  font-family: "Manrope", sans-serif;
+  padding: 10px;
+  border: solid 1px #fff;
+  border-radius: 30px;
+  letter-spacing: 0.03em;
+  font-weight: 500;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  line-height: 129%;
+  transition: all 250ms ease;
 }
 
 .primary {
-     background-color: #F6B83D;
-      color: #ffff;
+  background-color: #f6b83d;
+  color: #ffff;
 }
 
 .secondary {
-    background-color: #FFF4DF;
-    color: #F6B83D;
+  background-color: #fff4df;
+  color: #f6b83d;
 }
 
 .primary:hover,
 .primary:active {
-    background-color: #fff4df;
-    color: #f6b83d;
+  background-color: #fff4df;
+  color: #f6b83d;
 }
 
 .secondary:hover,
 .secondary:active {
-    background-color: #FBE7C1;
+  background-color: #fbe7c1;
 }
 
 @media screen and (min-width: 768px) {
-    .link {
-        padding: 15px 35px;
-        font-weight: 700;
-        line-height: 125%;
-        font-size: 16px;
-    }
+  .link {
+    padding: 15px 35px;
+    font-weight: 700;
+    line-height: 125%;
+    font-size: 16px;
+  }
 }

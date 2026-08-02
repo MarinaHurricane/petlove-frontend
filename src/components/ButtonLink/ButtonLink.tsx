@@ -1,21 +1,22 @@
-import css from './ButtonLink.module.css';
-import { Link } from "react-router-dom";
+import css from "./ButtonLink.module.css";
+import { Link, type LinkProps } from "react-router-dom";
 
-type ButtonLinkProps = {
-    to: string;
-    children: React.ReactNode;
-    className?: string;
-     variant?: 'primary' | 'secondary';
-}
+type ButtonLinkProps = LinkProps & {
+  variant?: "primary" | "secondary";
+};
 
 export const ButtonLink = ({
-    to,
-    children,
-    className,
-    variant = "primary",
-    ...props
+  children,
+  className,
+  variant = "primary",
+  ...props
 }: ButtonLinkProps) => {
-    return (
-        <Link to={to} className={`${css.link} ${css[variant]} ${className ?? ""}`} {...props}>{children}</Link>
-    )
-}
+  return (
+    <Link
+      {...props}
+      className={`${css.link} ${css[variant]} ${className || ""}`}
+    >
+      {children}
+    </Link>
+  );
+};

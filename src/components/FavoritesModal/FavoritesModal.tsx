@@ -1,22 +1,20 @@
 import css from "./FavoritesModal.module.css";
-import { Button } from "../Button/Button";
-import { Link } from "react-router-dom";
 import cat from "../../assets/cat.png";
+import { ButtonLink } from "../ButtonLink/ButtonLink";
 
 export const FavoritesModal = () => {
   return (
     <div className={css.modalWrapper}>
       <div className={css.iconWrapper}>
-        <img src={cat} alt="cat-icon" />
+        <img src={cat} alt="" />
       </div>
-      <p className={css.notice}>Congrats</p>
+      <h2 className={css.notice}>Congrats</h2>
       <p className={css.comment}>
         The pet in the favorites! May your friendship be the happiest and filled
         with fun.
       </p>
-      
-        <Button className={css.button}><Link to="/profile">Go to profile </Link></Button>
-     
+
+      <ButtonLink to="/profile">Go to profile</ButtonLink>
     </div>
   );
 };

@@ -18,8 +18,8 @@ import { AddPetModal } from "../../components/AddPetModal/AddPetModal";
 import { UserPet } from "../../components/UserPet/UserPet";
 import { useNavigate } from "react-router-dom";
 import { deleteUserPet } from "../../lib/api/userPet";
-import { ModalApproveAction } from "../../components/ModalApproveAction/ModalApproveAction";
 import { Icon } from "../../components/Icon/Icon";
+import { LogoutButton } from "../../components/LogoutButton/LogoutButton";
 
 export const ProfilePage = () => {
   const { user, isAuthenticated } = useAuthStore();
@@ -125,56 +125,79 @@ export const ProfilePage = () => {
           ))}
         </ul>
 
-        <Button variant="secondary" onClick={() => setIsLogoutModalOpen(true)}>
-          LOG OUT
-        </Button>
-        {isLogoutModalOpen && (
-          <Modal onClose={closeIsLogoutModalOpen}>
-            <ModalApproveAction onClose={closeIsLogoutModalOpen} />
-          </Modal>
-        )}
+        <LogoutButton />
       </div>
 
       <div className={css.userPetsBlock}>
+        <div className={css.toggle}>
+          <Button
+            className={
+              mode === "favorites" ? css.toggleFavorite : css.toggleViewed
+            }
+            onClick={handleToggle}
+          >
+            My favorite pets
+          </Button>
+          <Button
+            className={
+              mode === "viewed" ? css.toggleFavorite : css.toggleViewed
+            }
+            onClick={handleToggle}
+          >
+            Viewed
+          </Button>
+        </div>
 
-      <div className={css.toggle}>
-        <Button className={mode === "favorites" ? css.toggleFavorite : css.toggleViewed} onClick={handleToggle}>
-          My favorite pets
-        </Button>
-        <Button className={mode === "viewed" ? css.toggleFavorite : css.toggleViewed} onClick={handleToggle}>
-          Viewed
-        </Button>
-      </div>
+        {currentUser?.favorites.length === 0 && mode === "favorites" && (
+          <p className={css.noticeParagraph}>
+            Oops,{" "}
+            <span className={css.notice}>looks like there aren't any pets</span>{" "}
+            on this list yet. Do not worry! View the pets on the "find your
+            favorite pet" page and add them to your favorites.
+          </p>
+        )}
+        {currentUser?.viewed.length === 0 && mode === "viewed" && (
+          <p className={css.noticeParagraph}>
+            Oops,{" "}
+            <span className={css.notice}>looks like there aren't any pets</span>{" "}
+            on this list yet. Do not worry! View the pets on the "find your
+            favorite pet" page and add them to your favorites.
+          </p>
+        )}
 
-      {currentUser?.favorites.length === 0 && mode === "favorites" &&  <p className={css.noticeParagraph}>Oops, <span className={css.notice}>looks like there aren't any pets</span> on this list yet. Do not worry! View the pets on the "find your favorite pet" page and add them to your favorites.</p>}
-{currentUser?.viewed.length === 0 && mode === "viewed" && <p className={css.noticeParagraph}>Oops, <span className={css.notice}>looks like there aren't any pets</span> on this list yet. Do not worry! View the pets on the "find your favorite pet" page and add them to your favorites.</p>}
-
-      {mode === "favorites" ? (
-        
-        <PetsList
-          pets={currentUser?.favorites}
-          onPetClick={handleSelectedPet}
-          variant="favorites"
-          onFavoriteDelete={(pet) => {
-            console.log(pet);
-            favoritesMutation.mutate(pet);
-          }}
-        />
-      ) : (
-        <PetsList
-          pets={currentUser?.viewed}
-          onPetClick={handleSelectedPet}
-          variant="viewed"
-        />
-      )}
+        {mode === "favorites" ? (
+          <PetsList
+            pets={currentUser?.favorites}
+            onPetClick={handleSelectedPet}
+            variant="favorites"
+            onFavoriteDelete={(pet) => {
+              console.log(pet);
+              favoritesMutation.mutate(pet);
+            }}
+          />
+        ) : (
+          <PetsList
+            pets={currentUser?.viewed}
+            onPetClick={handleSelectedPet}
+            variant="viewed"
+          />
+        )}
       </div>
 
       {selectedPet && (
         <Modal onClose={handleClosePetModal}>
           {mode === "favorites" ? (
-            <PetModalInfo pet={selectedPet} variant="favorites" onClose={handleClosePetModal}/>
+            <PetModalInfo
+              pet={selectedPet}
+              variant="favorites"
+              onClose={handleClosePetModal}
+            />
           ) : (
-            <PetModalInfo pet={selectedPet} variant="viewed" onClose={handleClosePetModal}/>
+            <PetModalInfo
+              pet={selectedPet}
+              variant="viewed"
+              onClose={handleClosePetModal}
+            />
           )}
         </Modal>
       )}

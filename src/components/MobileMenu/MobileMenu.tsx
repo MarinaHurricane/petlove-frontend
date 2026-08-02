@@ -1,14 +1,11 @@
-import { Icon } from "../Icon/Icon";
-import { NavLink } from "react-router-dom";
 import css from "./MobileMenu.module.css";
-import { Button } from "../Button/Button";
+import { Icon } from "../Icon/Icon";
 import { useAuthStore } from "../../lib/store/authStore";
-import { useState } from "react";
-import { Modal } from "../Modal/Modal";
-import { ModalApproveAction } from "../ModalApproveAction/ModalApproveAction";
+import { LogoutButton } from "../LogoutButton/LogoutButton";
+import { ButtonLink } from "../ButtonLink/ButtonLink";
 
 type MobileMenuProps = {
-  variant: "default" | "home";
+  variant?: "default" | "home";
   onClose: () => void;
 };
 
@@ -17,95 +14,68 @@ export const MobileMenu = ({
   variant = "default",
 }: MobileMenuProps) => {
   const { user } = useAuthStore();
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-  const closeIsLogoutModalOpen = () => setIsLogoutModalOpen(false);
   return (
-    <>
-      {/* <div className={css.backdrop}> */}
-      <div className={variant === "default" ? css.menu : css.menuHome}>
-        <div className={css.menuContainer}>
-        <button className={css.iconWrap} onClick={onClose}>
+    <div className={variant === "default" ? css.menu : css.menuHome}>
+      <div className={css.menuContainer}>
+        <button
+          type="button"
+          aria-label="Close menu"
+          onClick={onClose}
+          className={css.iconWrap}
+        >
           <Icon
             name="icon-cross-small"
             className={variant === "default" ? css.icon : css.iconHome}
           />
         </button>
 
-        {/* <div className={css.navWrapper}> */}
-
-        <nav className={css.nav}>
+        <nav className={css.nav} aria-label="Main navigation">
           <ul className={css.navList}>
             <li className={css.link}>
-            
-                <Button className={css.button} onClick={onClose}>
-                    <NavLink to="/news">
-                  News
-                  </NavLink>
-                </Button>
-             
+              <ButtonLink to="/news" onClick={onClose}>
+                News
+              </ButtonLink>
             </li>
             <li>
-              <NavLink to="/pets">
-                <Button className={css.button} onClick={onClose}>
-                  Find a pet
-                </Button>
-              </NavLink>
+              <ButtonLink to="/pets" onClick={onClose}>
+                Pets
+              </ButtonLink>
             </li>
             <li>
-              {" "}
-              <NavLink to="/friends">
-                {" "}
-                <Button className={css.button} onClick={onClose}>
-                  {" "}
-                  Our friends
-                </Button>
-              </NavLink>
+              <ButtonLink to="/friends" onClick={onClose}>
+                Our friends
+              </ButtonLink>
             </li>
           </ul>
-          {/* <Icon name="icon-chevron-down"/> */}
         </nav>
 
         {user ? (
-          <Button
-            className={css.logoutButton}
-            variant="secondary"
-            onClick={() => setIsLogoutModalOpen(true)}
-          >
-            LOG OUT
-          </Button>
+          <LogoutButton />
         ) : (
-          <nav>
+          <nav aria-label="Authentication">
             <ul className={css.authList}>
-              <li >
-                {" "}
-                <NavLink to="/login">
-                  <Button className={css.button} onClick={onClose}>
-                    LOG IN
-                  </Button>
-                </NavLink>
+              <li>
+                <ButtonLink
+                  to="/login"
+                  onClick={onClose}
+                  className={css.navButton}
+                >
+                  Log in
+                </ButtonLink>
               </li>
-              <li >
-                {" "}
-                <NavLink to="/register">
-                  <Button className={css.button} onClick={onClose}>
-                    REGISTRATION
-                  </Button>
-                </NavLink>
+              <li>
+                <ButtonLink
+                  to="/register"
+                  onClick={onClose}
+                  className={css.navButton}
+                >
+                  Registration
+                </ButtonLink>
               </li>
             </ul>
           </nav>
         )}
-        </div>
-        </div>
-         {/* </div> */}
-
-        {isLogoutModalOpen && (
-          <Modal onClose={closeIsLogoutModalOpen}>
-            <ModalApproveAction onClose={closeIsLogoutModalOpen} />
-          </Modal>
-        )}
-     
-      {/* </div> */}
-    </>
+      </div>
+    </div>
   );
 };

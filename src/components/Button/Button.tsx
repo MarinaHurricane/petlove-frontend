@@ -1,13 +1,13 @@
-import css from './Button.module.css';
+import css from "./Button.module.css";
 
 type ButtonProps = {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = ({
   children,
-  variant = 'primary',
+  variant = "primary",
   className,
   ...props
 }: ButtonProps) => {

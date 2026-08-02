@@ -6,11 +6,11 @@ import addPetTablet1x from "../../assets/add-pet-tablet-1x.jpg";
 import addPetTablet2x from "../../assets/add-pet-tablet-2x.jpg";
 import addPetDesktop1x from "../../assets/add-pet-desktop-1x.jpg";
 import addPetDesktop2x from "../../assets/add-pet-desktop-2x.jpg";
-import { PetBlock } from "../PetBlock/PetBlock";
+import { PetBlock, type PetBlockImages } from "../PetBlock/PetBlock";
 import { Title } from "../Title/Title";
 import { Icon } from "../Icon/Icon";
 
-const addPetImages = {
+const addPetImages: PetBlockImages = {
   mobile1x: addPetMobile1x,
   mobile2x: addPetMobile2x,
   tablet1x: addPetTablet1x,
@@ -23,6 +23,7 @@ export const AddPetModal = () => {
   return (
     <>
       <PetBlock
+        mode="addPet"
         images={addPetImages}
         alt="dog in glasses on orange background"
       />
@@ -34,7 +35,7 @@ export const AddPetModal = () => {
             <Icon name="icon-male" className={css.iconMale} />
           </label>
 
-          <input type="radio" id="male" className={css.radio} hidden />
+          <input type="radio" id="male" name="gender" value="male" hidden />
         </li>
 
         <li className={css.iconItem}>
@@ -45,14 +46,21 @@ export const AddPetModal = () => {
             />
           </label>
 
-          <input type="radio" id="female" hidden />
+          <input type="radio" id="female" name="female" value="female" hidden />
         </li>
 
         <li className={css.iconItem}>
           <label htmlFor="multiple">
             <Icon name="icon-multiple" className={css.iconMultiple} />
           </label>
-          <input type="radio" id="multiple" hidden />
+
+          <input
+            type="radio"
+            id="multiple"
+            name="gender"
+            value="multiple"
+            hidden
+          />
         </li>
       </ul>
     </>

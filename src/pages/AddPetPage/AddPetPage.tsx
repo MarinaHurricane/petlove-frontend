@@ -21,6 +21,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAuthStore } from "../../lib/store/authStore";
 import { selectStyles } from "../../sevices/reactSelectStyles";
+import { ButtonLink } from "../../components/ButtonLink/ButtonLink";
 
 type ownPetValues = {
   gender: string;
@@ -87,19 +88,19 @@ export const AddPetPage = () => {
     name: "title",
   });
 
-    const name = useWatch({
+  const name = useWatch({
     control,
     name: "name",
   });
 
-    const dateOfBirth = useWatch({
+  const dateOfBirth = useWatch({
     control,
     name: "dateOfBirth",
   });
 
-  console.log(dateOfBirth)
+  console.log(dateOfBirth);
 
-    const species = useWatch({
+  const species = useWatch({
     control,
     name: "species",
   });
@@ -146,128 +147,155 @@ export const AddPetPage = () => {
   return (
     <section className={css.addPetSection}>
       <PetBlock
-      mode="addPet"
-      species="cat"
+        mode="addPet"
+        species="cat"
         images={addPetImages}
         alt="dog in glasses on orange background"
       />
       <div className={css.formWrapper}>
-      <Title className={css.title}>Add my pet</Title>
+        <Title className={css.title}>Add my pet</Title>
 
-      <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}>
-        <ul className={css.iconList}>
-          <li className={css.iconItemMale}>
-            <label htmlFor="male">
-              <Icon name="icon-male" className={css.iconMale} />
-            </label>
+        <form
+          onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}
+        >
+          <ul className={css.iconList}>
+            <li className={css.iconItemMale}>
+              <label htmlFor="male">
+                <Icon name="icon-male" className={css.iconMale} />
+              </label>
 
-            <input
-              type="radio"
-              id="male"
-              value="male"
-              {...register("gender")}
-              className={css.radio}
-              hidden
-            />
-          </li>
-          {/* {errors.gender && errors.gender.message} */}
+              <input
+                type="radio"
+                id="male"
+                value="male"
+                {...register("gender")}
+                className={css.radio}
+                hidden
+              />
+            </li>
 
-          <li className={css.iconItem}>
-            <label htmlFor="female">
-              <Icon
-                name="icon-female"
-                className={`${css.iconFemale} ${css.chosen}`}
+            <li className={css.iconItem}>
+              <label htmlFor="female">
+                <Icon
+                  name="icon-female"
+                  className={`${css.iconFemale} ${css.chosen}`}
+                />
+              </label>
+
+              <input
+                type="radio"
+                id="female"
+                value="female"
+                {...register("gender")}
+                hidden
+              />
+            </li>
+
+            <li className={css.iconItem}>
+              <label htmlFor="multiple">
+                <Icon name="icon-multiple" className={css.iconMultiple} />
+              </label>
+              <input
+                type="radio"
+                id="multiple"
+                value="multiple"
+                {...register("gender")}
+                hidden
+              />
+            </li>
+            {errors.gender && (
+              <p className={css.genderError}>{errors.gender.message}</p>
+            )}
+            {/* {errors.gender && errors.gender.message} */}
+          </ul>
+
+          {preview ? (
+            <div className={css.iconWrap}>
+              <img src={preview} alt="pet-avatar" className={css.avatar} />
+            </div>
+          ) : (
+            <div className={css.iconWrap}>
+              <Icon name="icon-paw" className={css.defaultAvatar} />
+            </div>
+          )}
+
+          <div className={css.inputsWrapper}>
+            <label htmlFor="pet-avatar">
+              <label htmlFor="avatar" className={css.uploadButton}>
+                Upload photo
+                <span>
+                  <Icon name="icon-upload-cloud" className={css.icon} />
+                </span>
+              </label>
+
+              <input
+                id="avatar"
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={handleAvatarChange}
               />
             </label>
 
             <input
-              type="radio"
-              id="female"
-              value="female"
-              {...register("gender")}
-              hidden
-            />
-          </li>
-         
-
-          <li className={css.iconItem}>
-            <label htmlFor="multiple">
-              <Icon name="icon-multiple" className={css.iconMultiple} />
-            </label>
-            <input
-              type="radio"
-              id="multiple"
-              value="multiple"
-              {...register("gender")}
-              hidden
-            />
-          </li>
-           {errors.gender && <p className={css.genderError}>{errors.gender.message}</p> }
-          {/* {errors.gender && errors.gender.message} */}
-        </ul>
-        
-
-        {preview ? (
-           <div className={css.iconWrap}>
-          <img src={preview} alt="pet-avatar" className={css.avatar}/>
-          </div>
-        ) : (
-          <div className={css.iconWrap}>
-            <Icon name="icon-paw" className={css.defaultAvatar} />
-          </div>
-        )}
-
-<div className={css.inputsWrapper}>
-        <label htmlFor="pet-avatar">
-          <label htmlFor="avatar" className={css.uploadButton}>
-            Upload photo
-            <span>
-              <Icon name="icon-upload-cloud" className={css.icon} />
-            </span>
-          </label>
-
-          <input
-            id="avatar"
-            type="file"
-            accept="image/*"
-            hidden
-            onChange={handleAvatarChange}
-          />
-        </label>
-
-        <input type="text" placeholder="Title" {...register("title")} className={title ? `${css.profileInfo} ${css.filled }`: css.profileInfo}/>
-        <input type="text" placeholder="Pet's name" {...register("name")} className={name ? `${css.profileInfo} ${css.filled }`: css.profileInfo}/>
-
-        <div className={css.birthdayTypeWrapper}>
-        <input type="date"  {...register("dateOfBirth")} className={dateOfBirth ? ` ${css.filled } ${css.birthday}`: css.date}/>
-        <Controller
-          name="species"
-          control={control}
-          render={({ field }) => (
-            <Select
-              // className={css.select}
-              className={species ? `${css.filled} ${css.species}`: css.select}
-              value={
-                speciesOptions?.find(
-                  (option) => option?.value === field.value,
-                ) || null
+              type="text"
+              placeholder="Title"
+              {...register("title")}
+              className={
+                title ? `${css.profileInfo} ${css.filled}` : css.profileInfo
               }
-              options={speciesOptions}
-              placeholder="Species"
-              onChange={(option) => field.onChange(option?.value)}
-               styles={selectStyles}
             />
-          )}
-        />
-        </div>
-        </div>
+            <input
+              type="text"
+              placeholder="Pet's name"
+              {...register("name")}
+              className={
+                name ? `${css.profileInfo} ${css.filled}` : css.profileInfo
+              }
+            />
 
-        <div className={css.addButtonsList}>
-          <Button className={css.back}>Back</Button>
-          <Button className={css.submit}type="submit">Submit</Button>
-        </div>
-      </form>
+            <div className={css.birthdayTypeWrapper}>
+              <input
+                type="date"
+                {...register("dateOfBirth")}
+                className={
+                  dateOfBirth ? ` ${css.filled} ${css.birthday}` : css.date
+                }
+              />
+              <Controller
+                name="species"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    // className={css.select}
+                    className={
+                      species ? `${css.filled} ${css.species}` : css.select
+                    }
+                    value={
+                      speciesOptions?.find(
+                        (option) => option?.value === field.value,
+                      ) || null
+                    }
+                    options={speciesOptions}
+                    placeholder="Species"
+                    onChange={(option) => field.onChange(option?.value)}
+                    styles={selectStyles}
+                  />
+                )}
+              />
+            </div>
+          </div>
+
+          <div className={css.addButtonsList}>
+            <ButtonLink to="/profile" className={css.link}>
+              Back
+            </ButtonLink>
+            <Button className={css.submit} type="submit">
+              Submit
+            </Button>
+          </div>
+        </form>
       </div>
-      </section>
+    </section>
   );
 };

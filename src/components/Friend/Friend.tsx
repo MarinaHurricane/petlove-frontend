@@ -1,31 +1,37 @@
 import css from "./Friend.module.css";
+import type { Friend as FriendType } from "../../types/Friend";
 
-export const Friend = ({ friend }) => {
+type FriendProps = {
+  friend: FriendType;
+};
+
+export const Friend = ({ friend }: FriendProps) => {
+  console.log(friend);
   const today = new Date().getDay();
   const dayIndex = today === 0 ? 6 : today - 1;
-  const isOpen = friend?.workDays?.[dayIndex]?.isOpen === true;
+  const todayWorkDay = friend.workDays?.[dayIndex];
+  const isOpen = todayWorkDay?.isOpen === true;
+
   return (
     <li className={css.friendItem}>
       <div className={css.imageWrapper}>
-        <img src={friend.imageUrl} alt={friend.title} />
+        <img src={friend.imageUrl} alt={friend.title} loading="lazy" />
       </div>
 
       <div className={css.friendInfo}>
         <div className={css.openTimeWrapper}>
           <p className={css.openTime}>
-            {isOpen
-              ? `${friend?.workDays?.[dayIndex]?.from} - ${friend?.workDays?.[dayIndex]?.to}`
-              : "closed"}
+            {isOpen ? `${todayWorkDay.from} - ${todayWorkDay.to}` : "Closed"}
           </p>
         </div>
         <h3 className={css.friendName}>{friend.title}</h3>
 
-        <div className={css.friendInfo}>
+        <div className={css.friendData}>
           <p className={css.data}>
             Email: <span className={css.info}>{friend.email}</span>
           </p>
           <p className={css.data}>
-            Adress: <span className={css.info}>{friend.eaddress}</span>
+            Address: <span className={css.info}>{friend.address}</span>
           </p>
           <p className={css.data}>
             Phone: <span className={css.info}>{friend.phone}</span>

@@ -1,91 +1,86 @@
 .addPetSection {
-    padding: 16px 0px 20px 0px ;
+  padding: 16px 0px 20px 0px;
 }
 
 .formWrapper {
-    padding: 28px 20px 20px 20px;
-    border-radius: 30px;
-    background-color: #fff;
+  padding: 28px 20px 20px 20px;
+  border-radius: 30px;
+  background-color: #fff;
 }
 
 .title {
-    /* margin-top: 38px; */
-    margin-bottom: 24px;
+  margin-bottom: 24px;
 }
 
 .iconList {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
 .iconMale {
-    width: 32px;
-    height: 32px;
-    fill: none;
-    /* stroke: #54ADFF; */
-    outline: none; 
-    border-radius: 50%; 
-    transition: background-color ease-in-out 250ms;
+  width: 32px;
+  height: 32px;
+  fill: none;
+  outline: none;
+  border-radius: 50%;
+  transition: background-color ease-in-out 250ms;
 }
 
 .iconMale:hover,
-.iconMale:active{
-    /* stroke: #fff; */
-    background-color: #a5cef7;
-    /* fill: #fff; */
+.iconMale:active {
+  background-color: #a5cef7;
 }
 
 .iconFemale {
-    width: 32px;
-    height: 32px;
-    fill: none; 
-    border-radius: 50%;
-    transition: background-color ease-in-out 250ms;
+  width: 32px;
+  height: 32px;
+  fill: none;
+  border-radius: 50%;
+  transition: background-color ease-in-out 250ms;
 }
 
 .iconFemale:hover,
 .iconFemale:active {
-    background-color: #ffc0cb;
+  background-color: #ffc0cb;
 }
 
 .iconMultiple {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: #f7ecd7;
-    transition: background-color ease-in-out 250ms;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #f7ecd7;
+  transition: background-color ease-in-out 250ms;
 }
 
 .iconMultiple:hover,
 .iconMultiple:active {
-    background-color: #f9dba3;
+  background-color: #f9dba3;
 }
 
 .defaultAvatar {
-    width: 34px;
-    height: 34px;
+  width: 34px;
+  height: 34px;
 }
 
 .avatar {
-     width: 68px;
-    height: 68px;
-    object-fit: cover;
-    flex-shrink: 0;
-    border-radius: 50%;
-
+  width: 68px;
+  height: 68px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 50%;
 }
 
 .iconWrap {
-    width: 68px;
-    height: 68px;
-    background-color: #FFF4DF;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    margin: 0 auto;
-       margin-bottom: 16px;
+  width: 68px;
+  height: 68px;
+  background-color: #fff4df;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin: 0 auto;
+  margin-bottom: 16px;
 }
 
 .icon {
@@ -120,21 +115,22 @@
   color: #f6b83d;
 }
 
-.back {
-    background-color: hsl(0, 0%, 15%, 5%);
-    color: #262626;
-    padding: 12px 34px;
+.submit {
+  padding: 12px 26px;
+  flex-basis: calc((100% - 8px) / 2);
 }
 
-.submit {
-    padding: 12px 26px;
+.link {
+  background-color: hsl(0, 0%, 15%, 5%);
+  color: #262626;
+  flex-basis: calc((100% - 8px) / 2);
 }
 
 .addButtonsList {
-    display: flex;
-    justify-content: right;
-    width: 208px;
-    margin-left: auto;
+  display: flex;
+  justify-content: right;
+  width: 208px;
+  margin-left: auto;
 }
 
 .profileInfo {
@@ -150,18 +146,18 @@
 }
 
 .filled {
-    border: solid 1px #F6B83D;
-    border-radius: 30px;
-    padding: 0 12px;
-       border-radius: 30px;
+  border: solid 1px #f6b83d;
+  border-radius: 30px;
+  padding: 0 12px;
+  border-radius: 30px;
 }
 
 .birthday {
-    flex-basis: 50%;
+  flex-basis: 50%;
 }
 
 .date {
-      border: solid 1px rgb(38, 38, 38, 15%);
+  border: solid 1px rgb(38, 38, 38, 15%);
   border-radius: 30px;
   flex-basis: 50%;
   height: 42px;
@@ -171,142 +167,139 @@
 }
 
 .species {
-    flex-basis: 50%;
+  flex-basis: 50%;
 }
 
 .birthdayTypeWrapper {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-   
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .select {
-    border: solid 1px rgb(38, 38, 38, 15%);
-    border-radius: 30px;
-    flex-basis: 50%;
-    width: 143px;
-    padding: 0 12px;
+  border: solid 1px rgb(38, 38, 38, 15%);
+  border-radius: 30px;
+  flex-basis: 50%;
+  width: 143px;
+  padding: 0 12px;
 }
 
 .inputsWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-     margin-bottom: 31px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 31px;
 }
 
 .genderError {
-    color: #ff0000;
-    font-size: 14px;
-    margin: auto 0;
+  color: #ff0000;
+  font-size: 14px;
+  margin: auto 0;
 }
 
-@media screen and (min-width:768px) {
-    .formWrapper {
-        padding: 40px 136px;
-        border-radius: 60px;
-    }
+@media screen and (min-width: 768px) {
+  .formWrapper {
+    padding: 40px 136px;
+    border-radius: 60px;
+  }
 
-    .uploadButton {
-        max-width: 50%;
-    }
+  .uploadButton {
+    max-width: 50%;
+  }
 
-    .profileInfo {
-        font-size: 16px;
-        padding: 16px;
-    }
+  .profileInfo {
+    font-size: 16px;
+    padding: 16px;
+  }
 
-    .iconWrap {
+  .iconWrap {
     width: 86px;
     height: 86px;
-    }
+  }
 
-    .avatar {
-     width: 86px;
+  .avatar {
+    width: 86px;
     height: 86px;
-    }
+  }
 
-    .iconList {
-        margin-bottom: 0;
-    }
+  .iconList {
+    margin-bottom: 0;
+  }
 
-    .defaultAvatar {
+  .defaultAvatar {
     width: 44px;
     height: 44px;
-}
+  }
 
-.iconMale {
+  .iconMale {
     width: 40px;
     height: 40px;
-}
+  }
 
-.iconFemale {
+  .iconFemale {
     width: 40px;
     height: 40px;
-}
+  }
 
-.iconMultiple {
+  .iconMultiple {
     width: 40px;
     height: 40px;
-}
+  }
 
-.inputsWrapper {
+  .inputsWrapper {
     gap: 12px;
     margin-bottom: 46px;
-}
+  }
 
-.addButtonsList {
+  .addButtonsList {
     width: 348px;
-}
+  }
 
-.addPetSection {
+  .addPetSection {
     padding: 32px 0px;
-}
+  }
 }
 
-@media screen and (min-width:1280px) {
-    .addPetSection {
-            display: flex;
+@media screen and (min-width: 1280px) {
+  .addPetSection {
+    display: flex;
     gap: 32px;
-    /* margin-top: 32px; */
     justify-content: center;
     align-items: center;
-    }
+  }
 
-    .title {
-        font-size: 32px;
-line-height: 100%;
+  .title {
+    font-size: 32px;
+    line-height: 100%;
+  }
 
-    }
+  .formWrapper {
+    padding: 60px 80px;
+    flex-basis: 50%;
+  }
 
-    .formWrapper {
-        padding: 60px 80px;
-        flex-basis: 50%;
-    }
+  .inputsWrapper {
+    gap: 18px;
+  }
 
-    .inputsWrapper {
-        gap: 18px;
-    }
+  .profileInfo {
+    height: 52px;
+  }
 
-    .profileInfo {
-        height: 52px;
-    }
+  .select {
+    height: 52px;
+    padding: 2px 6px;
+  }
 
-    .select {
-        height: 52px;
-       padding: 2px 6px;
-    }
+  .date {
+    height: 52px;
+  }
 
-    .date {
-        height: 52px;
-    }
+  .filled {
+    height: 52px;
+  }
 
-    .filled {
-        height: 52px;
-    }
-
-    .species {
-padding: 2px 6px;
-    }
+  .species {
+    padding: 2px 6px;
+  }
 }

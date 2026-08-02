@@ -1,5 +1,5 @@
 .link {
-    display: block;
+  display: block;
 }
 
 .menu {
@@ -11,7 +11,6 @@
   top: 0;
   right: 0;
   transition: visibility 1000ms ease-in-out;
-
 }
 
 .menuHome {
@@ -26,99 +25,102 @@
 }
 
 .menuContainer {
-      display: flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   padding: 236px 20px 40px 20px;
   height: 100%;
 }
 
+.navButton {
+  text-transform: uppercase;
+}
+
 .iconWrap {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-      position: fixed;
-    top: 28px;
-    right: 28px;
-    border: none;
-    background-color: inherit;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 28px;
+  right: 28px;
+  border: none;
+  background-color: inherit;
 }
 
 .icon {
-    stroke: #fff;
-    position: fixed;
-    top: 28px;
-    right: 28px;
-    width: 28px;
-    height: 28px;
+  stroke: #fff;
+  position: fixed;
+  top: 28px;
+  right: 28px;
+  width: 28px;
+  height: 28px;
 }
 
 .iconHome {
-    stroke: #000000;
-    fill: #000000;
+  stroke: #000000;
+  fill: #000000;
 }
 
 .nav {
-    margin-bottom: auto;
+  margin-bottom: auto;
 }
 
 .navList {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .button {
-    background-color: #F6B83D;
-    padding: 15px 20px;
-    border-radius: 30px;
-    color: #ffff;
-    font-size: 16px;
-    white-space: nowrap;
-    font-weight: 700;
-    line-height: 125%;
-    width: 100%;
+  background-color: #f6b83d;
+  padding: 15px 20px;
+  border-radius: 30px;
+  color: #ffff;
+  font-size: 16px;
+  white-space: nowrap;
+  font-weight: 700;
+  line-height: 125%;
+  width: 100%;
 }
 
 .button:hover,
 .button:active {
-    background-color: #fff4df;
-    color: #f6b83d;
+  background-color: #fff4df;
+  color: #f6b83d;
 }
 
 .navList {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
 }
 
-
 .authList {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 0;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 0;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .authItem {
-    width: 100%;
+  width: 100%;
 }
 
-@media screen and (min-width:768px) {
-    .authList {
-        flex-direction: row;
-    }
+@media screen and (min-width: 768px) {
+  .authList {
+    flex-direction: row;
+  }
 
-    .menu {
-        width: 374px;
-    }
+  .menu {
+    width: 374px;
+  }
 
-    .menuHome {
-        width: 374px;
-    }
+  .menuHome {
+    width: 374px;
+  }
 }

@@ -1,6 +1,4 @@
 import css from "./LoginModal.module.css";
-import { Button } from "../Button/Button";
-import { Link } from "react-router-dom";
 import puppy from "../../assets/puppy.png";
 import { ButtonLink } from "../ButtonLink/ButtonLink";
 
