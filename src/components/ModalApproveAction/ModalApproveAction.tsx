@@ -6,9 +6,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import cat from "../../assets/cat.png";
 import { Button } from "../Button/Button";
 import { logoutUser } from "../../lib/api/auth";
-import { useState } from "react";
 
-export const ModalApproveAction = ({ onClose }) => {
+type ModalApproveActionProps = {
+  onClose: () => void;
+};
+
+export const ModalApproveAction = ({ onClose }: ModalApproveActionProps) => {
   const setUser = useAuthStore((state) => state.setUser);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -25,12 +28,23 @@ export const ModalApproveAction = ({ onClose }) => {
   return (
     <div className={css.modalWrapper}>
       <div className={css.imgWrapper}>
-        <img src={cat} alt="cat image" />
+        <img src={cat} alt="" />
       </div>
       <p className={css.paragraph}>Already leaving?</p>
       <div className={css.buttonsWrapper}>
-        <Button onClick={() => logoutMutation.mutate()}>Yes</Button>
-        <Button className={css.cancelBtn} onClick={onClose}>
+        <Button
+          type="button"
+          onClick={() => logoutMutation.mutate()}
+          disabled={logoutMutation.isPending}
+        >
+          Yes
+        </Button>
+        <Button
+          type="button"
+          className={css.cancelBtn}
+          onClick={onClose}
+          disabled={logoutMutation.isPending}
+        >
           Cancel
         </Button>
       </div>

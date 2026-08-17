@@ -31,7 +31,7 @@ export const MobileMenu = ({
 
         <nav className={css.nav} aria-label="Main navigation">
           <ul className={css.navList}>
-            <li className={css.link}>
+            <li>
               <ButtonLink to="/news" onClick={onClose}>
                 News
               </ButtonLink>

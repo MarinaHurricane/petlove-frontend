@@ -29,18 +29,19 @@ const schema = yup.object({
 
 export const LoginForm = () => {
   const [error, setError] = useState("");
-  const [passwordInputType, setPasswordInputType] = useState("password");
+  const [passwordInputType, setPasswordInputType] = useState<
+    "password" | "text"
+  >("password");
   const setUser = useAuthStore((state) => state.setUser);
   const navigate = useNavigate();
 
   const passwordVisibilityHandler = () => {
     if (passwordInputType === "password") {
-      return setPasswordInputType("text");
+      setPasswordInputType("text");
+    } else {
+      setPasswordInputType("password");
     }
-    return setPasswordInputType("password");
   };
-
-  console.log(passwordInputType);
 
   const {
     register,
@@ -68,7 +69,6 @@ export const LoginForm = () => {
 
   const onSubmit = (data: LoginFormValues) => {
     mutation.mutate(data);
-    console.log("user logged in");
   };
 
   const email = useWatch({
@@ -114,12 +114,18 @@ export const LoginForm = () => {
           <input
             type={passwordInputType}
             placeholder="Password"
-            className={`${css.field} ${errors.password && css.errorField} ${dirtyFields.password && password && !errors.email && !errors.password && css.check}`}
+            className={`${css.field} ${errors.password && css.errorField} ${dirtyFields.password && password && !errors.password && css.check}`}
             {...register("password")}
           />
           <button
+            type="button"
             className={css.passwordVisibility}
             onClick={passwordVisibilityHandler}
+            aria-label={
+              passwordInputType === "password"
+                ? "Show password"
+                : "Hide password"
+            }
           >
             {passwordInputType === "password" ? (
               <Icon name="icon-eye-off" className={css.iconEye} />

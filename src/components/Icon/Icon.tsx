@@ -1,11 +1,11 @@
 type IconProps = {
-    name: string;
- className?: string;
-}
+  name: string;
+  className?: string;
+};
 
-export const Icon = ({ name, className = '' }: IconProps) => {
+export const Icon = ({ name, className = "" }: IconProps) => {
   return (
-    <svg className={className}>
+    <svg className={className} aria-hidden="true">
       <use href={`/icons-sprite.svg#${name}`} />
     </svg>
   );

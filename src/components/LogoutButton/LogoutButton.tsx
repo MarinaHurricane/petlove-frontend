@@ -7,9 +7,12 @@ export const LogoutButton = () => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const openLogoutModal = () => setIsLogoutModalOpen(true);
   const closeLogoutModal = () => setIsLogoutModalOpen(false);
+
   return (
     <>
-      <Button onClick={openLogoutModal}>LOG OUT</Button>
+      <Button type="button" onClick={openLogoutModal}>
+        LOG OUT
+      </Button>
       {isLogoutModalOpen && (
         <Modal onClose={closeLogoutModal}>
           <ModalApproveAction onClose={closeLogoutModal} />

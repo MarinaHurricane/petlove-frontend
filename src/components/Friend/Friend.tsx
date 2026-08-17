@@ -1,5 +1,5 @@
 import css from "./Friend.module.css";
-import type { Friend as FriendType } from "../../types/Friend";
+import type { Friend as FriendType } from "../../types/friend";
 
 type FriendProps = {
   friend: FriendType;

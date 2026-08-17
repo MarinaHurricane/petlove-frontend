@@ -1,5 +1,5 @@
 import css from "./FeaturedPetCard.module.css";
-import type { Pet } from "../../types/Pet";
+import type { Pet } from "../../types/pet";
 
 type FeaturedPetCardProps = {
   pet: Pet;
