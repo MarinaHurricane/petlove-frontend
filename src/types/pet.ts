@@ -32,6 +32,7 @@ export interface Pet {
   imgURL: string;
   user?: string;
   popularity: number;
+  price?: number;
   createdAt: string;
   updatedAt: string;
 }

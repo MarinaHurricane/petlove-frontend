@@ -3,7 +3,7 @@ import { FeaturedPetCard } from "../FeaturedPetCard/FeaturedPetCard";
 import css from "./PetBlock.module.css";
 import { getRandomPet } from "../../lib/api/petsPage";
 
- export type PetBlockImages = {
+export type PetBlockImages = {
   mobile1x: string;
   mobile2x: string;
   tablet1x: string;

@@ -1,18 +1,23 @@
 import css from "./ModalEditUser.module.css";
 import { useAuthStore } from "../../lib/store/authStore";
 import { Icon } from "../Icon/Icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { editUserAvatar, updateProfile } from "../../lib/api/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Button } from "../Button/Button";
+import toast from "react-hot-toast";
 
 type EditProfileValues = {
   name: string;
   email: string;
   phone?: string;
+};
+
+type ModalEditUserProps = {
+  onClose: () => void;
 };
 
 const schema = yup.object({
@@ -22,23 +27,16 @@ const schema = yup.object({
     .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, "Invalid email")
     .required("Email is required"),
 
-  avatar: yup
-    .string()
-    .matches(
-      /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/,
-      "Invalid image format",
-    ),
-
   phone: yup
     .string()
     .notRequired()
     .matches(/^\+44\d{10}$/, {
-      message: "Phone must start with + 44 folowed by 10 digits",
+      message: "Phone must start with + 44 followed by 10 digits",
       excludeEmptyString: true,
     }),
 });
 
-export const ModalEditUser = ({ onClose }) => {
+export const ModalEditUser = ({ onClose }: ModalEditUserProps) => {
   const { user } = useAuthStore();
   const setUser = useAuthStore((state) => state.setUser);
   const [preview, setPreview] = useState<string | null>(null);
@@ -59,10 +57,15 @@ export const ModalEditUser = ({ onClose }) => {
   const avatarMutation = useMutation({
     mutationFn: editUserAvatar,
     onSuccess: (data) => {
+      if (!user) return;
+
       setUser({
         ...user,
         avatar: data,
       });
+    },
+    onError: () => {
+      toast.error("Failed to upload photo");
     },
   });
 
@@ -72,32 +75,51 @@ export const ModalEditUser = ({ onClose }) => {
       setUser(data);
       onClose();
     },
+    onError: () => {
+      toast.error("Failed to update profile");
+    },
   });
 
-  const onSubmit = (data) => {
-    console.log("PROFILE DATA:", data);
+  const onSubmit = (data: EditProfileValues) => {
     updateProfileMutation.mutate(data);
   };
 
-  const handleAvatarChange = (e) => {
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const avatar = e.target.files?.[0];
     if (!avatar) return;
-    try {
-      setPreview(URL.createObjectURL(avatar));
-      avatarMutation.mutate(avatar);
-    } catch (error) {
-      console.log(error);
+
+    if (!avatar.type.startsWith("image/")) {
+      toast.error("Please select an image");
+      return;
     }
+
+    if (avatar.size > 5 * 1024 * 1024) {
+      toast.error("Image must be smaller than 5 MB");
+      return;
+    }
+
+    const previewUrl = URL.createObjectURL(avatar);
+    setPreview(previewUrl);
+
+    avatarMutation.mutate(avatar);
   };
+
+  useEffect(() => {
+    return () => {
+      if (preview) {
+        URL.revokeObjectURL(preview);
+      }
+    };
+  }, [preview]);
 
   if (!user) return null;
 
   return (
     <div className={css.editWrapper}>
-      <p className={css.editParagraph}>Edit information</p>
+      <h2 className={css.editParagraph}>Edit information</h2>
       <img
         src={preview || user?.avatar}
-        alt="user-avatar"
+        alt={`${user.name}'s avatar`}
         className={css.avatar}
       />
 

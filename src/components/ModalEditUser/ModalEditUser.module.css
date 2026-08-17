@@ -14,7 +14,6 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-
 }
 
 .avatar {
@@ -72,36 +71,33 @@
   margin-top: 11px;
 }
 
-@media screen and (min-width:768px) {
+@media screen and (min-width: 768px) {
   .editWrapper {
-  padding: 50px;
-}
+    padding: 50px;
+  }
 
-.profileInfo {
-  width: 100%;
-  height: 52px;
-  padding: 16px;
+  .profileInfo {
+    width: 100%;
+    height: 52px;
+    padding: 16px;
     font-size: 16px;
-line-height: 125%;
-}
+    line-height: 125%;
+  }
 
-.editProfileForm {
-  gap: 14px;
-}
+  .editProfileForm {
+    gap: 14px;
+  }
 
-.avatar {
-  width: 86px;
-  height: 86px;
-}
+  .avatar {
+    width: 86px;
+    height: 86px;
+  }
 
-.saveButton {
-  margin-top: 26px;
-}
+  .saveButton {
+    margin-top: 26px;
+  }
 
-.uploadButton {
-  padding: 13px 22px;
-}
-
-
-
+  .uploadButton {
+    padding: 13px 22px;
+  }
 }

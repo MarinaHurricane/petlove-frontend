@@ -1,36 +1,26 @@
+import { ButtonLink } from "../ButtonLink/ButtonLink";
 import css from "./NavBar.module.css";
-import { NavLink } from "react-router-dom";
-import { Icon } from "../Icon/Icon";
-
 
 export const NavBar = () => {
   return (
-    <nav>
+    <nav aria-label="Main navigation">
       <ul className={css.navList}>
         <li>
-          {" "}
-          <NavLink to="/news">
-            {" "}
-            <button className={css.button}>News</button>
-          </NavLink>
+          <ButtonLink to="/news" className={css.button}>
+            News
+          </ButtonLink>
         </li>
         <li>
-          {" "}
-          <NavLink to="/pets">
-            {" "}
-            <button className={css.button}>Find a pet</button>
-          </NavLink>
+          <ButtonLink to="/pets" className={css.button}>
+            Find a pet
+          </ButtonLink>
         </li>
         <li>
-          {" "}
-         
-          <NavLink to="/friends">
-            {" "}
-            <button className={css.button}> Our friends</button>
-          </NavLink>
+          <ButtonLink to="/friends" className={css.button}>
+            Our friends
+          </ButtonLink>
         </li>
       </ul>
-       {/* <Icon name="icon-chevron-down"/> */}
     </nav>
   );
 };
