@@ -1,36 +1,62 @@
 import css from "./PetModalInfo.module.css";
+import type { Pet as PetType } from "../../types/pet";
 import { Icon } from "../Icon/Icon";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { removePetFromFavorites, viewedPets } from "../../lib/api/user";
 import { Button } from "../Button/Button";
 import { useAuthStore } from "../../lib/store/authStore";
+import { useEffect } from "react";
+import { addFavoritePet } from "../../lib/api/petsPage";
 
-export const PetModalInfo = ({ pet, variant, onClose }) => {
+type PetModalInfoProps = {
+  pet: PetType;
+  variant: "viewed" | "generalList" | "favorites";
+  onClose: () => void;
+};
+
+export const PetModalInfo = ({ pet, variant, onClose }: PetModalInfoProps) => {
   const { user } = useAuthStore();
   const setUser = useAuthStore((state) => state.setUser);
   const queryClient = useQueryClient();
   const isFavorite = user?.favorites?.some(
     (favorite) => favorite._id === pet._id,
   );
-  const { data: viewedPet } = useQuery({
-    queryKey: ["pet"],
-    queryFn: () => viewedPets(pet._id),
+  // const { data: viewedPet } = useQuery({
+  //   queryKey: ["pet", pet._id],
+  //   queryFn: () => viewedPets(pet._id),
+  // });
+
+  const viewedPetMutation = useMutation({
+    mutationFn: viewedPets,
   });
 
-  const favoritesMutation = useMutation({
+  useEffect(() => {
+    viewedPetMutation.mutate(pet._id);
+  }, [pet._id]);
+
+  const addFavoritesMutation = useMutation({
+    mutationFn: addFavoritePet,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
+      onClose();
+      setUser(data);
+    },
+  });
+
+  const removeFavoritesMutation = useMutation({
     mutationFn: removePetFromFavorites,
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ["user"],
       });
-       onClose();
+      onClose();
       setUser(data);
-     
     },
   });
 
-  console.log(viewedPet);
   return (
     <div className={css.petContainer}>
       <div className={css.imageWrapper}>
@@ -64,27 +90,29 @@ export const PetModalInfo = ({ pet, variant, onClose }) => {
       <p className={css.price}>{pet?.price ? `$ ${pet.price}` : ""}</p>
 
       <div className={css.moreInfo}>
-        {variant === "viewed" || variant === "generalList" ? (
-          <Button className={css.addFavourite}>
+        {!isFavorite ? (
+          <Button
+            className={css.addFavourite}
+            onClick={() => addFavoritesMutation.mutate(pet._id)}
+          >
             Add to
             <span>
               <Icon name="icon-heart" className={css.icon} />
             </span>
           </Button>
         ) : (
-          variant === "favorites" && (
-            <Button className={css.addFavourite}
-            onClick={()=> favoritesMutation.mutate(pet._id)}
-           >
-              Remove
-              <span>
-                <Icon
-                  name="icon-heart"
-                  className={isFavorite ? css.liked : css.icon}
-                />
-              </span>
-            </Button>
-          )
+          <Button
+            className={css.addFavourite}
+            onClick={() => removeFavoritesMutation.mutate(pet._id)}
+          >
+            Remove
+            <span>
+              <Icon
+                name="icon-heart"
+                className={isFavorite ? css.liked : css.icon}
+              />
+            </span>
+          </Button>
         )}
 
         <Button variant="secondary">Contact</Button>
