@@ -1,13 +1,23 @@
-import { Icon } from '../Icon/Icon';
-import css from './UserPet.module.css';
+import type { OwnPet } from "../../types/ownPet";
+import { Icon } from "../Icon/Icon";
+import css from "./UserPet.module.css";
 
-export const UserPet = ({pet, onPetDelete}) => {
-    return (
-        <li className={css.userPet}>
-          <div className={css.imageWrapper}>
-        <img src={pet.avatar} alt="pet-avatar" className={css.petAvatar}/>
-        </div>
-        <div className={css.petInfo}>
+type UserPetProps = {
+  pet: OwnPet;
+  onPetDelete: () => void;
+};
+
+export const UserPet = ({ pet, onPetDelete }: UserPetProps) => {
+  return (
+    <li className={css.userPet}>
+      <div className={css.imageWrapper}>
+        <img
+          src={pet.avatar}
+          alt={`${pet.name}'s avatar`}
+          className={css.petAvatar}
+        />
+      </div>
+      <div className={css.petInfo}>
         <p className={css.title}>{pet.title}</p>
         <dl className={css.petData}>
           <div className={css.petSubData}>
@@ -16,7 +26,9 @@ export const UserPet = ({pet, onPetDelete}) => {
           </div>
           <div className={css.petSubData}>
             <dt className={css.data}>Birthday</dt>
-            <dd className={css.info}>{new Date(pet.birthday).toLocaleDateString("en-GB")}</dd>
+            <dd className={css.info}>
+              {new Date(pet.dateOfBirth).toLocaleDateString("en-GB")}
+            </dd>
           </div>
           <div className={css.petSubData}>
             <dt className={css.data}>Gender</dt>
@@ -26,12 +38,15 @@ export const UserPet = ({pet, onPetDelete}) => {
             <dt className={css.data}>Species</dt>
             <dd className={css.info}>{pet.species}</dd>
           </div>
-          </dl>
-          <button onClick={onPetDelete} className={css.deleteButton}>
-            <Icon name="icon-trash" className={css.icon}/>
-          </button>
-          </div>
-          </li>
-    )
-
-}
+        </dl>
+        <button
+          type="button"
+          onClick={onPetDelete}
+          className={css.deleteButton}
+        >
+          <Icon name="icon-trash" className={css.icon} />
+        </button>
+      </div>
+    </li>
+  );
+};

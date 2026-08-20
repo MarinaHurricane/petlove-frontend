@@ -32,6 +32,10 @@
   background-color: #a5cef7;
 }
 
+.iconMaleChosen {
+  background-color: #a5cef7;
+}
+
 .iconFemale {
   width: 32px;
   height: 32px;
@@ -42,6 +46,10 @@
 
 .iconFemale:hover,
 .iconFemale:active {
+  background-color: #ffc0cb;
+}
+
+.iconFemaleChosen {
   background-color: #ffc0cb;
 }
 
@@ -58,6 +66,18 @@
   background-color: #f9dba3;
 }
 
+.iconMultipleChosen {
+  background-color: #f9dba3;
+}
+
+.avatarError {
+  color: #ff0000;
+  text-align: center;
+}
+
+.error {
+  color: #ff0000;
+}
 .defaultAvatar {
   width: 34px;
   height: 34px;

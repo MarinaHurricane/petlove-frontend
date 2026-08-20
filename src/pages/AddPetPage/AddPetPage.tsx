@@ -1,20 +1,19 @@
 import css from "./AddPetPage.module.css";
-
 import addPetMobile1x from "../../assets/add-pet-mobile-1x.jpg";
 import addPetMobile2x from "../../assets/add-pet-mobile-2x.jpg";
 import addPetTablet1x from "../../assets/add-pet-tablet-1x.jpg";
 import addPetTablet2x from "../../assets/add-pet-tablet-2x.jpg";
 import addPetDesktop1x from "../../assets/add-pet-desktop-1x.jpg";
 import addPetDesktop2x from "../../assets/add-pet-desktop-2x.jpg";
-// import sprite from "../../../public/icons-sprite.svg";
 import { PetBlock } from "../../components/PetBlock/PetBlock";
 import { Title } from "../../components/Title/Title";
 import { Icon } from "../../components/Icon/Icon";
 import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { addOwnPet, getCategories, getSpecies } from "../../lib/api/petsPage";
+import { addOwnPet, getSpecies } from "../../lib/api/petsPage";
 import Select from "react-select";
+import toast from "react-hot-toast";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { Button } from "../../components/Button/Button";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -22,15 +21,6 @@ import * as yup from "yup";
 import { useAuthStore } from "../../lib/store/authStore";
 import { selectStyles } from "../../sevices/reactSelectStyles";
 import { ButtonLink } from "../../components/ButtonLink/ButtonLink";
-
-type ownPetValues = {
-  gender: string;
-  title: string;
-  name: string;
-  avatar: string;
-  dateOfBirth: Date;
-  species: string;
-};
 
 const addPetImages = {
   mobile1x: addPetMobile1x,
@@ -42,27 +32,29 @@ const addPetImages = {
 };
 
 const schema = yup.object({
-  title: yup.string().required(),
-  name: yup.string().required(),
-  avatar: yup.string(),
-  species: yup.string().required(),
-  dateOfBirth: yup
-    .string()
-    .matches(/^\d{4}-\d{2}-\d{2}$/)
-    .required(),
-  gender: yup.string().required(),
+  title: yup.string().required("Title is required"),
+  name: yup.string().required("Pet's name is required"),
+  species: yup.string().required("Species is required"),
+  dateOfBirth: yup.string().required("Date of birth is required"),
+  gender: yup.string().required("Gender is required"),
 });
 
+type AddPetFormValues = {
+  title: string;
+  name: string;
+  species: string;
+  dateOfBirth: string;
+  gender: string;
+};
+
 export const AddPetPage = () => {
-  const { user } = useAuthStore();
   const setUser = useAuthStore((state) => state.setUser);
   const [petAvatar, setPetAvatar] = useState<File | null>(null);
+  const [avatarError, setAvatarError] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
-  // const [species, setSpecies] = useState(null);
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const { data: speciesData } = useQuery({
+  const { data: speciesData, isLoading: isSpeciesLoading } = useQuery({
     queryKey: ["speciesData"],
     queryFn: getSpecies,
   });
@@ -98,50 +90,57 @@ export const AddPetPage = () => {
     name: "dateOfBirth",
   });
 
-  console.log(dateOfBirth);
-
   const species = useWatch({
     control,
     name: "species",
   });
 
+  const gender = useWatch({
+    control,
+    name: "gender",
+  });
+
   const mutation = useMutation({
     mutationFn: addOwnPet,
     onSuccess: (data) => {
-      console.log(data);
       setUser(data.updatedUser);
-
+      toast.success("Pet added successfully");
       navigate("/profile");
-      console.log(data);
     },
-    onError: () => setError("Adding pet failed, please try again"),
+    onError: () => {
+      toast.error("Adding pet failed, please try again");
+    },
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    const formData = new FormData();
-
-    Object.entries(data).forEach(([KeyboardEvent, value]) => {
-      formData.append(KeyboardEvent, String(value));
-    });
-
-    if (petAvatar) {
-      formData.append("avatar", petAvatar);
+  const onSubmit = (data: AddPetFormValues) => {
+    if (!petAvatar) {
+      setAvatarError(true);
+      return;
     }
 
-    console.log(formData);
+    setAvatarError(false);
+    const formData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, String(value));
+    });
+
+    formData.append("avatar", petAvatar);
+
     mutation.mutate(formData);
   };
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const avatar = e.target.files?.[0];
     if (!avatar) return;
-    try {
-      setPetAvatar(avatar);
-      setPreview(URL.createObjectURL(avatar));
-    } catch (error) {
-      console.log(error);
+
+    if (preview) {
+      URL.revokeObjectURL(preview);
     }
+
+    setPetAvatar(avatar);
+    setPreview(URL.createObjectURL(avatar));
+    setAvatarError(false);
   };
 
   return (
@@ -155,13 +154,18 @@ export const AddPetPage = () => {
       <div className={css.formWrapper}>
         <Title className={css.title}>Add my pet</Title>
 
-        <form
-          onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}
-        >
+        <form onSubmit={handleSubmit(onSubmit)}>
           <ul className={css.iconList}>
             <li className={css.iconItemMale}>
               <label htmlFor="male">
-                <Icon name="icon-male" className={css.iconMale} />
+                <Icon
+                  name="icon-male"
+                  className={
+                    gender === "male"
+                      ? `${css.iconMale} ${css.iconMaleChosen}`
+                      : css.iconMale
+                  }
+                />
               </label>
 
               <input
@@ -178,7 +182,11 @@ export const AddPetPage = () => {
               <label htmlFor="female">
                 <Icon
                   name="icon-female"
-                  className={`${css.iconFemale} ${css.chosen}`}
+                  className={
+                    gender === "female"
+                      ? `${css.iconFemale} ${css.iconFemaleChosen}`
+                      : css.iconFemale
+                  }
                 />
               </label>
 
@@ -193,7 +201,14 @@ export const AddPetPage = () => {
 
             <li className={css.iconItem}>
               <label htmlFor="multiple">
-                <Icon name="icon-multiple" className={css.iconMultiple} />
+                <Icon
+                  name="icon-multiple"
+                  className={
+                    gender === "multiple"
+                      ? `${css.iconMultiple} ${css.iconMultipleChosen}`
+                      : css.iconMultiple
+                  }
+                />
               </label>
               <input
                 type="radio"
@@ -204,9 +219,8 @@ export const AddPetPage = () => {
               />
             </li>
             {errors.gender && (
-              <p className={css.genderError}>{errors.gender.message}</p>
+              <li className={css.genderError}>{errors.gender.message}</li>
             )}
-            {/* {errors.gender && errors.gender.message} */}
           </ul>
 
           {preview ? (
@@ -219,23 +233,25 @@ export const AddPetPage = () => {
             </div>
           )}
 
-          <div className={css.inputsWrapper}>
-            <label htmlFor="pet-avatar">
-              <label htmlFor="avatar" className={css.uploadButton}>
-                Upload photo
-                <span>
-                  <Icon name="icon-upload-cloud" className={css.icon} />
-                </span>
-              </label>
+          {avatarError && (
+            <p className={css.avatarError}>Pet photo is required</p>
+          )}
 
-              <input
-                id="avatar"
-                type="file"
-                accept="image/*"
-                hidden
-                onChange={handleAvatarChange}
-              />
+          <div className={css.inputsWrapper}>
+            <label htmlFor="avatar" className={css.uploadButton}>
+              Upload photo
+              <span>
+                <Icon name="icon-upload-cloud" className={css.icon} />
+              </span>
             </label>
+
+            <input
+              id="avatar"
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleAvatarChange}
+            />
 
             <input
               type="text"
@@ -262,12 +278,16 @@ export const AddPetPage = () => {
                   dateOfBirth ? ` ${css.filled} ${css.birthday}` : css.date
                 }
               />
+
+              {errors.dateOfBirth && (
+                <p className={css.error}>{errors.dateOfBirth.message}</p>
+              )}
+
               <Controller
                 name="species"
                 control={control}
                 render={({ field }) => (
                   <Select
-                    // className={css.select}
                     className={
                       species ? `${css.filled} ${css.species}` : css.select
                     }
@@ -278,11 +298,16 @@ export const AddPetPage = () => {
                     }
                     options={speciesOptions}
                     placeholder="Species"
+                    isLoading={isSpeciesLoading}
                     onChange={(option) => field.onChange(option?.value)}
                     styles={selectStyles}
                   />
                 )}
               />
+
+              {errors.species && (
+                <p className={css.error}>{errors.species.message}</p>
+              )}
             </div>
           </div>
 
@@ -290,8 +315,12 @@ export const AddPetPage = () => {
             <ButtonLink to="/profile" className={css.link}>
               Back
             </ButtonLink>
-            <Button className={css.submit} type="submit">
-              Submit
+            <Button
+              className={css.submit}
+              type="submit"
+              disabled={mutation.isPending}
+            >
+              {mutation.isPending ? "Adding..." : "Submit"}
             </Button>
           </div>
         </form>

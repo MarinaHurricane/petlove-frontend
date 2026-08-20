@@ -8,6 +8,8 @@ type UserBlockProps = {
 
 export const UserBlock = ({ onEditClick }: UserBlockProps) => {
   const { user } = useAuthStore();
+
+  if (!user) return null;
   return (
     <>
       <div className={css.buttonsWrapper}>
@@ -21,22 +23,22 @@ export const UserBlock = ({ onEditClick }: UserBlockProps) => {
         </button>
       </div>
 
-      <img className={css.avatar} src={user?.avatar} alt="User avatar" />
+      <img className={css.avatar} src={user.avatar} alt="User avatar" />
       <p className={css.myInfoTitle}>My information</p>
       <ul className={css.userInfo}>
         <li className={css.infoItem}>
           <div className={css.profileInfo}>
-            <p className={css.userData}>{user?.name}</p>
+            <p className={css.userData}>{user.name}</p>
           </div>
         </li>
         <li className={css.infoItem}>
           <div className={css.profileInfo}>
-            <p className={css.userData}>{user?.email}</p>
+            <p className={css.userData}>{user.email}</p>
           </div>
         </li>
         <li className={css.infoItem}>
           <div className={css.profileInfo}>
-            <p className={css.userData}>{user?.phone || "Add your phone"}</p>
+            <p className={css.userData}>{user.phone || "Add your phone"}</p>
           </div>
         </li>
       </ul>
