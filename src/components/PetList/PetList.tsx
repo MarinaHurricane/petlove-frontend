@@ -6,7 +6,7 @@ type PetListProps = {
   pets: PetType[];
   onPetClick: (pet: PetType) => void;
   onFavClick: (id: string) => void;
-  variant: "generalList" | "favorites";
+  variant: "generalList" | "favorites" | "viewed";
   onFavoriteDelete: (id: string) => void;
 };
 

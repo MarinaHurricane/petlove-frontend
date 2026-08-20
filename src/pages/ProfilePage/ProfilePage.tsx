@@ -189,13 +189,13 @@ export const ProfilePage = () => {
           {mode === "favorites" ? (
             <PetModalInfo
               pet={selectedPet}
-              variant="favorites"
+              // variant="favorites"
               onClose={handleClosePetModal}
             />
           ) : (
             <PetModalInfo
               pet={selectedPet}
-              variant="viewed"
+              // variant="viewed"
               onClose={handleClosePetModal}
             />
           )}

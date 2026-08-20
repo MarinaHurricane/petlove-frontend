@@ -30,8 +30,8 @@ const schema = yup.object({
   phone: yup
     .string()
     .notRequired()
-    .matches(/^\+44\d{10}$/, {
-      message: "Phone must start with + 44 followed by 10 digits",
+    .matches(/^\+\d{7,15}$/, {
+      message: "Phone must start with + and contain 7-15 digits",
       excludeEmptyString: true,
     }),
 });
@@ -118,7 +118,7 @@ export const ModalEditUser = ({ onClose }: ModalEditUserProps) => {
     <div className={css.editWrapper}>
       <h2 className={css.editParagraph}>Edit information</h2>
       <img
-        src={preview || user?.avatar}
+        src={preview || user.avatar}
         alt={`${user.name}'s avatar`}
         className={css.avatar}
       />
@@ -147,7 +147,7 @@ export const ModalEditUser = ({ onClose }: ModalEditUserProps) => {
 
         <input
           type="tel"
-          placeholder="+44"
+          placeholder="+441234567890"
           {...register("phone")}
           className={css.profileInfo}
         />

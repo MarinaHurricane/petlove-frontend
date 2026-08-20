@@ -2,8 +2,12 @@ import css from "./UserBlock.module.css";
 import { Icon } from "../Icon/Icon";
 import { useAuthStore } from "../../lib/store/authStore";
 
-export const UserBlock = ({ onEditClick }) => {
-  const { user, isAuthenticated } = useAuthStore();
+type UserBlockProps = {
+  onEditClick: () => void;
+};
+
+export const UserBlock = ({ onEditClick }: UserBlockProps) => {
+  const { user } = useAuthStore();
   return (
     <>
       <div className={css.buttonsWrapper}>
@@ -12,12 +16,12 @@ export const UserBlock = ({ onEditClick }) => {
           <Icon name="icon-user" className={css.icon} />
         </div>
 
-        <button className={css.editButton} onClick={onEditClick}>
+        <button type="button" className={css.editButton} onClick={onEditClick}>
           <Icon name="icon-edit" className={css.editIcon} />
         </button>
       </div>
 
-      <img className={css.avatar} src={user?.avatar} alt="user-avatar" />
+      <img className={css.avatar} src={user?.avatar} alt="User avatar" />
       <p className={css.myInfoTitle}>My information</p>
       <ul className={css.userInfo}>
         <li className={css.infoItem}>
@@ -32,7 +36,7 @@ export const UserBlock = ({ onEditClick }) => {
         </li>
         <li className={css.infoItem}>
           <div className={css.profileInfo}>
-            <p className={css.userData}>{user?.phone || "+44"}</p>
+            <p className={css.userData}>{user?.phone || "Add your phone"}</p>
           </div>
         </li>
       </ul>

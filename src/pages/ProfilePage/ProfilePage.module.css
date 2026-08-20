@@ -36,6 +36,7 @@
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+  justify-content: left;
   gap: 14px;
 }
 
@@ -43,19 +44,21 @@
   display: flex;
   gap: 10px;
   max-width: 256px;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .toggleViewed {
   background-color: #fff;
   color: #262626;
-  width: 123px;
+  width: 50%;
   font-size: 14px;
   line-height: 129%;
   padding: 12px;
 }
 
 .toggleFavorite {
-  width: 123px;
+  width: 50%;
   font-size: 14px;
   line-height: 129%;
   padding: 12px;
@@ -129,7 +132,6 @@
     display: flex;
     gap: 32px;
     padding: 32px 0px;
-    justify-content: space-between;
   }
 
   .userBlockWrapper {
@@ -141,5 +143,9 @@
 
   .userPetsList {
     flex-direction: column;
+  }
+
+  .noticeParagraph {
+    margin: 180px 140px 180px 140px;
   }
 }
