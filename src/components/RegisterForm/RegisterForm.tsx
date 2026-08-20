@@ -41,14 +41,19 @@ export const RegisterForm = () => {
   const [passwordInputType, setPasswordInputType] = useState<
     "password" | "text"
   >("password");
+  const [confirmPasswordInputType, setConfirmPasswordInputType] = useState<
+    "password" | "text"
+  >("password");
   const navigate = useNavigate();
 
   const passwordVisibilityHandler = () => {
-    if (passwordInputType === "password") {
-      setPasswordInputType("text");
-    } else {
-      setPasswordInputType("password");
-    }
+    setPasswordInputType((prev) => (prev === "password" ? "text" : "password"));
+  };
+
+  const confirmPasswordVisibilityHandler = () => {
+    setConfirmPasswordInputType((prev) =>
+      prev === "password" ? "text" : "password",
+    );
   };
 
   const {
@@ -101,125 +106,121 @@ export const RegisterForm = () => {
   });
 
   return (
-    <>
-      <form className={css.regiserForm} onSubmit={handleSubmit(onSubmit)}>
-        <div className={css.formFields}>
+    <form className={css.regiserForm} onSubmit={handleSubmit(onSubmit)}>
+      <div className={css.formFields}>
+        <input
+          type="text"
+          placeholder="Name"
+          className={` ${css.field} ${errors.name && css.errorField} ${dirtyFields.name && name && !errors.name && css.check} `}
+          {...register("name")}
+        />
+        {errors.name && <p>{errors.name.message}</p>}
+
+        <div className={css.emailPassword}>
           <input
-            type="text"
-            placeholder="Name"
-            className={` ${css.field} ${errors.email && css.errorField} ${dirtyFields.name && name && !errors.name && css.check} `}
-            {...register("name")}
+            type="email"
+            placeholder="Email"
+            className={` ${css.field} ${errors.email && css.errorField} ${dirtyFields.email && email && !errors.email && css.check} `}
+            {...register("email")}
           />
-          {errors.name && <p>{errors.name.message}</p>}
-
-          <div className={css.emailPassword}>
-            <input
-              type="email"
-              placeholder="Email"
-              className={` ${css.field} ${errors.email && css.errorField} ${dirtyFields.email && email && !errors.email && css.check} `}
-              {...register("email")}
-            />
-            {errors.email ? (
-              <button
-                type="button"
-                className={css.clearButton}
-                onClick={() => setValue("email", "")}
-              >
-                <Icon name="icon-x" className={css.icon} />
-              </button>
-            ) : (
-              dirtyFields.email &&
-              email &&
-              !errors.email && (
-                <Icon name="icon-check" className={css.iconCheck} />
-              )
-            )}
-
-            {errors.email && (
-              <p className={css.error}>{errors.email.message}</p>
-            )}
-          </div>
-
-          <div className={css.emailPassword}>
-            <input
-              type={passwordInputType}
-              placeholder="Password"
-              className={`${css.field} ${errors.password && css.errorField} ${dirtyFields.password && password && !errors.password && css.check}`}
-              {...register("password")}
-            />
+          {errors.email ? (
             <button
               type="button"
-              className={css.passwordVisibility}
-              onClick={passwordVisibilityHandler}
-              aria-label={
-                passwordInputType === "password"
-                  ? "Show password"
-                  : "Hide password"
-              }
+              className={css.clearButton}
+              onClick={() => setValue("email", "")}
             >
-              {passwordInputType === "password" ? (
-                <Icon name="icon-eye-off" className={css.iconEye} />
-              ) : (
-                <Icon name="icon-eye" className={css.iconEye} />
-              )}
+              <Icon name="icon-x" className={css.icon} />
             </button>
-            {/* <Icon name="icon-eye-off" className={css.iconCheck} /> */}
-            {errors.password ? (
-              <p className={css.error}>{errors.password.message}</p>
-            ) : (
-              dirtyFields.password &&
-              !errors.password &&
-              password && (
-                <>
-                  <p className={css.passwordCorrect}>Password is secure</p>{" "}
-                  <Icon name="icon-check" className={css.iconPasswordCheck} />
-                </>
-              )
-            )}
-          </div>
+          ) : (
+            dirtyFields.email &&
+            email &&
+            !errors.email && (
+              <Icon name="icon-check" className={css.iconCheck} />
+            )
+          )}
 
-          <div className={css.emailPassword}>
-            <input
-              type={passwordInputType}
-              placeholder="Confirm Password"
-              className={`${css.field} ${errors.confirmPassword && css.errorField} ${dirtyFields.confirmPassword && confirmPassword && !errors.confirmPassword && css.check}`}
-              {...register("confirmPassword")}
-            />
-
-            <button
-              type="button"
-              className={css.passwordVisibility}
-              onClick={passwordVisibilityHandler}
-              aria-label={
-                passwordInputType === "password"
-                  ? "Show password"
-                  : "Hide password"
-              }
-            >
-              {passwordInputType === "password" ? (
-                <Icon name="icon-eye-off" className={css.iconEye} />
-              ) : (
-                <Icon name="icon-eye" className={css.iconEye} />
-              )}
-            </button>
-            {/* <Icon name="icon-eye-off" className={css.iconCheck} /> */}
-            {errors.confirmPassword ? (
-              <p className={css.error}>{errors.confirmPassword.message}</p>
-            ) : (
-              dirtyFields.confirmPassword &&
-              !errors.confirmPassword &&
-              confirmPassword && (
-                <>
-                  <p className={css.passwordCorrect}>Passwords match</p>{" "}
-                  <Icon name="icon-check" className={css.iconPasswordCheck} />
-                </>
-              )
-            )}
-          </div>
+          {errors.email && <p className={css.error}>{errors.email.message}</p>}
         </div>
 
-        <Button type="submit">Registration</Button>
-      </form>
-    </>
+        <div className={css.emailPassword}>
+          <input
+            type={passwordInputType}
+            placeholder="Password"
+            className={`${css.field} ${errors.password && css.errorField} ${dirtyFields.password && password && !errors.password && css.check}`}
+            {...register("password")}
+          />
+          <button
+            type="button"
+            className={css.passwordVisibility}
+            onClick={passwordVisibilityHandler}
+            aria-label={
+              passwordInputType === "password"
+                ? "Show password"
+                : "Hide password"
+            }
+          >
+            {passwordInputType === "password" ? (
+              <Icon name="icon-eye-off" className={css.iconEye} />
+            ) : (
+              <Icon name="icon-eye" className={css.iconEye} />
+            )}
+          </button>
+
+          {errors.password ? (
+            <p className={css.error}>{errors.password.message}</p>
+          ) : (
+            dirtyFields.password &&
+            !errors.password &&
+            password && (
+              <>
+                <p className={css.passwordCorrect}>Password is secure</p>{" "}
+                <Icon name="icon-check" className={css.iconPasswordCheck} />
+              </>
+            )
+          )}
+        </div>
+
+        <div className={css.emailPassword}>
+          <input
+            type={confirmPasswordInputType}
+            placeholder="Confirm Password"
+            className={`${css.field} ${errors.confirmPassword && css.errorField} ${dirtyFields.confirmPassword && confirmPassword && !errors.confirmPassword && css.check}`}
+            {...register("confirmPassword")}
+          />
+
+          <button
+            type="button"
+            className={css.passwordVisibility}
+            onClick={confirmPasswordVisibilityHandler}
+            aria-label={
+              confirmPasswordInputType === "password"
+                ? "Show password"
+                : "Hide password"
+            }
+          >
+            {confirmPasswordInputType === "password" ? (
+              <Icon name="icon-eye-off" className={css.iconEye} />
+            ) : (
+              <Icon name="icon-eye" className={css.iconEye} />
+            )}
+          </button>
+
+          {errors.confirmPassword ? (
+            <p className={css.error}>{errors.confirmPassword.message}</p>
+          ) : (
+            dirtyFields.confirmPassword &&
+            !errors.confirmPassword &&
+            confirmPassword && (
+              <>
+                <p className={css.passwordCorrect}>Passwords match</p>{" "}
+                <Icon name="icon-check" className={css.iconPasswordCheck} />
+              </>
+            )
+          )}
+        </div>
+      </div>
+
+      <Button type="submit">Registration</Button>
+    </form>
   );
 };
