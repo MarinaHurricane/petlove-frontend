@@ -8,6 +8,7 @@ import { registerUser } from "../../lib/api/auth";
 import { useAuthStore } from "../../lib/store/authStore";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "../Icon/Icon";
+import { useState } from "react";
 
 type RegisterFormValues = {
   name: string;
@@ -37,7 +38,18 @@ const schema = yup.object({
 
 export const RegisterForm = () => {
   const setUser = useAuthStore((state) => state.setUser);
+  const [passwordInputType, setPasswordInputType] = useState<
+    "password" | "text"
+  >("password");
   const navigate = useNavigate();
+
+  const passwordVisibilityHandler = () => {
+    if (passwordInputType === "password") {
+      setPasswordInputType("text");
+    } else {
+      setPasswordInputType("password");
+    }
+  };
 
   const {
     register,
@@ -56,7 +68,6 @@ export const RegisterForm = () => {
     onSuccess: (data) => {
       setUser(data);
       reset();
-      console.log(data);
       navigate("/profile");
     },
     onError: () => {
@@ -66,9 +77,7 @@ export const RegisterForm = () => {
 
   const onSubmit = (data: RegisterFormValues) => {
     const { confirmPassword, ...userData } = data;
-    console.log(userData);
     mutation.mutate(userData);
-    console.log("user registered");
   };
 
   const name = useWatch({
@@ -88,7 +97,7 @@ export const RegisterForm = () => {
 
   const confirmPassword = useWatch({
     control,
-    name: "password",
+    name: "confirmPassword",
   });
 
   return (
@@ -133,12 +142,28 @@ export const RegisterForm = () => {
 
           <div className={css.emailPassword}>
             <input
-              type="password"
+              type={passwordInputType}
               placeholder="Password"
-              className={`${css.field} ${errors.password && css.errorField} ${dirtyFields.password && password && !errors.email && !errors.password && css.check}`}
+              className={`${css.field} ${errors.password && css.errorField} ${dirtyFields.password && password && !errors.password && css.check}`}
               {...register("password")}
             />
-            <Icon name="icon-eye-off" className={css.iconCheck} />
+            <button
+              type="button"
+              className={css.passwordVisibility}
+              onClick={passwordVisibilityHandler}
+              aria-label={
+                passwordInputType === "password"
+                  ? "Show password"
+                  : "Hide password"
+              }
+            >
+              {passwordInputType === "password" ? (
+                <Icon name="icon-eye-off" className={css.iconEye} />
+              ) : (
+                <Icon name="icon-eye" className={css.iconEye} />
+              )}
+            </button>
+            {/* <Icon name="icon-eye-off" className={css.iconCheck} /> */}
             {errors.password ? (
               <p className={css.error}>{errors.password.message}</p>
             ) : (
@@ -155,12 +180,29 @@ export const RegisterForm = () => {
 
           <div className={css.emailPassword}>
             <input
-              type="password"
+              type={passwordInputType}
               placeholder="Confirm Password"
-              className={`${css.field} ${errors.confirmPassword && css.errorField} ${dirtyFields.confirmPassword && confirmPassword && !errors.email && !errors.confirmPassword && css.check}`}
+              className={`${css.field} ${errors.confirmPassword && css.errorField} ${dirtyFields.confirmPassword && confirmPassword && !errors.confirmPassword && css.check}`}
               {...register("confirmPassword")}
             />
-            <Icon name="icon-eye-off" className={css.iconCheck} />
+
+            <button
+              type="button"
+              className={css.passwordVisibility}
+              onClick={passwordVisibilityHandler}
+              aria-label={
+                passwordInputType === "password"
+                  ? "Show password"
+                  : "Hide password"
+              }
+            >
+              {passwordInputType === "password" ? (
+                <Icon name="icon-eye-off" className={css.iconEye} />
+              ) : (
+                <Icon name="icon-eye" className={css.iconEye} />
+              )}
+            </button>
+            {/* <Icon name="icon-eye-off" className={css.iconCheck} /> */}
             {errors.confirmPassword ? (
               <p className={css.error}>{errors.confirmPassword.message}</p>
             ) : (
@@ -168,7 +210,7 @@ export const RegisterForm = () => {
               !errors.confirmPassword &&
               confirmPassword && (
                 <>
-                  <p className={css.passwordCorrect}>Password is secure</p>{" "}
+                  <p className={css.passwordCorrect}>Passwords match</p>{" "}
                   <Icon name="icon-check" className={css.iconPasswordCheck} />
                 </>
               )

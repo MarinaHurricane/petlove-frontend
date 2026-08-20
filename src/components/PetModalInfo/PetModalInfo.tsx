@@ -11,29 +11,24 @@ import { addFavoritePet } from "../../lib/api/petsPage";
 
 type PetModalInfoProps = {
   pet: PetType;
-  variant: "viewed" | "generalList" | "favorites";
   onClose: () => void;
 };
 
-export const PetModalInfo = ({ pet, variant, onClose }: PetModalInfoProps) => {
+export const PetModalInfo = ({ pet, onClose }: PetModalInfoProps) => {
   const { user } = useAuthStore();
   const setUser = useAuthStore((state) => state.setUser);
   const queryClient = useQueryClient();
   const isFavorite = user?.favorites?.some(
     (favorite) => favorite._id === pet._id,
   );
-  // const { data: viewedPet } = useQuery({
-  //   queryKey: ["pet", pet._id],
-  //   queryFn: () => viewedPets(pet._id),
-  // });
 
-  const viewedPetMutation = useMutation({
+  const { mutate: viewedPetMutation } = useMutation({
     mutationFn: viewedPets,
   });
 
   useEffect(() => {
-    viewedPetMutation.mutate(pet._id);
-  }, [pet._id]);
+    viewedPetMutation(pet._id);
+  }, [pet._id, viewedPetMutation]);
 
   const addFavoritesMutation = useMutation({
     mutationFn: addFavoritePet,
@@ -87,36 +82,35 @@ export const PetModalInfo = ({ pet, variant, onClose }: PetModalInfoProps) => {
       </dl>
 
       <p className={css.comment}>{pet.comment}</p>
-      <p className={css.price}>{pet?.price ? `$ ${pet.price}` : ""}</p>
+      <p className={css.price}>{pet.price != null && `$ ${pet.price}`}</p>
 
-      <div className={css.moreInfo}>
-        {!isFavorite ? (
-          <Button
-            className={css.addFavourite}
-            onClick={() => addFavoritesMutation.mutate(pet._id)}
-          >
-            Add to
-            <span>
-              <Icon name="icon-heart" className={css.icon} />
-            </span>
-          </Button>
-        ) : (
-          <Button
-            className={css.addFavourite}
-            onClick={() => removeFavoritesMutation.mutate(pet._id)}
-          >
-            Remove
-            <span>
-              <Icon
-                name="icon-heart"
-                className={isFavorite ? css.liked : css.icon}
-              />
-            </span>
-          </Button>
-        )}
-
-        <Button variant="secondary">Contact</Button>
-      </div>
+      {!isFavorite ? (
+        <Button
+          className={css.addFavourite}
+          disabled={
+            addFavoritesMutation.isPending || removeFavoritesMutation.isPending
+          }
+          onClick={() => addFavoritesMutation.mutate(pet._id)}
+        >
+          Add to
+          <span>
+            <Icon name="icon-heart" className={css.icon} />
+          </span>
+        </Button>
+      ) : (
+        <Button
+          className={css.addFavourite}
+          disabled={
+            addFavoritesMutation.isPending || removeFavoritesMutation.isPending
+          }
+          onClick={() => removeFavoritesMutation.mutate(pet._id)}
+        >
+          Remove
+          <span>
+            <Icon name="icon-heart" className={css.liked} />
+          </span>
+        </Button>
+      )}
     </div>
   );
 };

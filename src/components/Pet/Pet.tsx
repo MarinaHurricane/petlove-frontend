@@ -23,6 +23,7 @@ export const Pet = ({
   const isFavorite = user?.favorites?.some(
     (favorite) => favorite._id === pet._id,
   );
+
   return (
     <li className={css.pet}>
       <div className={css.petContainer}>
@@ -66,7 +67,7 @@ export const Pet = ({
         </dl>
 
         <p className={css.comment}>{pet.comment}</p>
-        {pet.price != null && <p className={css.price}>{`$ ${pet.price}`}</p>}
+        {pet?.price && <p className={css.price}>{`$ ${pet.price}`}</p>}
       </div>
 
       <div className={css.moreInfo}>
@@ -77,13 +78,19 @@ export const Pet = ({
           <button
             type="button"
             className={css.addFavourite}
-            disabled={isFavorite}
-            onClick={() => onFavClick(pet._id)}
+            // disabled={isFavorite}
+            onClick={
+              isFavorite
+                ? () => onFavoriteDelete(pet._id)
+                : () => onFavClick(pet._id)
+            }
           >
             <Icon
               name="icon-heart"
               className={isFavorite ? css.liked : css.icon}
             />
+
+            {/* <span>{isFavorite ? "❤️" : "♡"}</span> */}
           </button>
         ) : variant === "favorites" ? (
           <button

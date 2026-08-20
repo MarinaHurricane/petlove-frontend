@@ -3,7 +3,12 @@ import { Title } from "../../components/Title/Title";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { useState, useEffect } from "react";
 import Select from "react-select";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import AsyncSelect from "react-select/async";
 import { Pagination } from "../../components/Pagination/Pagination";
 import { PetsList } from "../../components/PetList/PetList";
@@ -23,19 +28,17 @@ import { useAuthStore } from "../../lib/store/authStore";
 import { LoginModal } from "../../components/LoginModal/LoginModal";
 import { addFavoritePet } from "../../lib/api/petsPage";
 import { FavoritesModal } from "../../components/FavoritesModal/FavoritesModal";
-import { viewedPets } from "../../lib/api/user";
+import { removePetFromFavorites, viewedPets } from "../../lib/api/user";
 import { Icon } from "../../components/Icon/Icon";
 import { Button } from "../../components/Button/Button";
 import { ValueContainer } from "react-select/animated";
 
-
 const asyncStyles = {
-    dropdownIndicator: (base) => ({
+  dropdownIndicator: (base) => ({
     ...base,
-   display: "none",
+    display: "none",
   }),
-
-}
+};
 
 export const PetsPage = () => {
   const { user } = useAuthStore();
@@ -53,6 +56,8 @@ export const PetsPage = () => {
   const [favorite, setFavorite] = useState([]);
   const [addFavoriteModalOpen, setaddFavoriteModalOpen] = useState(false);
 
+  const queryClient = useQueryClient();
+
   // console.log("AUTH STORE:", isAuthenticated, user);
 
   const handleOpenModal = () => setIsopen(true);
@@ -63,6 +68,8 @@ export const PetsPage = () => {
   };
 
   console.log(category);
+
+  console.log("Favorites:", user.favorites);
 
   const handleSearch = (newQuery) => {
     setQuery(newQuery);
@@ -92,7 +99,31 @@ export const PetsPage = () => {
     }
   };
 
-   const handleSubmit = (formData: FormData) => {
+  const handleDeleteFromFavorites = async (petId) => {
+    if (user) {
+      const updatedUser = await removePetFromFavorites(petId);
+      setFavorite((fav) => fav.filter((item) => item._id !== petId));
+      // setaddFavoriteModalOpen(true);
+      setUser(updatedUser);
+      console.log(favorite);
+      console.log(user);
+    } else {
+      return;
+    }
+  };
+
+  const removeFavoritesMutation = useMutation({
+    mutationFn: removePetFromFavorites,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
+      setIsopen(false);
+      setUser(data);
+    },
+  });
+
+  const handleSubmit = (formData: FormData) => {
     const searchValue = formData.get("search") as string;
     console.log(searchValue);
 
@@ -123,7 +154,6 @@ export const PetsPage = () => {
     queryKey: ["categories"],
     queryFn: getCategories,
   });
-  console.log(categories);
 
   const categoryOptions = categories?.map((category) => {
     return {
@@ -156,17 +186,14 @@ export const PetsPage = () => {
     };
   });
 
-  console.log(modalType);
-  console.log(selectedPet);
-
   return (
     <section className={css.petsPage}>
       <Title>Find your favorite pet</Title>
 
       <div className={css.formWrapper}>
-         <form className={css.filtersForm} action={handleSubmit}>
-        <SearchBar onSearch={handleSearch} className={css.petSearch}/>
-       
+        <form className={css.filtersForm} action={handleSubmit}>
+          <SearchBar onSearch={handleSearch} className={css.petSearch} />
+
           <div className={css.categoryGender}>
             <Select
               className={css.select}
@@ -188,7 +215,7 @@ export const PetsPage = () => {
                 null
               }
               onChange={(option) => setGender(option?.value || null)}
-               styles={selectStyles}
+              styles={selectStyles}
             />
           </div>
           <Select
@@ -200,89 +227,111 @@ export const PetsPage = () => {
               null
             }
             onChange={(option) => setSpecies(option?.value || null)}
-             styles={selectStyles}
+            styles={selectStyles}
           />
           <div className={css.locationWrapper}>
-          <AsyncSelect
-          className={css.select}
-            cacheOptions
-            defaultOptions
-            loadOptions={getCities}
-            value={city}
-            // onChange={(city) => setCity(city?.value || null)}
-            onChange={setCity}
-            placeholder="Location"
-            isClearable
-            loadingMessage={() => "Loading..."}
-             styles={{
-              ...selectStyles,
-            ...asyncStyles}}
-          />
-            <Icon name="icon-search" className={css.iconSearch}/>
+            <AsyncSelect
+              className={css.select}
+              cacheOptions
+              defaultOptions
+              loadOptions={getCities}
+              value={city}
+              // onChange={(city) => setCity(city?.value || null)}
+              onChange={setCity}
+              placeholder="Location"
+              isClearable
+              loadingMessage={() => "Loading..."}
+              styles={{
+                ...selectStyles,
+                ...asyncStyles,
+              }}
+            />
+            <Icon name="icon-search" className={css.iconSearch} />
           </div>
 
           <div className={css.radioWrapper}>
-        
+            <label
+              className={
+                sort === "popular"
+                  ? `${css.radioButton} ${css.active} `
+                  : css.radioButton
+              }
+            >
+              <input
+                type="radio"
+                name="sort"
+                value="popular"
+                checked={sort === "popular"}
+                onChange={(e) => setSort(e.target.value || null)}
+                hidden
+              />
+              {/* <button className={css.radioButton}>Popular</button> */}
+              Popular
+            </label>
+            <label
+              className={
+                sort === "unpopular"
+                  ? `${css.radioButton} ${css.active} `
+                  : css.radioButton
+              }
+            >
+              <input
+                type="radio"
+                name="sort"
+                value="unpopular"
+                checked={sort === "unpopular"}
+                onChange={(e) => setSort(e.target.value || null)}
+                hidden
+              />
+              {/* <button className={css.radioButton}>Unpopular</button> */}
+              Unpopular
+            </label>
 
-          <label className={sort === "popular" ? `${css.radioButton} ${css.active} `: css.radioButton }>
-            <input
-              type="radio"
-              name="sort"
-              value="popular"
-              checked={sort === "popular"}
-              onChange={(e) => setSort(e.target.value || null)}
-              hidden
-            />
-           {/* <button className={css.radioButton}>Popular</button> */}
-           Popular
-          </label>
-          <label className={sort === "unpopular" ? `${css.radioButton} ${css.active} `: css.radioButton }>
-            <input
-              type="radio"
-              name="sort"
-              value="unpopular"
-              checked={sort === "unpopular"}
-              onChange={(e) => setSort(e.target.value || null)}
-              hidden
-            />
-            {/* <button className={css.radioButton}>Unpopular</button> */}
-            Unpopular
-            
-          </label>
-          
-          <label className={sort === "expensive" ? `${css.radioButton} ${css.active} `: css.radioButton }>
-            <input
-              type="radio"
-              name="sort"
-              value="expensive"
-              checked={sort === "expensive"}
-              onChange={(e) => setSort(e.target.value || null)}
-              hidden
-            />
-           {/* <button className={css.radioButton}>Expensive</button> */}
-           Expensive
-          </label>
-          <label className={sort === "cheap" ? `${css.radioButton} ${css.active} `: css.radioButton }>
-            <input
-              type="radio"
-              name="sort"
-              value="cheap"
-              checked={sort === "cheap"}
-              onChange={(e) => setSort(e.target.value || null)}
-              hidden
-            />
-            {/* <button className={css.radioButton}>Cheap</button> */}
-            Cheap
-          </label>
-           <Button onClick={handleReset}>Reset search</Button>
+            <label
+              className={
+                sort === "expensive"
+                  ? `${css.radioButton} ${css.active} `
+                  : css.radioButton
+              }
+            >
+              <input
+                type="radio"
+                name="sort"
+                value="expensive"
+                checked={sort === "expensive"}
+                onChange={(e) => setSort(e.target.value || null)}
+                hidden
+              />
+              {/* <button className={css.radioButton}>Expensive</button> */}
+              Expensive
+            </label>
+            <label
+              className={
+                sort === "cheap"
+                  ? `${css.radioButton} ${css.active} `
+                  : css.radioButton
+              }
+            >
+              <input
+                type="radio"
+                name="sort"
+                value="cheap"
+                checked={sort === "cheap"}
+                onChange={(e) => setSort(e.target.value || null)}
+                hidden
+              />
+              {/* <button className={css.radioButton}>Cheap</button> */}
+              Cheap
+            </label>
+            <Button onClick={handleReset}>Reset search</Button>
           </div>
         </form>
-       
       </div>
       <PetsList
         pets={pets}
         onPetClick={handlePetClick}
         onFavClick={handleAddToFavorites}
+        onFavoriteDelete={handleDeleteFromFavorites}
         variant="generalList"
       />
       {/* {selectedPet && (
@@ -302,7 +351,7 @@ export const PetsPage = () => {
 
       {selectedPet && (
         <Modal onClose={handleCloseModal}>
-          <PetModalInfo pet={selectedPet} variant="generalList" onClose={handleCloseModal}/>
+          <PetModalInfo pet={selectedPet} onClose={handleCloseModal} />
         </Modal>
       )}
 

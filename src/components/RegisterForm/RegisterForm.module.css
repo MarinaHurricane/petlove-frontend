@@ -1,5 +1,5 @@
 .regiserForm {
-    display: flex;
+  display: flex;
   flex-direction: column;
   gap: 38px;
 }
@@ -42,6 +42,11 @@
   right: 16px;
 }
 
+.iconEye {
+  width: 18px;
+  height: 18px;
+}
+
 .iconPasswordCheck {
   width: 18px;
   height: 18px;
@@ -54,6 +59,7 @@
 .passwordCorrect {
   color: #08aa83;
   margin-left: 12px;
+  font-size: 10px;
 }
 
 .button {
@@ -116,6 +122,25 @@
     height: 22px;
   }
 
+  .iconEye {
+    width: 22px;
+    height: 22px;
+  }
+
+  .passwordVisibility {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    position: absolute;
+    top: 13px;
+    right: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: inherit;
+  }
+
   .formFields {
     gap: 16px;
   }
@@ -126,5 +151,10 @@
 
   input::placeholder {
     font-size: 16px;
+  }
+
+  .passwordVisibility {
+    width: 22px;
+    height: 22px;
   }
 }
