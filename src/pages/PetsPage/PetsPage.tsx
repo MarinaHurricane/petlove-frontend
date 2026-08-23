@@ -1,26 +1,19 @@
 import css from "./PetsPage.module.css";
 import { Title } from "../../components/Title/Title";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Select from "react-select";
-import {
-  keepPreviousData,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import AsyncSelect from "react-select/async";
 import { Pagination } from "../../components/Pagination/Pagination";
 import { PetsList } from "../../components/PetList/PetList";
-import { selectStyles } from "../../sevices/reactSelectStyles";
-
+import { asyncStyles, selectStyles } from "../../sevices/reactSelectStyles";
 import {
   getPets,
   getSpecies,
   getCategories,
   getGender,
   getCities,
-  getPetById,
 } from "../../lib/api/petsPage";
 import { Modal } from "../../components/Modal/Modal";
 import { PetModalInfo } from "../../components/PetModalInfo/PetModalInfo";
@@ -28,17 +21,10 @@ import { useAuthStore } from "../../lib/store/authStore";
 import { LoginModal } from "../../components/LoginModal/LoginModal";
 import { addFavoritePet } from "../../lib/api/petsPage";
 import { FavoritesModal } from "../../components/FavoritesModal/FavoritesModal";
-import { removePetFromFavorites, viewedPets } from "../../lib/api/user";
+import { removePetFromFavorites } from "../../lib/api/user";
 import { Icon } from "../../components/Icon/Icon";
 import { Button } from "../../components/Button/Button";
-import { ValueContainer } from "react-select/animated";
-
-const asyncStyles = {
-  dropdownIndicator: (base) => ({
-    ...base,
-    display: "none",
-  }),
-};
+import { Loader } from "../../components/Loader/Loader";
 
 export const PetsPage = () => {
   const { user } = useAuthStore();
@@ -50,26 +36,14 @@ export const PetsPage = () => {
   const [species, setSpecies] = useState(null);
   const [city, setCity] = useState(null);
   const [sort, setSort] = useState(null);
-  const [isOpen, setIsopen] = useState(false);
   const [selectedPet, setSelectedPet] = useState(null);
   const [modalType, setModalType] = useState(null);
-  const [favorite, setFavorite] = useState([]);
   const [addFavoriteModalOpen, setaddFavoriteModalOpen] = useState(false);
 
-  const queryClient = useQueryClient();
-
-  // console.log("AUTH STORE:", isAuthenticated, user);
-
-  const handleOpenModal = () => setIsopen(true);
-  // const handleCloseModal = () => setIsopen(false);
   const handleCloseModal = () => {
     setSelectedPet(null);
     setModalType(null);
   };
-
-  console.log(category);
-
-  console.log("Favorites:", user.favorites);
 
   const handleSearch = (newQuery) => {
     setQuery(newQuery);
@@ -79,55 +53,34 @@ export const PetsPage = () => {
   const handlePetClick = (pet) => {
     if (user) {
       setSelectedPet(pet);
-      // setModalType("petDModal");
-      console.log(selectedPet);
     } else {
       setModalType("loginModal");
     }
   };
 
   const handleAddToFavorites = async (petId) => {
-    if (user) {
-      const updatedUser = await addFavoritePet(petId);
-      setFavorite((fav) => [...fav, petId]);
-      setaddFavoriteModalOpen(true);
-      setUser(updatedUser);
-      console.log(favorite);
-      console.log(user);
-    } else {
+    if (!user) {
       setModalType("loginModal");
+      return;
     }
+
+    const updatedUser = await addFavoritePet(petId);
+    setUser(updatedUser);
+    setaddFavoriteModalOpen(true);
   };
 
   const handleDeleteFromFavorites = async (petId) => {
-    if (user) {
-      const updatedUser = await removePetFromFavorites(petId);
-      setFavorite((fav) => fav.filter((item) => item._id !== petId));
-      // setaddFavoriteModalOpen(true);
-      setUser(updatedUser);
-      console.log(favorite);
-      console.log(user);
-    } else {
-      return;
-    }
-  };
+    if (!user) return;
 
-  const removeFavoritesMutation = useMutation({
-    mutationFn: removePetFromFavorites,
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({
-        queryKey: ["user"],
-      });
-      setIsopen(false);
-      setUser(data);
-    },
-  });
+    const updatedUser = await removePetFromFavorites(petId);
+    setUser(updatedUser);
+  };
 
   const handleSubmit = (formData: FormData) => {
     const searchValue = formData.get("search") as string;
-    console.log(searchValue);
 
     setQuery(searchValue.trim());
+    setPage(1);
   };
 
   const handleReset = () => {
@@ -137,6 +90,7 @@ export const PetsPage = () => {
     setSpecies(null);
     setCity(null);
     setSort(null);
+    setPage(1);
   };
 
   const { data: petsData, isLoading } = useQuery({
@@ -144,8 +98,6 @@ export const PetsPage = () => {
     queryFn: () => getPets(category, query, gender, city, sort, page),
     placeholderData: keepPreviousData,
   });
-  console.log(petsData?.pets);
-  console.log(gender);
 
   const pets = petsData?.pets;
   const totalPages = petsData?.totalPages;
@@ -185,6 +137,8 @@ export const PetsPage = () => {
       label: item[0].toUpperCase() + item.slice(1),
     };
   });
+
+  if (isLoading) return <Loader />;
 
   return (
     <section className={css.petsPage}>
@@ -236,7 +190,6 @@ export const PetsPage = () => {
               defaultOptions
               loadOptions={getCities}
               value={city}
-              // onChange={(city) => setCity(city?.value || null)}
               onChange={setCity}
               placeholder="Location"
               isClearable
@@ -265,7 +218,6 @@ export const PetsPage = () => {
                 onChange={(e) => setSort(e.target.value || null)}
                 hidden
               />
-              {/* <button className={css.radioButton}>Popular</button> */}
               Popular
             </label>
             <label
@@ -283,7 +235,6 @@ export const PetsPage = () => {
                 onChange={(e) => setSort(e.target.value || null)}
                 hidden
               />
-              {/* <button className={css.radioButton}>Unpopular</button> */}
               Unpopular
             </label>
 
@@ -302,7 +253,6 @@ export const PetsPage = () => {
                 onChange={(e) => setSort(e.target.value || null)}
                 hidden
               />
-              {/* <button className={css.radioButton}>Expensive</button> */}
               Expensive
             </label>
             <label
@@ -320,7 +270,6 @@ export const PetsPage = () => {
                 onChange={(e) => setSort(e.target.value || null)}
                 hidden
               />
-              {/* <button className={css.radioButton}>Cheap</button> */}
               Cheap
             </label>
             <Button onClick={handleReset}>Reset search</Button>
@@ -334,20 +283,6 @@ export const PetsPage = () => {
         onFavoriteDelete={handleDeleteFromFavorites}
         variant="generalList"
       />
-      {/* {selectedPet && (
-        <Modal onClose={() => setSelectedPet(null)}>
-          <PetModalInfo pet={selectedPet} />
-        </Modal>
-      )} */}
-
-      {/* {modalType && (
-        <Modal onClose={handleCloseModal}>
-          {modalType === "petModal" && selectedPet && (
-            <PetModalInfo pet={selectedPet} />
-          )}
-          {modalType === "loginModal" && <LoginModal />}
-        </Modal>
-      )} */}
 
       {selectedPet && (
         <Modal onClose={handleCloseModal}>

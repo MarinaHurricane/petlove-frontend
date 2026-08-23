@@ -1,6 +1,6 @@
- .loginPageWrapper {
+.loginPageWrapper {
   padding: 26px 0px 20px 0px;
- }
+}
 
 .loginParagraph {
   font-family: var(--font-family);
@@ -13,7 +13,7 @@
   margin-bottom: 24px;
 }
 
-.noticearagraph {
+.noticeParagraph {
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 12px;
@@ -38,10 +38,9 @@
 }
 
 @media screen and (min-width: 768px) {
-
   .loginPageWrapper {
     padding: 32px 0px;
-  } 
+  }
 
   .loginParagraph {
     font-size: 18px;
@@ -53,7 +52,7 @@
     border-radius: 60px;
   }
 
-  .noticearagraph {
+  .noticeParagraph {
     font-size: 14px;
     line-height: 143%;
     margin-top: 16px;
@@ -73,7 +72,7 @@
     flex-basis: 50%;
   }
 
-  .noticearagraph {
+  .noticeParagraph {
     line-height: 143%;
   }
 }

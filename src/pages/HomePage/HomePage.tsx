@@ -32,17 +32,17 @@ export const HomePage = () => {
       <div className={css.imageBox}>
         <picture>
           <source
-            media="(min-width: 1280px"
+            media="(min-width: 1280px)"
             srcSet={`${desktop1x} 1x, ${desktop2x} 2x`}
           />
 
           <source
-            media="(min-width: 768px"
+            media="(min-width: 768px)"
             srcSet={`${tablet1x} 1x, ${tablet2x} 2x`}
           />
 
           <source
-            media="(min-width: 375px"
+            media="(min-width: 375px)"
             srcSet={`${mobile1x} 1x, ${mobile2x} 2x`}
           />
 

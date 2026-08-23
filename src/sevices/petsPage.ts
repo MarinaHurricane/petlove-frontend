@@ -7,12 +7,12 @@ export const getCities = async (search?) => {
       search: search,
     },
   });
-  console.log(data);
-  const cityData = data.map((city) => ({
-    value: city.city,
-    label: city.city,
-  }));
-  console.log(cityData);
+
+  // const cityData = data.map((city) => ({
+  //   value: city.city,
+  //   label: city.city,
+  // }));
+  // console.log(cityData);
   return data.map((city) => ({
     value: city.city,
     label: city[0].toUpperCase() + city.slice(1),

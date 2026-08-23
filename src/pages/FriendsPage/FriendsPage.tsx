@@ -5,6 +5,7 @@ import { Title } from "../../components/Title/Title";
 import { FriendsList } from "../../components/FriendsList/FriendsList";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
+import { Loader } from "../../components/Loader/Loader";
 
 export const FriendsPage = () => {
   const {
@@ -23,7 +24,7 @@ export const FriendsPage = () => {
   }, [isError]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   return (

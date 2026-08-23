@@ -1,11 +1,13 @@
 import css from "./NewsPage.module.css";
 import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Pagination } from "../../components/Pagination/Pagination";
 import { Title } from "../../components/Title/Title";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { NewsList } from "../../components/NewsList/NewsList";
+import { getNews } from "../../lib/api/news";
+import { Loader } from "../../components/Loader/Loader";
+import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
 
 export const NewsPage = () => {
   const [query, setQuery] = useState("");
@@ -16,25 +18,11 @@ export const NewsPage = () => {
     setPage(1);
   };
 
-   const handleSubmit = (formData: FormData) => {
+  const handleSubmit = (formData: FormData) => {
     const searchValue = formData.get("search") as string;
-    console.log(searchValue);
 
     setQuery(searchValue.trim());
-  };
-
-  const getNews = async (page, query) => {
-    const { data } = await axios.get(
-      `https://petlove-backend-jniu.onrender.com/api/news`,
-      {
-        params: {
-          search: query,
-          page: page,
-        },
-      },
-    );
-    console.log(data.totalPages);
-    return data;
+    setPage(1);
   };
 
   const { data, isLoading, error } = useQuery({
@@ -44,18 +32,20 @@ export const NewsPage = () => {
   });
 
   const newsList = data?.news || [];
-  console.log(newsList);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Something went wrong</p>;
+  if (isLoading) return <Loader />;
+
+  if (error) {
+    return <ErrorMessage />;
+  }
 
   return (
     <>
-    <div className={css.titleSearchbarWrapper}>
-      <Title>News</Title>
-      <form action={handleSubmit}>
-      <SearchBar onSearch={handleSearch} />
-      </form>
+      <div className={css.titleSearchbarWrapper}>
+        <Title>News</Title>
+        <form action={handleSubmit}>
+          <SearchBar onSearch={handleSearch} />
+        </form>
       </div>
       <NewsList newsList={newsList} />
       <Pagination

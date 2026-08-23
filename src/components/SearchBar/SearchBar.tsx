@@ -4,7 +4,7 @@ import { Icon } from "../Icon/Icon";
 
 type SearchBarProps = {
   onSearch: (value: string) => void;
-  className: string;
+  className?: string;
 };
 
 export const SearchBar = ({ onSearch, className }: SearchBarProps) => {

@@ -4,7 +4,6 @@
   max-width: 1280px;
   margin: 0 auto;
   color: #fff;
-  /* padding-bottom: 50px; */
 }
 
 .heroBox {
@@ -15,7 +14,6 @@
 
 .title {
   max-width: 295px;
-  /* font-family: var(--font-family); */
   font-weight: 700;
   font-size: 50px;
   line-height: 96%;
@@ -41,9 +39,9 @@
 }
 
 .homeImg {
- border-radius: 30px;
- display: block;
- width: 100%;
+  border-radius: 30px;
+  display: block;
+  width: 100%;
 }
 
 .imageBox {
@@ -84,8 +82,8 @@
     color: #fff;
   }
   .homeImg {
- border-radius: 60px;
-}
+    border-radius: 60px;
+  }
 }
 
 @media screen and (min-width: 1280px) {

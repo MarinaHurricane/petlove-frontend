@@ -7,12 +7,11 @@
 
 .search {
   border: 1px solid rgba(38, 38, 38, 0.15);
-border-radius: 30px;
-padding: 12px 278px 12px 12px;
-width: 335px;
-height: 42px;
-margin-bottom: 24px;
-/* position: relative; */
+  border-radius: 30px;
+  padding: 12px 278px 12px 12px;
+  width: 335px;
+  height: 42px;
+  margin-bottom: 24px;
 }
 
 .form {
@@ -25,17 +24,16 @@ margin-bottom: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
- width: 18px;
-  height: 18px; 
+  width: 18px;
+  height: 18px;
   border: none;
   background-color: inherit;
 }
 
 .icon {
-   width: 18px;
+  width: 18px;
   height: 18px;
   fill: none;
-
 }
 
 .buttons {
@@ -45,7 +43,7 @@ margin-bottom: 24px;
   top: 12px;
 }
 
-@media screen and (min-width:768px) {
+@media screen and (min-width: 768px) {
   .titleSearchbarWrapper {
     flex-direction: row;
     justify-content: space-between;

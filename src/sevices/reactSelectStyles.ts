@@ -1,5 +1,5 @@
 export const selectStyles = {
-  control: (base, state) => ({
+  control: (base) => ({
     ...base,
     minHeight: "42px",
     border: "none",
@@ -8,24 +8,24 @@ export const selectStyles = {
     backgroundColor: "transparent",
     cursor: "pointer",
     display: "flex",
+    alignItems: "center",
   }),
 
   placeholder: (base) => ({
     ...base,
     color: "#111",
-    margin: "auto 0",
-    // position: "absolute",
-    // top: "50%",
-    // transform: "translateY(1px)",
+    margin: "4px 0 0 0",
   }),
 
   valueContainer: (base) => ({
     ...base,
-    // display: "flex",
+    display: "flex",
+    alignItems: "center",
   }),
 
   singleValue: (base) => ({
     ...base,
+    margin: "4px 0 0 0",
     color: "#111",
   }),
 
@@ -37,10 +37,17 @@ export const selectStyles = {
     ...base,
     color: "#111",
     padding: "auto",
-   
   }),
 
-    menu: (provided) => ({
+  clearIndicator: (base) => ({
+    ...base,
+    paddingRight: 0,
+    marginRight: 20,
+    marginTop: 4,
+    color: "#111",
+  }),
+
+  menu: (provided) => ({
     ...provided,
     marginTop: "8px",
     borderRadius: "20px",
@@ -63,18 +70,11 @@ export const selectStyles = {
     padding: "8px 20px",
     cursor: "pointer",
   }),
+};
 
-  // menu: (base) => ({
-  //   ...base,
-  //   borderRadius: "8px",
-  //   overflow: "hidden",
-    
-  // }),
-
-  // option: (base, state) => ({
-  //   ...base,
-  //   backgroundColor: state.isFocused ? "#f2f2f2" : "white",
-  //   color: "#111",
-  //   cursor: "pointer",
-  // }),
+export const asyncStyles = {
+  dropdownIndicator: (base) => ({
+    ...base,
+    display: "none",
+  }),
 };
