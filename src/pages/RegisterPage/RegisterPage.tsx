@@ -24,7 +24,7 @@ export const RegisterPage = () => {
   return (
     <div className={css.registerPageWrapper}>
       <PetBlock
-      mode="auth"
+        mode="auth"
         species="cat"
         images={registerImages}
         alt="cat on the orange background"
@@ -36,11 +36,11 @@ export const RegisterPage = () => {
           Thank you for your interest in our platform.
         </p>
         <RegisterForm />
-        <p className={css.noticearagraph}>
-          Already have an account?{" "}
-          <span className={css.link}>
-            <Link to="/login">Login</Link>
-          </span>
+        <p className={css.noticeParagraph}>
+          Already have an account?
+          <Link className={css.link} to="/login">
+            Login
+          </Link>
         </p>
       </div>
     </div>

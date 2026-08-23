@@ -19,7 +19,7 @@
   background-color: #fff;
 }
 
-.noticearagraph {
+.noticeParagraph {
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 12px;
@@ -38,7 +38,6 @@
 }
 
 @media screen and (min-width: 768px) {
-
   .registerPageWrapper {
     padding: 32px 0px;
   }
@@ -53,7 +52,7 @@
     border-radius: 60px;
   }
 
-  .noticearagraph {
+  .noticeParagraph {
     font-size: 14px;
     line-height: 143%;
     margin-top: 16px;
@@ -64,7 +63,6 @@
   .registerPageWrapper {
     display: flex;
     gap: 32px;
-    /* margin-top: 32px; */
     justify-content: center;
     align-items: center;
   }
@@ -74,7 +72,7 @@
     flex-basis: 50%;
   }
 
-  .noticearagraph {
+  .noticeParagraph {
     line-height: 143%;
   }
 }

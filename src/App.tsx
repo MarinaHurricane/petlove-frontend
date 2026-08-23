@@ -10,25 +10,27 @@ import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
 import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
 import { AddPetPage } from "./pages/AddPetPage/AddPetPage";
 import { NotFound } from "./pages/NotFound/NotFound";
-
-// import "./App.css";
+import { AuthInitializer } from "./components/AuthInitializer/AuthInitializer";
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
+    <>
+      <AuthInitializer />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
 
-      <Route element={<MainLayout />}>
-        <Route path="news" element={<NewsPage />} />
-        <Route path="pets" element={<PetsPage />} />
-        <Route path="friends" element={<FriendsPage />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="profile" element={<ProfilePage />} />
-        <Route path="add-pet" element={<AddPetPage />} />
-        <Route path="*" element={<NotFound/>} />
-      </Route>
-    </Routes>
+        <Route element={<MainLayout />}>
+          <Route path="news" element={<NewsPage />} />
+          <Route path="pets" element={<PetsPage />} />
+          <Route path="friends" element={<FriendsPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="add-pet" element={<AddPetPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </>
   );
 };
 

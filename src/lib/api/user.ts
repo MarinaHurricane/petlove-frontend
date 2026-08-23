@@ -1,7 +1,7 @@
 import { api } from "./axios";
 
-export const getUserInfo = async (userId) => {
-  const { data } = await api.get("/user/me", userId);
+export const getUserInfo = async () => {
+  const { data } = await api.get("/user/me");
   return data;
 };
 
@@ -22,8 +22,6 @@ export const editUserAvatar = async (file) => {
   }
 };
 
-
-
 export const updateProfile = async (editData) => {
   try {
     const { data } = await api.patch("/user/me", editData);
@@ -38,8 +36,7 @@ export const viewedPets = async (petId) => {
   return data;
 };
 
-
-export const removePetFromFavorites = async(petId) => {
-  const {data} = await api.delete(`/user/me/${petId}`);
+export const removePetFromFavorites = async (petId) => {
+  const { data } = await api.delete(`/user/me/${petId}`);
   return data;
-}
+};

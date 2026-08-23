@@ -25,6 +25,7 @@ import { removePetFromFavorites } from "../../lib/api/user";
 import { Icon } from "../../components/Icon/Icon";
 import { Button } from "../../components/Button/Button";
 import { Loader } from "../../components/Loader/Loader";
+import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
 
 export const PetsPage = () => {
   const { user } = useAuthStore();
@@ -93,7 +94,11 @@ export const PetsPage = () => {
     setPage(1);
   };
 
-  const { data: petsData, isLoading } = useQuery({
+  const {
+    data: petsData,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["petsData", category, query, gender, city, sort, page],
     queryFn: () => getPets(category, query, gender, city, sort, page),
     placeholderData: keepPreviousData,
@@ -139,6 +144,8 @@ export const PetsPage = () => {
   });
 
   if (isLoading) return <Loader />;
+
+  if (isError) return <ErrorMessage />;
 
   return (
     <section className={css.petsPage}>
@@ -272,7 +279,9 @@ export const PetsPage = () => {
               />
               Cheap
             </label>
-            <Button onClick={handleReset}>Reset search</Button>
+            <Button type="button" onClick={handleReset}>
+              Reset search
+            </Button>
           </div>
         </form>
       </div>
