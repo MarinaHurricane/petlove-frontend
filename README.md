@@ -1,75 +1,97 @@
-# React + TypeScript + Vite
+# PetLove is a full-stack pet adoption and discovery platform built with React and TypeScript, featuring authentication, advanced pet search and filtering, favourites, viewed pets, profile management, responsive design and a REST API integration.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🐾 PetLove — Frontend
 
-Currently, two official plugins are available:
+**PetLove is a modern, responsive pet adoption and discovery platform built with React and TypeScript.** The application provides a polished, user-friendly experience for discovering pets, filtering and searching listings, saving favourites, managing viewed pets, and creating and managing personal pet profiles.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This project was built as a full-stack application, with a dedicated REST API and database-backed authentication, giving me the opportunity to work across both frontend and backend development and build the application as a complete production-style product rather than simply a static interface.
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- 🔐 **Authentication & protected routes** — registration, login, logout and authenticated user areas
+- 🐶 **Pet discovery** — browse available pets with detailed information and responsive pet cards
+- 🔎 **Advanced filtering & search** — filter by category, species, gender and location, with debounced search
+- 📍 **Location filtering** — searchable city selection using asynchronous React Select options
+- ↕️ **Sorting & pagination** — sort listings by popularity, price and other criteria while navigating through paginated results
+- ❤️ **Favourite pets** — add and remove pets from a personal favourites collection
+- 👀 **Recently viewed pets** — keep track of pets the user has viewed
+- 🐾 **Personal pets** — authenticated users can add, view and delete their own pets
+- 🖼️ **Image uploads** — user and pet avatars with client-side validation and image previews
+- 👤 **Profile management** — edit personal information and update profile photos
+- 📰 **News section** — searchable and paginated news content
+- 📱 **Responsive design** — carefully adapted layouts and interactions for mobile, tablet and desktop
+- ⚡ **Loading & error states** — loaders, error messages and toast notifications provide clear feedback throughout the application
+- 🧩 **Reusable UI components** — buttons, modals, cards, forms, icons, pagination, search and other components are designed for reuse across the application
 
-Note: This will impact Vite dev & build performances.
+## 🛠️ Technologies
 
-## Expanding the ESLint configuration
+**Frontend**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React
+- TypeScript
+- React Router
+- TanStack Query / React Query
+- React Hook Form
+- Yup
+- Axios
+- React Select
+- Zustand
+- CSS Modules
+- Vite
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**Backend**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Node.js
+- Express
+- MongoDB
+- Mongoose
+- JWT authentication
+- Cloudinary
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🧠 What I Practised
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+PetLove was a particularly valuable project because it required much more than building individual pages. I worked on the architecture and interaction between the frontend, backend, authentication layer and database.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Throughout the project I worked with:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Type-safe API functions and response models
+- REST API integration
+- Server-side filtering, searching, sorting and pagination
+- Authentication and protected application areas
+- Global user state management
+- Server-state management with TanStack Query
+- Query invalidation and cache synchronisation
+- Mutations and optimistic-feeling UI updates
+- Form handling and schema validation
+- Controlled and reusable form components
+- Debounced search
+- Asynchronous select inputs
+- File uploads using `FormData`
+- Cloudinary image storage
+- Responsive and reusable component architecture
+- Error handling and user feedback
+- CORS and production deployment
+- Environment configuration
+- Debugging TypeScript and production build errors
+
+## 🎨 User Experience
+
+A major focus of PetLove was making the application feel like a **real product rather than a collection of pages**.
+
+Interactions are designed to be intuitive and provide immediate feedback. Filters update the results naturally, search is debounced to avoid unnecessary requests, forms provide validation feedback, loading and error states are handled explicitly, and destructive actions are confirmed where appropriate.
+
+The interface is fully responsive and designed around the user's journey through the application, making it easy to discover pets, inspect their details, save interesting listings and manage their own profile.
+
+## 🚀 Deployment
+
+The frontend is deployed with **Vercel**, while the backend is deployed separately and communicates with the React application through a REST API.
+
+This project gave me experience taking a React/TypeScript application from development through to a deployed, working full-stack product.
+
+---
+
+### 💡 About the Project
+
+PetLove represents a significant step beyond simple frontend exercises. It combines **UI development, application architecture, state management, asynchronous data fetching, form validation, authentication, API integration, database-backed functionality and deployment** into one cohesive application.
+
+The goal was not only to make the website look good, but to make it **usable, maintainable, responsive and technically robust** while keeping the experience simple and enjoyable for the user.
