@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { addOwnPet, getSpecies } from "../../lib/api/petsPage";
-import Select from "react-select";
+import Select, { type SingleValue } from "react-select";
 import toast from "react-hot-toast";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { Button } from "../../components/Button/Button";
@@ -31,6 +31,11 @@ const addPetImages = {
   desktop2x: addPetDesktop2x,
 };
 
+type SpeciesOption = {
+  value: string;
+  label: string;
+};
+
 const schema = yup.object({
   title: yup.string().required("Title is required"),
   name: yup.string().required("Pet's name is required"),
@@ -39,13 +44,13 @@ const schema = yup.object({
   gender: yup.string().required("Gender is required"),
 });
 
-type AddPetFormValues = {
-  title: string;
-  name: string;
-  species: string;
-  dateOfBirth: string;
-  gender: string;
-};
+// type AddPetFormValues = {
+//   title: string;
+//   name: string;
+//   species: string;
+//   dateOfBirth: string;
+//   gender: string;
+// };
 
 type FormValues = yup.InferType<typeof schema>;
 
@@ -289,7 +294,7 @@ export const AddPetPage = () => {
                 name="species"
                 control={control}
                 render={({ field }) => (
-                  <Select
+                  <Select<SpeciesOption>
                     className={
                       species ? `${css.filled} ${css.species}` : css.select
                     }
@@ -301,7 +306,9 @@ export const AddPetPage = () => {
                     options={speciesOptions}
                     placeholder="Species"
                     isLoading={isSpeciesLoading}
-                    onChange={(option) => field.onChange(option?.value)}
+                    onChange={(option: SingleValue<SpeciesOption>) =>
+                      field.onChange(option?.value)
+                    }
                     styles={selectStyles}
                   />
                 )}

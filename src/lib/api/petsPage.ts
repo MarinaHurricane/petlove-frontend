@@ -21,12 +21,12 @@ export type CityOption = {
 };
 
 export const getPets = async (
-  category?: string,
+  category?: string | null,
   query?: string,
-  gender?: string,
-  species?: string,
+  gender?: string | null,
+  species?: string | null,
   city?: CityOption | null,
-  sort?: string,
+  sort?: string | null,
   page?: number,
   perPage?: number,
 ): Promise<PetResponse> => {
@@ -64,9 +64,7 @@ export const getGender = async (): Promise<string[]> => {
   return data;
 };
 
-export const getCities = async (
-  search?: string,
-): Promise<CityOption[]> => {
+export const getCities = async (search?: string): Promise<CityOption[]> => {
   const { data } = await api.get<City[]>(
     search ? "/cities/locations" : "/cities",
     search
@@ -94,13 +92,14 @@ export const addFavoritePet = async (petId: string) => {
   return data;
 };
 
-
 type AddOwnPetResponse = {
   pet: OwnPet;
   updatedUser: User;
 };
 
-export const addOwnPet = async (petData: FormData): Promise<AddOwnPetResponse> => {
+export const addOwnPet = async (
+  petData: FormData,
+): Promise<AddOwnPetResponse> => {
   const { data } = await api.post<AddOwnPetResponse>("/pets", petData);
 
   return data;

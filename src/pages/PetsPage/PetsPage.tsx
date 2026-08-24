@@ -50,7 +50,7 @@ export const PetsPage = () => {
 
   const handleCloseModal = () => {
     setSelectedPet(null);
-    setModalType(null);
+    setModalType("");
   };
 
   const handleSearch = (newQuery: string) => {
@@ -77,7 +77,7 @@ export const PetsPage = () => {
     setaddFavoriteModalOpen(true);
   };
 
-  const handleDeleteFromFavorites = async (petId) => {
+  const handleDeleteFromFavorites = async (petId: string) => {
     if (!user) return;
 
     const updatedUser = await removePetFromFavorites(petId);
@@ -204,7 +204,7 @@ export const PetsPage = () => {
             styles={selectStyles}
           />
           <div className={css.locationWrapper}>
-            <AsyncSelect
+            <AsyncSelect<CityOption, false>
               className={css.select}
               cacheOptions
               defaultOptions
