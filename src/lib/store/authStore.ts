@@ -17,7 +17,7 @@ type User = {
 type AuthStore = {
   isAuthenticated: boolean;
   user: User | null;
-  setUser: (user: User) => void;
+  setUser: (user: User | null) => void;
   logout: () => void;
 };
 
