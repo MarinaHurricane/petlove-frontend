@@ -1,4 +1,4 @@
-# PetLove is a full-stack pet adoption and discovery platform built with React and TypeScript, featuring authentication, advanced pet search and filtering, favourites, viewed pets, profile management, responsive design and a REST API integration.
+**PetLove is a full-stack pet adoption and discovery platform built with React and TypeScript, featuring authentication, advanced pet search and filtering, favourites, viewed pets, profile management, responsive design and a REST API integration.**
 
 # 🐾 PetLove — Frontend
 

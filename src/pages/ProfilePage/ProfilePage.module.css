@@ -90,6 +90,7 @@
 .notice {
   font-weight: 700;
   color: #f6b83d;
+  margin: 0 3px;
 }
 
 @media screen and (min-width: 768px) {

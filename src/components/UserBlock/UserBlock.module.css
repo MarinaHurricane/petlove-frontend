@@ -15,6 +15,7 @@
   height: 94px;
   margin: 0 auto;
   margin-bottom: 30px;
+  object-fit: cover;
 }
 
 .userIcon {
