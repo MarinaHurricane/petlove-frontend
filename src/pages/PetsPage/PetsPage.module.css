@@ -187,4 +187,17 @@
   .petsPage {
     padding: 96px 0px 80px 0px;
   }
+
+  .search {
+    height: 48px;
+  }
+
+  .buttons {
+    top: 15px;
+    right: 15px;
+  }
+
+  input::placeholder {
+    font-size: 16px;
+  }
 }
