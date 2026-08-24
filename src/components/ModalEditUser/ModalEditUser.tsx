@@ -11,8 +11,8 @@ import { Button } from "../Button/Button";
 import toast from "react-hot-toast";
 
 type EditProfileValues = {
-  name?: string;
-  email?: string;
+  name: string;
+  email: string;
   phone?: string;
 };
 
