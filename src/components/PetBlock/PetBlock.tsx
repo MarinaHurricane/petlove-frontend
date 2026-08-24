@@ -22,7 +22,8 @@ type PetBlockProps = {
 export const PetBlock = ({ images, alt, species, mode }: PetBlockProps) => {
   const { data: pet, isError } = useQuery({
     queryKey: ["randomPet", species],
-    queryFn: () => getRandomPet(species),
+    queryFn: () => getRandomPet(species!),
+    enabled: !!species,
     refetchInterval: 7 * 1000,
     staleTime: 7 * 1000,
   });

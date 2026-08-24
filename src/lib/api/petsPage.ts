@@ -2,17 +2,33 @@ import type { OwnPet } from "../../types/ownPet";
 import type { Pet } from "../../types/pet";
 import { api } from "./axios";
 
+type PetResponse = {
+  page: number;
+  perPage: number;
+  totalPages: number;
+  totalPets: number;
+  pets: Pet[];
+};
+type City = {
+  city: string;
+};
+
+type CityOption = {
+  value: string;
+  label: string;
+};
+
 export const getPets = async (
-  category?,
-  query?,
-  gender?,
-  species?,
-  city?,
-  sort?,
-  page?,
-  perPage?,
-) => {
-  const { data } = await api.get("/pets", {
+  category?: string,
+  query?: string,
+  gender?: string,
+  species?: string,
+  city?: CityOption | null,
+  sort?: string,
+  page?: number,
+  perPage?: number,
+): Promise<PetResponse> => {
+  const { data } = await api.get<PetResponse>("/pets", {
     params: {
       category: category,
       search: query,
@@ -48,8 +64,8 @@ export const getGender = async (): Promise<string[]> => {
 
 export const getCities = async (
   search?: string,
-): Promise<{ value: string; label: string }[]> => {
-  const { data } = await api.get(
+): Promise<CityOption[]> => {
+  const { data } = await api.get<City[]>(
     search ? "/cities/locations" : "/cities",
     search
       ? {
@@ -82,7 +98,7 @@ export const addOwnPet = async (petData: FormData): Promise<OwnPet> => {
   return data;
 };
 
-export const getRandomPet = async (species: string): Promise<Pet> => {
+export const getRandomPet = async (species: "dog" | "cat"): Promise<Pet> => {
   const { data } = await api.get<Pet>(`/pets/random/${species}`);
 
   return data;

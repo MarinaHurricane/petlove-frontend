@@ -37,6 +37,8 @@ const schema = yup.object({
     }),
 });
 
+type FormValues = yup.InferType<typeof schema>;
+
 export const ModalEditUser = ({ onClose }: ModalEditUserProps) => {
   const { user } = useAuthStore();
   const setUser = useAuthStore((state) => state.setUser);
@@ -81,8 +83,13 @@ export const ModalEditUser = ({ onClose }: ModalEditUserProps) => {
     },
   });
 
-  const onSubmit = (data: EditUserData) => {
-    updateProfileMutation.mutate(data);
+  const onSubmit = (data: FormValues) => {
+    const editData: EditUserData = {
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+    };
+    updateProfileMutation.mutate(editData);
   };
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
