@@ -91,8 +91,49 @@
   margin-bottom: 24px;
 }
 
-.resetFilters {
-  margin: 0 auto;
+.resetFilters:active {
+  background-color: #fff4df;
+}
+
+.search {
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  padding: 12px;
+  height: 42px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.clearButton {
+  stroke: black;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  border: none;
+  background-color: inherit;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+}
+
+.buttons {
+  display: flex;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  margin: auto 0;
 }
 
 @media screen and (min-width: 768px) {

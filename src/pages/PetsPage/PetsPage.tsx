@@ -1,7 +1,6 @@
 import css from "./PetsPage.module.css";
 import { Title } from "../../components/Title/Title";
-import { SearchBar } from "../../components/SearchBar/SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Select, { type SingleValue } from "react-select";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import AsyncSelect from "react-select/async";
@@ -47,15 +46,20 @@ export const PetsPage = () => {
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
   const [modalType, setModalType] = useState("");
   const [addFavoriteModalOpen, setaddFavoriteModalOpen] = useState(false);
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query);
+      setPage(1);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [query]);
 
   const handleCloseModal = () => {
     setSelectedPet(null);
     setModalType("");
-  };
-
-  const handleSearch = (newQuery: string) => {
-    setQuery(newQuery);
-    setPage(1);
   };
 
   const handlePetClick = (pet: Pet) => {
@@ -106,8 +110,18 @@ export const PetsPage = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["petsData", category, query, gender, species, city, sort, page],
-    queryFn: () => getPets(category, query, gender, species, city, sort, page),
+    queryKey: [
+      "petsData",
+      category,
+      debouncedQuery,
+      gender,
+      species,
+      city,
+      sort,
+      page,
+    ],
+    queryFn: () =>
+      getPets(category, debouncedQuery, gender, species, city, sort, page),
     placeholderData: keepPreviousData,
   });
 
@@ -154,13 +168,40 @@ export const PetsPage = () => {
 
   if (isError) return <ErrorMessage />;
 
+  const handleClear = () => {
+    setQuery("");
+  };
+
   return (
     <section className={css.petsPage}>
       <Title>Find your favorite pet</Title>
 
       <div className={css.formWrapper}>
         <form className={css.filtersForm} action={handleSubmit}>
-          <SearchBar onSearch={handleSearch} className={css.petSearch} />
+          <div className={`${css.inputWrapper} `}>
+            <input
+              className={`${css.search} `}
+              type="text"
+              placeholder="Search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              name="search"
+            />
+            <div className={css.buttons}>
+              {query && (
+                <button
+                  type="button"
+                  className={css.clearButton}
+                  onClick={handleClear}
+                >
+                  <Icon name="icon-x" className={css.icon} />
+                </button>
+              )}
+              <button type="submit" className={css.clearButton}>
+                <Icon name="icon-search" className={css.icon} />
+              </button>
+            </div>
+          </div>
 
           <div className={css.categoryGender}>
             <Select<SelectOption>

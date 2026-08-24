@@ -6,7 +6,6 @@ type FriendProps = {
 };
 
 export const Friend = ({ friend }: FriendProps) => {
-  console.log(friend);
   const today = new Date().getDay();
   const dayIndex = today === 0 ? 6 : today - 1;
   const todayWorkDay = friend.workDays?.[dayIndex];
