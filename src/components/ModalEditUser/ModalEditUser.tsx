@@ -10,18 +10,18 @@ import * as yup from "yup";
 import { Button } from "../Button/Button";
 import toast from "react-hot-toast";
 
-type EditProfileValues = {
-  name: string;
-  email: string;
-  phone?: string;
-};
+// type EditProfileValues = {
+//   name: string;
+//   email: string;
+//   phone: string;
+// };
 
 type ModalEditUserProps = {
   onClose: () => void;
 };
 
 const schema = yup.object({
-  name: yup.string(),
+  name: yup.string().required("Name is required"),
   email: yup
     .string()
     .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, "Invalid email")
@@ -30,11 +30,13 @@ const schema = yup.object({
   phone: yup
     .string()
     .notRequired()
+    
     .matches(/^\+\d{7,15}$/, {
       message: "Phone must start with + and contain 7-15 digits",
       excludeEmptyString: true,
     }),
 });
+type EditProfileValues  = yup.InferType<typeof schema>;
 
 export const ModalEditUser = ({ onClose }: ModalEditUserProps) => {
   const { user } = useAuthStore();
@@ -47,10 +49,10 @@ export const ModalEditUser = ({ onClose }: ModalEditUserProps) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: user.name,
-      email: user.email,
-      phone: user.phone || "",
-    },
+      name: user?.name ?? "",
+      email: user?.email ?? "",
+      phone: user?.phone ?? "",
+    },  
     resolver: yupResolver(schema),
   });
 
