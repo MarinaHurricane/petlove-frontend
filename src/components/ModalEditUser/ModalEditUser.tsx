@@ -11,17 +11,17 @@ import * as yup from "yup";
 import { Button } from "../Button/Button";
 import toast from "react-hot-toast";
 
-type EditProfileValues = {
-  name: string;
-  email: string;
-  phone?: string;
-};
+// type EditProfileValues = {
+//   name: string;
+//   email: string;
+//   phone?: string;
+// };
 
 type ModalEditUserProps = {
   onClose: () => void;
 };
 
-const schema: yup.ObjectSchema<EditUserData> = yup.object({
+const schema = yup.object({
   name: yup.string().required("Name is required"),
   email: yup
     .string()
