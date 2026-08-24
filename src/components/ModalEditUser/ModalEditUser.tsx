@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { editUserAvatar, updateProfile } from "../../lib/api/user";
 import { yupResolver } from "@hookform/resolvers/yup";
+import type { EditUserData } from "../../lib/api/user";
 import * as yup from "yup";
 import { Button } from "../Button/Button";
 import toast from "react-hot-toast";
@@ -20,7 +21,7 @@ type ModalEditUserProps = {
   onClose: () => void;
 };
 
-const schema = yup.object({
+const schema: yup.ObjectSchema<EditUserData> = yup.object({
   name: yup.string().required("Name is required"),
   email: yup
     .string()
@@ -80,7 +81,7 @@ export const ModalEditUser = ({ onClose }: ModalEditUserProps) => {
     },
   });
 
-  const onSubmit = (data: EditProfileValues) => {
+  const onSubmit = (data: EditUserData) => {
     updateProfileMutation.mutate(data);
   };
 
