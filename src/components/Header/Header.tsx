@@ -32,11 +32,13 @@ export const Header = ({ variant = "default" }: HeaderProps) => {
         <div className={css.mobileMenu}>
           <AuthNav />
           {user && (
-            <img
-              src={user.avatar}
-              alt={`${user.name}'s avatar`}
-              className={css.mobileHeaderAuth}
-            />
+            <NavLink to="/profile">
+              <img
+                src={user.avatar}
+                alt={`${user.name}'s avatar`}
+                className={css.mobileHeaderAuth}
+              />
+            </NavLink>
           )}
           <button
             type="button"
