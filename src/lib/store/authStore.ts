@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { Pet } from "../../types/pet";
+import type { OwnPet } from "../../types/ownPet";
 
 type User = {
   _id: string;
@@ -7,9 +9,9 @@ type User = {
   email: string;
   phone?: string;
   avatar: string;
-  favorites: string[];
-  ownPets: string[];
-  viewed: string[];
+  favorites: Pet[];
+  ownPets: OwnPet[];
+  viewed: Pet[];
 };
 
 type AuthStore = {

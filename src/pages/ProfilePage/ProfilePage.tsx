@@ -172,7 +172,9 @@ export const ProfilePage = () => {
         <PetsList
           variant={mode}
           pets={
-            mode === "favorites" ? currentUser?.favorites : currentUser?.viewed
+            mode === "favorites"
+              ? (currentUser?.favorites ?? [])
+              : (currentUser?.viewed ?? [])
           }
           onPetClick={handleSelectedPet}
           onFavClick={(petId) => addFavoriteMutation.mutate(petId)}
