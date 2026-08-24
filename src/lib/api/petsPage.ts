@@ -1,5 +1,6 @@
 import type { OwnPet } from "../../types/ownPet";
 import type { Pet } from "../../types/pet";
+import type { User } from "../../types/user";
 import { api } from "./axios";
 
 type PetResponse = {
@@ -9,11 +10,12 @@ type PetResponse = {
   totalPets: number;
   pets: Pet[];
 };
+
 type City = {
   city: string;
 };
 
-type CityOption = {
+export type CityOption = {
   value: string;
   label: string;
 };
@@ -92,8 +94,14 @@ export const addFavoritePet = async (petId: string) => {
   return data;
 };
 
-export const addOwnPet = async (petData: FormData): Promise<OwnPet> => {
-  const { data } = await api.post<OwnPet>("/pets", petData);
+
+type AddOwnPetResponse = {
+  pet: OwnPet;
+  updatedUser: User;
+};
+
+export const addOwnPet = async (petData: FormData): Promise<AddOwnPetResponse> => {
+  const { data } = await api.post<AddOwnPetResponse>("/pets", petData);
 
   return data;
 };

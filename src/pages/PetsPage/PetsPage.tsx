@@ -2,7 +2,7 @@ import css from "./PetsPage.module.css";
 import { Title } from "../../components/Title/Title";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { useState } from "react";
-import Select from "react-select";
+import Select, { type SingleValue } from "react-select";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import AsyncSelect from "react-select/async";
 import { Pagination } from "../../components/Pagination/Pagination";
@@ -14,6 +14,7 @@ import {
   getCategories,
   getGender,
   getCities,
+  type CityOption,
 } from "../../lib/api/petsPage";
 import { Modal } from "../../components/Modal/Modal";
 import { PetModalInfo } from "../../components/PetModalInfo/PetModalInfo";
@@ -26,19 +27,25 @@ import { Icon } from "../../components/Icon/Icon";
 import { Button } from "../../components/Button/Button";
 import { Loader } from "../../components/Loader/Loader";
 import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+import type { Pet } from "../../types/pet";
+
+type SelectOption = {
+  value: string;
+  label: string;
+};
 
 export const PetsPage = () => {
   const { user } = useAuthStore();
   const setUser = useAuthStore((state) => state.setUser);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState(null);
-  const [gender, setGender] = useState(null);
-  const [species, setSpecies] = useState(null);
-  const [city, setCity] = useState(null);
-  const [sort, setSort] = useState(null);
-  const [selectedPet, setSelectedPet] = useState(null);
-  const [modalType, setModalType] = useState(null);
+  const [category, setCategory] = useState<string | null>(null);
+  const [gender, setGender] = useState<string | null>(null);
+  const [species, setSpecies] = useState<string | null>(null);
+  const [city, setCity] = useState<CityOption | null>(null);
+  const [sort, setSort] = useState<string | null>(null);
+  const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
+  const [modalType, setModalType] = useState("");
   const [addFavoriteModalOpen, setaddFavoriteModalOpen] = useState(false);
 
   const handleCloseModal = () => {
@@ -46,12 +53,12 @@ export const PetsPage = () => {
     setModalType(null);
   };
 
-  const handleSearch = (newQuery) => {
+  const handleSearch = (newQuery: string) => {
     setQuery(newQuery);
     setPage(1);
   };
 
-  const handlePetClick = (pet) => {
+  const handlePetClick = (pet: Pet) => {
     if (user) {
       setSelectedPet(pet);
     } else {
@@ -59,7 +66,7 @@ export const PetsPage = () => {
     }
   };
 
-  const handleAddToFavorites = async (petId) => {
+  const handleAddToFavorites = async (petId: string) => {
     if (!user) {
       setModalType("loginModal");
       return;
@@ -104,8 +111,8 @@ export const PetsPage = () => {
     placeholderData: keepPreviousData,
   });
 
-  const pets = petsData?.pets;
-  const totalPages = petsData?.totalPages;
+  const pets = petsData?.pets ?? [];
+  const totalPages = petsData?.totalPages ?? 0;
 
   const { data: categories } = useQuery({
     queryKey: ["categories"],
@@ -156,7 +163,7 @@ export const PetsPage = () => {
           <SearchBar onSearch={handleSearch} className={css.petSearch} />
 
           <div className={css.categoryGender}>
-            <Select
+            <Select<SelectOption>
               className={css.select}
               options={categoryOptions}
               placeholder="Category"
@@ -164,22 +171,26 @@ export const PetsPage = () => {
                 categoryOptions?.find((option) => option?.value === category) ||
                 null
               }
-              onChange={(option) => setCategory(option?.value || null)}
+              onChange={(option: SingleValue<SelectOption>) =>
+                setCategory(option?.value || null)
+              }
               styles={selectStyles}
             />
-            <Select
+            <Select<SelectOption>
               className={css.select}
               options={genderOptions}
               placeholder="By gender"
               value={
-                genderOptions?.find((option) => option?.value === gender) ||
-                null
+                genderOptions?.find(
+                  (option: SingleValue<SelectOption>) =>
+                    option?.value === gender,
+                ) || null
               }
               onChange={(option) => setGender(option?.value || null)}
               styles={selectStyles}
             />
           </div>
-          <Select
+          <Select<SelectOption>
             className={css.select}
             options={speciesOptions}
             placeholder="By type"
@@ -187,7 +198,9 @@ export const PetsPage = () => {
               speciesOptions?.find((option) => option?.value === species) ||
               null
             }
-            onChange={(option) => setSpecies(option?.value || null)}
+            onChange={(option: SingleValue<SelectOption>) =>
+              setSpecies(option?.value || null)
+            }
             styles={selectStyles}
           />
           <div className={css.locationWrapper}>

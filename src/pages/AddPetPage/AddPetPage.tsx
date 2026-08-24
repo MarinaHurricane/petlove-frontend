@@ -47,6 +47,8 @@ type AddPetFormValues = {
   gender: string;
 };
 
+type FormValues = yup.InferType<typeof schema>;
+
 export const AddPetPage = () => {
   const setUser = useAuthStore((state) => state.setUser);
   const [petAvatar, setPetAvatar] = useState<File | null>(null);
@@ -112,7 +114,7 @@ export const AddPetPage = () => {
     },
   });
 
-  const onSubmit = (data: AddPetFormValues) => {
+  const onSubmit = (data: FormValues) => {
     if (!petAvatar) {
       setAvatarError(true);
       return;

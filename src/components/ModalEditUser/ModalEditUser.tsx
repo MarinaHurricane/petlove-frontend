@@ -87,7 +87,7 @@ export const ModalEditUser = ({ onClose }: ModalEditUserProps) => {
     const editData: EditUserData = {
       name: data.name,
       email: data.email,
-      phone: data.phone,
+      phone: data.phone ?? undefined,
     };
     updateProfileMutation.mutate(editData);
   };

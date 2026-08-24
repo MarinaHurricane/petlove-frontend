@@ -13,7 +13,7 @@ export const NewsPage = () => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
 
-  const handleSearch = (newQuery) => {
+  const handleSearch = (newQuery: string) => {
     setQuery(newQuery);
     setPage(1);
   };

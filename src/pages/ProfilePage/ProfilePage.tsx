@@ -18,11 +18,12 @@ import { Loader } from "../../components/Loader/Loader";
 import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
 import toast from "react-hot-toast";
 import { addFavoritePet } from "../../lib/api/petsPage";
+import type { Pet } from "../../types/pet";
 
 export const ProfilePage = () => {
   const setUser = useAuthStore((state) => state.setUser);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedPet, setSelectedPet] = useState(null);
+  const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
 
   const [mode, setMode] = useState<"favorites" | "viewed">("favorites");
 
@@ -32,7 +33,7 @@ export const ProfilePage = () => {
   const openEditModal = () => setIsEditModalOpen(true);
   const closeEditModal = () => setIsEditModalOpen(false);
 
-  const handleSelectedPet = (pet) => {
+  const handleSelectedPet = (pet: Pet) => {
     setSelectedPet(pet);
   };
 
