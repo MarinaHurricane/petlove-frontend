@@ -29,6 +29,10 @@
   gap: 8px;
 }
 
+.confirm {
+  flex-basis: 50%;
+}
+
 .cancelBtn {
   background-color: #fff;
   color: #262626;

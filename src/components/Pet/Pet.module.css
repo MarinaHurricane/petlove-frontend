@@ -10,6 +10,15 @@
   border-radius: 30px;
 }
 
+.infoButtonCentered {
+  min-width: 80%;
+  margin: 0 auto;
+}
+
+.infoButton {
+  min-width: 80%;
+}
+
 .image {
   display: block;
   width: 100%;

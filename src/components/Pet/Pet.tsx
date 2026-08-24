@@ -71,14 +71,13 @@ export const Pet = ({
       </div>
 
       <div className={css.moreInfo}>
-        <Button type="button" onClick={() => onPetClick(pet)}>
+        <Button type="button" className={variant === "viewed" ? css.infoButtonCentered : css.infoButton} onClick={() => onPetClick(pet)}>
           Learn more
         </Button>
         {variant === "generalList" ? (
           <button
             type="button"
             className={css.addFavourite}
-            // disabled={isFavorite}
             onClick={
               isFavorite
                 ? () => onFavoriteDelete(pet._id)
@@ -89,8 +88,6 @@ export const Pet = ({
               name="icon-heart"
               className={isFavorite ? css.liked : css.icon}
             />
-
-            {/* <span>{isFavorite ? "❤️" : "♡"}</span> */}
           </button>
         ) : variant === "favorites" ? (
           <button

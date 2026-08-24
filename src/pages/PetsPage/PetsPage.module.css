@@ -80,6 +80,21 @@
   align-items: center;
 }
 
+.noResults {
+  color: #f6b83d;
+  font-size: 25px;
+  margin-top: 100px;
+  text-align: center;
+}
+
+.notice {
+  margin-bottom: 24px;
+}
+
+.resetFilters {
+  margin: 0 auto;
+}
+
 @media screen and (min-width: 768px) {
   .petsPage {
     padding: 85px 0px 88px 0px;

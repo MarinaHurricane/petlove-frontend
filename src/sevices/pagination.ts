@@ -1,7 +1,12 @@
-export const getVisiblePages = (currentPage, totalPages, visiblePages) => {
-  const pages = [];
+export const getVisiblePages = (
+  currentPage: number,
+  totalPages: number,
+  visiblePages: number,
+): number[] => {
+  const pages: number[] = [];
 
   let start = Math.max(1, currentPage - Math.floor(visiblePages / 2));
+
   let end = start + visiblePages - 1;
 
   if (end > totalPages) {
@@ -12,5 +17,6 @@ export const getVisiblePages = (currentPage, totalPages, visiblePages) => {
   for (let i = start; i <= end; i++) {
     pages.push(i);
   }
+
   return pages;
 };

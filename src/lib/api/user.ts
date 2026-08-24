@@ -1,42 +1,51 @@
 import { api } from "./axios";
+import type { User } from "../../types/user";
 
-export const getUserInfo = async () => {
-  const { data } = await api.get("/user/me");
+export const getUserInfo = async (): Promise<User> => {
+  const { data } = await api.get<User>("/user/me");
+
   return data;
 };
 
-export const editUserAvatar = async (file) => {
-  try {
-    const formData = new FormData();
-
-    formData.append("avatar", file);
-
-    const { data } = await api.patch("/user/me/avatar", formData);
-
-    console.log("DATA:", data);
-
-    return data;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+type UpdateAvatarResponse = {
+  url: string;
 };
 
-export const updateProfile = async (editData) => {
-  try {
-    const { data } = await api.patch("/user/me", editData);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const editUserAvatar = async (
+  file: File,
+): Promise<UpdateAvatarResponse> => {
+  const formData = new FormData();
 
-export const viewedPets = async (petId) => {
-  const { data } = await api.patch(`/user/me/addViewed/${petId}`);
+  formData.append("avatar", file);
+
+  const { data } = await api.patch<UpdateAvatarResponse>(
+    "/user/me/avatar",
+    formData,
+  );
+
   return data;
 };
 
-export const removePetFromFavorites = async (petId) => {
-  const { data } = await api.delete(`/user/me/${petId}`);
+type EditUserData = {
+  name: string;
+  email: string;
+  phone?: string;
+};
+
+export const updateProfile = async (editData: EditUserData): Promise<User> => {
+  const { data } = await api.patch<User>("/user/me", editData);
+
+  return data;
+};
+
+export const viewedPets = async (petId: string): Promise<User> => {
+  const { data } = await api.patch<User>(`/user/me/addViewed/${petId}`);
+
+  return data;
+};
+
+export const removePetFromFavorites = async (petId: string): Promise<User> => {
+  const { data } = await api.delete<User>(`/user/me/${petId}`);
+
   return data;
 };

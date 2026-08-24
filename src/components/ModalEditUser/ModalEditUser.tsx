@@ -158,7 +158,9 @@ export const ModalEditUser = ({ onClose }: ModalEditUserProps) => {
           type="submit"
           disabled={avatarMutation.isPending || updateProfileMutation.isPending}
         >
-          Save changes
+          {avatarMutation.isPending || updateProfileMutation.isPending
+            ? "Saving changes..."
+            : "Save changes"}
         </Button>
       </form>
     </div>

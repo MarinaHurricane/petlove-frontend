@@ -1,12 +1,22 @@
-import { api } from "./axios"
+import type { OwnPet } from "../../types/ownPet";
+import type { User } from "../../types/user";
+import { api } from "./axios";
 
-export const addUserPet = async(formData: FormData) => {
-    const { data} = await api.post("/pets", formData);
-    console.log(data);
-    return data;
-}
+export const addUserPet = async (formData: FormData): Promise<OwnPet> => {
+  const { data } = await api.post<OwnPet>("/pets", formData);
 
-export const deleteUserPet = async(petId) => {
-    const {data} = await api.delete(`/pets/${petId}`);
-    return data;
-}
+  return data;
+};
+
+type DeleteUserPetResponse = {
+  pet: OwnPet;
+  updatedUser: User;
+};
+
+export const deleteUserPet = async (
+  petId: string,
+): Promise<DeleteUserPetResponse> => {
+  const { data } = await api.delete<DeleteUserPetResponse>(`/pets/${petId}`);
+
+  return data;
+};

@@ -7,7 +7,7 @@ import { ModalEditUser } from "../../components/ModalEditUser/ModalEditUser";
 import { PetsList } from "../../components/PetList/PetList";
 import { Button } from "../../components/Button/Button";
 import { getUserInfo, removePetFromFavorites } from "../../lib/api/user";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PetModalInfo } from "../../components/PetModalInfo/PetModalInfo";
 import { UserPet } from "../../components/UserPet/UserPet";
 import { useNavigate } from "react-router-dom";
@@ -27,6 +27,7 @@ export const ProfilePage = () => {
   const [mode, setMode] = useState<"favorites" | "viewed">("favorites");
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const openEditModal = () => setIsEditModalOpen(true);
   const closeEditModal = () => setIsEditModalOpen(false);
@@ -56,6 +57,9 @@ export const ProfilePage = () => {
     mutationFn: deleteUserPet,
     onSuccess: (data) => {
       setUser(data.updatedUser);
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
     },
     onError: () => {
       toast.error("Failed to delete pet");
@@ -66,6 +70,9 @@ export const ProfilePage = () => {
     mutationFn: addFavoritePet,
     onSuccess: (data) => {
       setUser(data);
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
     },
     onError: () => {
       toast.error("Failed to add pet to favorites");
@@ -76,6 +83,9 @@ export const ProfilePage = () => {
     mutationFn: removePetFromFavorites,
     onSuccess: (data) => {
       setUser(data);
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
     },
     onError: () => {
       toast.error("Failed to remove pet from favorites");
@@ -104,13 +114,17 @@ export const ProfilePage = () => {
         </div>
 
         <ul className={css.userPetsList}>
-          {currentUser?.ownPets?.map((pet) => (
-            <UserPet
-              key={pet._id}
-              pet={pet}
-              onPetDelete={() => mutation.mutate(pet._id)}
-            />
-          ))}
+          {currentUser?.ownPets.length === 0 ? (
+            <p className={css.noPetsNotice}>Add your own pets</p>
+          ) : (
+            currentUser?.ownPets?.map((pet) => (
+              <UserPet
+                key={pet._id}
+                pet={pet}
+                onPetDelete={() => mutation.mutate(pet._id)}
+              />
+            ))
+          )}
         </ul>
 
         <LogoutButton />

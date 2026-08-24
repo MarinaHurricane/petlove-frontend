@@ -40,6 +40,12 @@
   gap: 14px;
 }
 
+.noPetsNotice {
+  color: #f6b83d;
+  font-size: 18px;
+  text-align: center;
+}
+
 .toggle {
   display: flex;
   gap: 10px;

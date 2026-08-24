@@ -34,6 +34,7 @@ export const ModalApproveAction = ({ onClose }: ModalApproveActionProps) => {
       <div className={css.buttonsWrapper}>
         <Button
           type="button"
+          className={css.confirm}
           onClick={() => logoutMutation.mutate()}
           disabled={logoutMutation.isPending}
         >

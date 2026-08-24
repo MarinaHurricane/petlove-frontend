@@ -285,13 +285,30 @@ export const PetsPage = () => {
           </div>
         </form>
       </div>
-      <PetsList
-        pets={pets}
-        onPetClick={handlePetClick}
-        onFavClick={handleAddToFavorites}
-        onFavoriteDelete={handleDeleteFromFavorites}
-        variant="generalList"
-      />
+
+      {pets?.length === 0 ? (
+        <div className={css.noResults}>
+          <h2>No pets found</h2>
+          <p className={css.notice}>
+            Try changing or resetting some filters to see more pets.
+          </p>
+          <Button
+            type="button"
+            className={css.resetFilters}
+            onClick={handleReset}
+          >
+            Clear filters
+          </Button>
+        </div>
+      ) : (
+        <PetsList
+          pets={pets}
+          onPetClick={handlePetClick}
+          onFavClick={handleAddToFavorites}
+          onFavoriteDelete={handleDeleteFromFavorites}
+          variant="generalList"
+        />
+      )}
 
       {selectedPet && (
         <Modal onClose={handleCloseModal}>
