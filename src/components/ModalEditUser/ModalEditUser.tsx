@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { editUserAvatar, updateProfile } from "../../lib/api/user";
 import { yupResolver } from "@hookform/resolvers/yup";
+import type { EditUserData } from "../../lib/api/user";
 import * as yup from "yup";
 import { Button } from "../Button/Button";
 import toast from "react-hot-toast";
@@ -13,7 +14,7 @@ import toast from "react-hot-toast";
 // type EditProfileValues = {
 //   name: string;
 //   email: string;
-//   phone: string;
+//   phone?: string;
 // };
 
 type ModalEditUserProps = {
@@ -30,13 +31,11 @@ const schema = yup.object({
   phone: yup
     .string()
     .notRequired()
-    
     .matches(/^\+\d{7,15}$/, {
       message: "Phone must start with + and contain 7-15 digits",
       excludeEmptyString: true,
     }),
 });
-type EditProfileValues  = yup.InferType<typeof schema>;
 
 export const ModalEditUser = ({ onClose }: ModalEditUserProps) => {
   const { user } = useAuthStore();
@@ -52,7 +51,7 @@ export const ModalEditUser = ({ onClose }: ModalEditUserProps) => {
       name: user?.name ?? "",
       email: user?.email ?? "",
       phone: user?.phone ?? "",
-    },  
+    },
     resolver: yupResolver(schema),
   });
 

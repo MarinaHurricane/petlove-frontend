@@ -26,7 +26,7 @@ export const editUserAvatar = async (
   return data;
 };
 
-type EditUserData = {
+export type EditUserData = {
   name: string;
   email: string;
   phone?: string;
