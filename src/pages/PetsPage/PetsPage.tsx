@@ -99,8 +99,8 @@ export const PetsPage = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["petsData", category, query, gender, city, sort, page],
-    queryFn: () => getPets(category, query, gender, city, sort, page),
+    queryKey: ["petsData", category, query, gender, species, city, sort, page],
+    queryFn: () => getPets(category, query, gender, species, city, sort, page),
     placeholderData: keepPreviousData,
   });
 

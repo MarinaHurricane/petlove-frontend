@@ -1,11 +1,24 @@
+import type { News } from "../../types/news";
 import { api } from "./axios";
 
-export const getNews = async (page, query) => {
-  const { data } = await api.get("/news", {
+type NewsResponse = {
+  page: number;
+  perPage: number;
+  totalPages: number;
+  totalNews: number;
+  news: News[];
+};
+
+export const getNews = async (
+  page: number,
+  query: string,
+): Promise<NewsResponse> => {
+  const { data } = await api.get<NewsResponse>("/news", {
     params: {
       search: query,
       page: page,
     },
   });
+
   return data;
 };
