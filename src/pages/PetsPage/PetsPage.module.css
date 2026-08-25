@@ -100,8 +100,7 @@
   border-radius: 30px;
   padding: 12px;
   height: 42px;
-  margin-bottom: 24px;
-  position: relative;
+  width: 100%;
 }
 
 .inputWrapper {
@@ -180,6 +179,11 @@
     padding: 14px;
     font-size: 16px;
     line-height: 125%;
+  }
+
+  .buttons {
+    top: 15px;
+    right: 15px;
   }
 }
 

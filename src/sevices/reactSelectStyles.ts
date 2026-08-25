@@ -8,7 +8,7 @@ export type SelectOption = {
 export const selectStyles: StylesConfig<SelectOption, false> = {
   control: (base) => ({
     ...base,
-    minHeight: "42px",
+    minHeight: window.innerWidth >= 768 ? "48px" : "42px",
     border: "none",
     borderRadius: "0",
     boxShadow: "none",
@@ -20,7 +20,8 @@ export const selectStyles: StylesConfig<SelectOption, false> = {
   placeholder: (base) => ({
     ...base,
     color: "#111",
-    margin: "3px 0 0 0",
+    marginTop: window.innerWidth <= 768 ? "0" : "4px",
+    marginBottom: "2px",
   }),
 
   valueContainer: (base) => ({
@@ -29,7 +30,8 @@ export const selectStyles: StylesConfig<SelectOption, false> = {
 
   singleValue: (base) => ({
     ...base,
-    margin: "3px 0 0 0",
+    marginTop: window.innerWidth <= 768 ? "0" : "4px",
+    marginBottom: "2px",
     color: "#111",
   }),
 
@@ -83,6 +85,7 @@ export const asyncStyles: StylesConfig<SelectOption, false> = {
   placeholder: (base, state) => ({
     ...base,
     color: state.isFocused ? "#D3D3D3" : "#111",
-    margin: "3px 0 0 0",
+    marginTop: window.innerWidth <= 768 ? "0" : "4px",
+    marginBottom: "2px",
   }),
 };

@@ -59,7 +59,7 @@
 .passwordCorrect {
   color: #08aa83;
   margin-left: 12px;
-  font-size: 10px;
+  font-size: 6px;
 }
 
 .button {
@@ -103,6 +103,20 @@
   height: 42px;
 }
 
+.passwordVisibility {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  position: absolute;
+  top: 13px;
+  right: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: inherit;
+}
+
 @media screen and (min-width: 768px) {
   .loginForm {
     gap: 64px;
@@ -127,20 +141,6 @@
     height: 22px;
   }
 
-  .passwordVisibility {
-    width: 18px;
-    height: 18px;
-    fill: none;
-    position: absolute;
-    top: 13px;
-    right: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    background-color: inherit;
-  }
-
   .formFields {
     gap: 16px;
   }
@@ -156,5 +156,9 @@
   .passwordVisibility {
     width: 22px;
     height: 22px;
+  }
+
+  .passwordCorrect {
+    font-size: 8px;
   }
 }

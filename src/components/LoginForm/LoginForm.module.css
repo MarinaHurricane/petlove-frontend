@@ -73,6 +73,7 @@
 .passwordCorrect {
   color: #08aa83;
   margin-left: 12px;
+  font-size: 6px;
 }
 
 .button {
@@ -160,5 +161,9 @@
 
   input::placeholder {
     font-size: 16px;
+  }
+
+  .passwordCorrect {
+    font-size: 8px;
   }
 }
